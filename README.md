@@ -35,7 +35,7 @@ This will create a directory called whatever you set for
 
 # Run in Development
 ```
-# change this with directory with whatever you set as project_slug
+# change this directory with whatever you set as project_slug
 cd fastapi-react
 
 docker-compose up -d
