@@ -1,0 +1,24 @@
+version: '3.3'
+services:
+  backend:
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    command: uvicorn app.main:app --reload --host 0.0.0.0 --port {{cookiecutter.backend_port}}
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./backend/:/app/:cached
+      - ./.docker/.ipython:/root/.ipython:cached
+  frontend:
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    volumes:
+      - './frontend:/app:cached'
+      - '/frontend/node_modules'
+    ports:
+      - '{{cookiecutter.frontend_port}}:3000'
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
