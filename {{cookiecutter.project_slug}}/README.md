@@ -78,6 +78,8 @@ frontend
 └── src
     ├── components
     │   └── Home.tsx
+    ├── config
+    │   └── index.tsx   # constants
     ├── index.tsx   # entrypoint
     └── App.tsx     # handles routing
 ```
