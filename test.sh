@@ -5,13 +5,13 @@ set -e
 
 cookiecutter --no-input -f gh:Buuntu/fastapi-react
 
-# cd fastapi-react
+cd fastapi-react
 
-# sudo docker-compose build
-# sudo docker-compose down -v --remove-orphans
-# sudo docker-compose up -d
-# sudo docker-compose down -v --remove-orphans
+docker-compose build
+docker-compose down -v --remove-orphans
+docker-compose up -d
+docker-compose down -v --remove-orphans
 
-# cd ..
+cd ..
 
-# rm -rf fastapi-react
+rm -rf fastapi-react

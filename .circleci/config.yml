@@ -1,5 +1,9 @@
 version: 2.1
 
+machine:
+  services:
+    - docker
+
 orbs:
   python: circleci/python@0.2.1
 
@@ -8,6 +12,7 @@ jobs:
     executor: python/default
     steps:
       - checkout
+      - setup_remote_docker
       - run:
           command: sudo pip install cookiecutter
       - run:
