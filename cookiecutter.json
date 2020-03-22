@@ -4,5 +4,7 @@
   "frontend_port": "8000",
   "backend_port": "8888",
   "postgres_user": "postgres",
-  "postgres_password": "password"
+  "postgres_password": "password",
+  "postgres_server": "db",
+  "postgres_database": "app"
 }

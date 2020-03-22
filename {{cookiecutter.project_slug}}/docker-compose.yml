@@ -19,7 +19,7 @@ services:
       - ./backend/:/app/:cached
       - ./.docker/.ipython:/root/.ipython:cached
     environment:
-      DATABASE_URL: 'postgresql://{{cookiecutter.postgres_user}}:{{cookiecutter.postgres_password}}@db/db'
+      DATABASE_URL: 'postgresql://{{cookiecutter.postgres_user}}:{{cookiecutter.postgres_password}}@{{cookiecutter.postgres_user}}/{{cookiecutter.postgres_database}}'
       FRONTEND_SERVER_URL: 'http://localhost:{{cookiecutter.frontend_port}}'
   frontend:
     build:

@@ -4,9 +4,28 @@ from starlette.middleware.sessions import SessionMiddleware
 from starlette.requests import Request
 
 from app.core import config
+from app.api.router import api_router
 from app.db.session import SessionLocal
 
-app = FastAPI(title=config.PROJECT_NAME)
+app = FastAPI(title=config.PROJECT_NAME,
+    openapi_url="/api/v1/openapi.json")
+
+# CORS
+origins = []
+
+# Set all CORS enabled origins
+if config.BACKEND_CORS_ORIGINS:
+    origins_raw = config.BACKEND_CORS_ORIGINS.split(",")
+    for origin in origins_raw:
+        use_origin = origin.strip()
+        origins.append(use_origin)
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=origins,
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    ),
 
 @app.middleware("http")
 async def db_session_middleware(request: Request, call_next):
