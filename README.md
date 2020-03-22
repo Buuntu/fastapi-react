@@ -9,7 +9,8 @@ project using the following tools:
 4) SqlAlchemy
 5) Alembic
 6) Pytest
-7) Docker Compose
+7) ESLint (Airbnb style guide)
+8) Docker Compose
 
 It is meant as a lightweight/React alternative to 
 [FastAPI's official fullstack project](https://github.com/tiangolo/full-stack-fastapi-postgresql).
