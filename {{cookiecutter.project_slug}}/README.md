@@ -50,6 +50,13 @@ npm start
 ```
 This should redirect you to http://localhost:3000
 
+### Frontend Tests
+```
+cd frontend
+npm install
+npm test
+```
+
 ## Logging
 ```
 docker-compose logs
@@ -80,6 +87,8 @@ frontend
     │   └── Home.tsx
     ├── config
     │   └── index.tsx   # constants
+    ├── __tests__
+    │   └── test_home.tsx
     ├── index.tsx   # entrypoint
     └── App.tsx     # handles routing
 ```
