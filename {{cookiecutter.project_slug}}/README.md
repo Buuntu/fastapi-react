@@ -57,6 +57,21 @@ npm install
 npm test
 ```
 
+## Migrations
+
+Migrations are run using alembic.  To run all migrations:
+```
+docker-compose run --rm backend alembic upgrade head
+```
+
+To create a new migration:
+```
+alembic revision -m "create users table"
+```
+
+And fill in `upgrade` and `downgrade` methods.  For more information see
+[Alembic's official documentation](https://alembic.sqlalchemy.org/en/latest/tutorial.html#create-a-migration-script).
+
 ## Logging
 ```
 docker-compose logs
@@ -71,7 +86,8 @@ docker-compose logs -f name_of_service # frontend|backend|db
 ```
 backend
 └── app
-    ├── alembic # database migrations
+    ├── alembic
+    │   └── versions # where migrations are located
     ├── api
     │   └── api_v1
     │       └── endpoints

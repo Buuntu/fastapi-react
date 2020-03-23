@@ -17,11 +17,12 @@ services:
       dockerfile: Dockerfile
     command: uvicorn app.main:app --reload --host 0.0.0.0 --port {{cookiecutter.backend_port}}
     ports:
-      - "{{cookiecutter.backend}}:{{cookiecutter.backend_port}}"
+      - "{{cookiecutter.backend_port}}:{{cookiecutter.backend_port}}"
     volumes:
       - ./backend/:/app/:cached
       - ./.docker/.ipython:/root/.ipython:cached
     environment:
+      PYTHONPATH: .
       DATABASE_URL: 'postgresql://{{cookiecutter.postgres_user}}:{{cookiecutter.postgres_password}}@db/{{cookiecutter.postgres_user}}'
       FRONTEND_SERVER_URL: 'http://localhost:{{cookiecutter.frontend_port}}'
   frontend:

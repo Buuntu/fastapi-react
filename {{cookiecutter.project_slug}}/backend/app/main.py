@@ -3,11 +3,7 @@ from starlette.middleware.cors import CORSMiddleware
 from starlette.requests import Request
 
 from app.core import config
-from app.db.session import SessionLocal, engine
-from app.db import models
-
-
-models.Base.metadata.create_all(bind=engine)
+from app.db.session import SessionLocal
 
 app = FastAPI(
     title=config.PROJECT_NAME,
