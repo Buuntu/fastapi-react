@@ -8,18 +8,21 @@ services:
       POSTGRES_PASSWORD: {{cookiecutter.postgres_password}}
     ports:
       - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data:cached
+
   backend:
     build:
       context: backend
       dockerfile: Dockerfile
     command: uvicorn app.main:app --reload --host 0.0.0.0 --port {{cookiecutter.backend_port}}
     ports:
-      - "8888:8888"
+      - "{{cookiecutter.backend}}:{{cookiecutter.backend_port}}"
     volumes:
       - ./backend/:/app/:cached
       - ./.docker/.ipython:/root/.ipython:cached
     environment:
-      DATABASE_URL: 'postgresql://{{cookiecutter.postgres_user}}:{{cookiecutter.postgres_password}}@{{cookiecutter.postgres_user}}/{{cookiecutter.postgres_database}}'
+      DATABASE_URL: 'postgresql://{{cookiecutter.postgres_user}}:{{cookiecutter.postgres_password}}@db/{{cookiecutter.postgres_user}}'
       FRONTEND_SERVER_URL: 'http://localhost:{{cookiecutter.frontend_port}}'
   frontend:
     build:
@@ -33,3 +36,6 @@ services:
     environment:
       - NODE_ENV=development
       - CHOKIDAR_USEPOLLING=true
+
+volumes:
+  db-data:
