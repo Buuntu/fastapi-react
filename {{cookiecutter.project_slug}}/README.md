@@ -74,6 +74,11 @@ And fill in `upgrade` and `downgrade` methods.  For more information see
 
 ## Testing
 
+There is a helper script for both frontend and backend tests:
+```
+./scripts/test.sh
+```
+
 ### Backend Tests
 ```
 docker-compose run backend pytest

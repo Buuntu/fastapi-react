@@ -7,11 +7,12 @@ cookiecutter --no-input -f gh:Buuntu/fastapi-react
 
 cd fastapi-react
 
+./scripts/test.sh
+
 docker-compose build
 docker-compose down -v --remove-orphans
 docker-compose up -d
-docker-compose run backend pytest
-docker-compose run frontend test -run
+#./scripts/test.sh # doesn't work in circle CI for some reason
 docker-compose down -v --remove-orphans
 
 cd ..
