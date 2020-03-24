@@ -18,6 +18,8 @@ jobs:
       - run:
           command: ./test.sh
           name: Test
+          environment:
+              CIRCLE_CI_ENV: true
 
 workflows:
   main:

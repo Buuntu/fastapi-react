@@ -13,5 +13,9 @@ docker-compose up -d
 ./scripts/test.sh
 docker-compose down -v --remove-orphans
 
-set +e # to deal with permission error in circleci
-rm -rf fastapi-react
+# only remove directory if running locally
+if [[ -z "$CIRCLE_CI_ENV" ]]; then
+    echo "empty"
+    cd ..
+    rm -rf fastapi-react
+fi
