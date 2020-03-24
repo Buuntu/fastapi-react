@@ -10,6 +10,8 @@ cd fastapi-react
 docker-compose build
 docker-compose down -v --remove-orphans
 docker-compose up -d
+docker-compose run backend pytest
+docker-compose run frontend test -run
 docker-compose down -v --remove-orphans
 
 cd ..

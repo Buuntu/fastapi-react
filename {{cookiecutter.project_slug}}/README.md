@@ -72,6 +72,20 @@ alembic revision -m "create users table"
 And fill in `upgrade` and `downgrade` methods.  For more information see
 [Alembic's official documentation](https://alembic.sqlalchemy.org/en/latest/tutorial.html#create-a-migration-script).
 
+## Testing
+
+### Backend Tests
+```
+docker-compose run backend pytest
+```
+any arguments to pytest can also be passed after this command
+
+### Frontend Tests
+```
+docker-compose run frontend test
+```
+This is the same as running npm test from within the frontend directory
+
 ## Logging
 ```
 docker-compose logs
