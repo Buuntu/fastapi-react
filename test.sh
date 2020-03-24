@@ -7,14 +7,11 @@ cookiecutter --no-input -f gh:Buuntu/fastapi-react
 
 cd fastapi-react
 
-./scripts/test.sh
-
 docker-compose build
 docker-compose down -v --remove-orphans
 docker-compose up -d
-#./scripts/test.sh # doesn't work in circle CI for some reason
+./scripts/test.sh
 docker-compose down -v --remove-orphans
 
-cd ..
-
+set +e # to deal with permission error in circleci
 rm -rf fastapi-react
