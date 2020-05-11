@@ -31,7 +31,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - './frontend:/app:cached'
-      - './frontend/node_modules:cached'
+      - './frontend/node_modules:/app/node_modules:cached'
     ports:
       - '{{cookiecutter.frontend_port}}:3000'
     environment:
