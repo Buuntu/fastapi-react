@@ -4,10 +4,10 @@ services:
     image: postgres:12
     restart: always
     environment:
-      POSTGRES_USER: {{cookiecutter.postgres_user}}
-      POSTGRES_PASSWORD: {{cookiecutter.postgres_password}}
+      POSTGRES_USER: { { cookiecutter.postgres_user } }
+      POSTGRES_PASSWORD: { { cookiecutter.postgres_password } }
     ports:
-      - "5432:5432"
+      - '5432:5432'
     volumes:
       - db-data:/var/lib/postgresql/data:cached
 
@@ -17,7 +17,7 @@ services:
       dockerfile: Dockerfile
     command: uvicorn app.main:app --reload --host 0.0.0.0 --port {{cookiecutter.backend_port}}
     ports:
-      - "{{cookiecutter.backend_port}}:{{cookiecutter.backend_port}}"
+      - '{{cookiecutter.backend_port}}:{{cookiecutter.backend_port}}'
     volumes:
       - ./backend/:/app/:cached
       - ./.docker/.ipython:/root/.ipython:cached
@@ -31,12 +31,11 @@ services:
       dockerfile: Dockerfile
     volumes:
       - './frontend:/app:cached'
-      - '/frontend/node_modules'
+      - './frontend/node_modules:cached'
     ports:
       - '{{cookiecutter.frontend_port}}:3000'
     environment:
       - NODE_ENV=development
-      - CHOKIDAR_USEPOLLING=true
 
 volumes:
   db-data:
