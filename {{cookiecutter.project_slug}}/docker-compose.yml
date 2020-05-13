@@ -35,6 +35,8 @@ services:
       PYTHONPATH: .
       DATABASE_URL: 'postgresql://{{cookiecutter.postgres_user}}:{{cookiecutter.postgres_password}}@db/{{cookiecutter.postgres_user}}'
       FRONTEND_SERVER_URL: 'http://localhost:{{cookiecutter.port}}'
+    networks:
+      - nginx-network
   frontend:
     build:
       context: frontend
@@ -46,6 +48,8 @@ services:
       - '3000:3000'
     environment:
       - NODE_ENV=development
+    networks:
+      - nginx-network
 
 networks:
   nginx-network:
