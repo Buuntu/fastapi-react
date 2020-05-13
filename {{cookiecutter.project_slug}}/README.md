@@ -8,8 +8,9 @@
 - SqlAlchemy with Alembic for migrations
 - Pytest for backend tests
 - Jest for frontend tests
-- Eslint (with Airbnb style guide)
+- Perttier/Eslint (with Airbnb style guide)
 - Docker compose for easier development
+- Nginx as a reverse proxy to allow backend and frontend on the same port
 
 ## Development
 
@@ -24,10 +25,10 @@ Starting the project with hot-reloading enabled
 docker-compose up -d
 ```
 
-- Backend will be at http://localhost:{{cookiecutter.port}}
-- Auto-generated docs at
-  http://localhost:{{cookiecutter.port}}/api/docs
-- Frontend at http://localhost:{{cookiecutter.port}}
+And navigate to http://localhost:{{cookiecutter.port}}
+
+Auto-generated docs will be at
+http://localhost:{{cookiecutter.port}}/api/docs
 
 ### Rebuilding containers:
 

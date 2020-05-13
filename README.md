@@ -11,6 +11,7 @@ project using the following tools:
 6. **Pytest**
 7. **Prettier**/**ESLint** (Airbnb style guide)
 8. **Docker**
+9. **Nginx** as a reverse proxy to allow backend/frontend on the same port
 
 It is meant as a lightweight/React alternative to
 [FastAPI's official fullstack project](https://github.com/tiangolo/full-stack-fastapi-postgresql).
@@ -61,9 +62,6 @@ Once this finishes you can navigate to the port set during setup
 (default is `localhost:8000`), you should see the default
 create-react-app.
 
-Navigate to the port set for the backend
-(default is `localhost:8888`) and you should see:
+The backend docs will be at http://localhost:8000/api/docs by default.
 
-```
-{ "message": "Hello World" }
-```
+Backend routes will be at http://localhost:8000/api by default.
