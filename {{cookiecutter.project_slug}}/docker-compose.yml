@@ -1,5 +1,15 @@
 version: '3.7'
 services:
+  nginx:
+    image: nginx:1.17
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - {{cookiecutter.port}}:80
+    restart: always
+    networks:
+      - nginx-network
+
   db:
     image: postgres:12
     restart: always
@@ -15,16 +25,16 @@ services:
     build:
       context: backend
       dockerfile: Dockerfile
-    command: uvicorn app.main:app --reload --host 0.0.0.0 --port {{cookiecutter.backend_port}}
+    command: uvicorn app.main:app --reload --host 0.0.0.0 --port 8888
     ports:
-      - '{{cookiecutter.backend_port}}:{{cookiecutter.backend_port}}'
+      - '8888:8888'
     volumes:
       - ./backend/:/app/:cached
       - ./.docker/.ipython:/root/.ipython:cached
     environment:
       PYTHONPATH: .
       DATABASE_URL: 'postgresql://{{cookiecutter.postgres_user}}:{{cookiecutter.postgres_password}}@db/{{cookiecutter.postgres_user}}'
-      FRONTEND_SERVER_URL: 'http://localhost:{{cookiecutter.frontend_port}}'
+      FRONTEND_SERVER_URL: 'http://localhost:{{cookiecutter.port}}'
   frontend:
     build:
       context: frontend
@@ -33,9 +43,12 @@ services:
       - './frontend:/app:cached'
       - './frontend/node_modules:/app/node_modules:cached'
     ports:
-      - '{{cookiecutter.frontend_port}}:3000'
+      - '3000:3000'
     environment:
       - NODE_ENV=development
+
+networks:
+  nginx-network:
 
 volumes:
   db-data:

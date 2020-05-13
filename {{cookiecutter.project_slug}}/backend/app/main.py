@@ -36,6 +36,6 @@ async def db_session_middleware(request: Request, call_next):
     return response
 
 
-@app.get("/")
+@app.get("/api/v1")
 async def root():
     return {"message": "Hello World"}

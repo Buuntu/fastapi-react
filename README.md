@@ -40,8 +40,7 @@ This will ask for the following variables to be set:
 
 - project_name [default fastapi-react]
 - project_slug [default fastapi-react]
-- frontend_port [default 8888]
-- backend_port [default 8000]
+- port [default 8000]
 - postgres_user [default postgres]
 - postgres_password [default password]
 
