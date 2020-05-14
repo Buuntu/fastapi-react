@@ -7,8 +7,6 @@ services:
     ports:
       - {{cookiecutter.port}}:80
     restart: always
-    networks:
-      - nginx-network
 
   db:
     image: postgres:12
@@ -26,8 +24,6 @@ services:
       context: backend
       dockerfile: Dockerfile
     command: python app/main.py
-    ports:
-      - '8888:8888'
     volumes:
       - ./backend/:/app/:cached
       - ./.docker/.ipython:/root/.ipython:cached
@@ -35,8 +31,6 @@ services:
       PYTHONPATH: .
       DATABASE_URL: 'postgresql://{{cookiecutter.postgres_user}}:{{cookiecutter.postgres_password}}@db/{{cookiecutter.postgres_user}}'
       FRONTEND_SERVER_URL: 'http://localhost:{{cookiecutter.port}}'
-    networks:
-      - nginx-network
   frontend:
     build:
       context: frontend
@@ -44,15 +38,9 @@ services:
     volumes:
       - './frontend:/app:cached'
       - './frontend/node_modules:/app/node_modules:cached'
-    ports:
-      - '3000:3000'
     environment:
       - NODE_ENV=development
-    networks:
-      - nginx-network
 
-networks:
-  nginx-network:
 
 volumes:
   db-data:
