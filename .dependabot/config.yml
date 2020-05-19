@@ -4,8 +4,8 @@ update_configs:
   # new versions are published to the npm registry
   - package_manager: 'javascript'
     directory: '{{cookiecutter.project_slug}}/frontend'
-    update_schedule: 'live'
+    update_schedule: 'weekly'
   # Keep Dockerfile up to date, batching pull requests weekly
   - package_manager: 'python'
     directory: '{{cookiecutter.project_slug}}/backend'
-    update_schedule: 'live'
+    update_schedule: 'weekly'
