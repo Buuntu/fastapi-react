@@ -3,9 +3,10 @@
 # Exit in case of error
 set -e
 
-cookiecutter --no-input -f gh:Buuntu/fastapi-react
+# Run this from the root of the project
+cookiecutter --no-input -f ./ project_slug="testing-project"
 
-cd fastapi-react
+cd testing-project
 
 docker-compose build
 docker-compose down -v --remove-orphans
@@ -17,5 +18,5 @@ docker-compose down -v --remove-orphans
 if [[ -z "$CIRCLE_CI_ENV" ]]; then
     echo "empty"
     cd ..
-    rm -rf fastapi-react
+    rm -rf testing-project
 fi

@@ -16,7 +16,7 @@ jobs:
       - run:
           command: sudo pip install cookiecutter
       - run:
-          command: ./test.sh
+          command: ./scripts/test.sh
           name: Test
           environment:
               CIRCLE_CI_ENV: true
