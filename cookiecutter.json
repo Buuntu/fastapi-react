@@ -4,6 +4,6 @@
   "port": "8000",
   "postgres_user": "postgres",
   "postgres_password": "password",
-  "postgres_server": "db",
+  "postgres_server": "postgres",
   "postgres_database": "app"
 }

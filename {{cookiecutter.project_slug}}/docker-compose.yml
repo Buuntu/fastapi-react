@@ -6,9 +6,8 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
     ports:
       - {{cookiecutter.port}}:80
-    restart: always
 
-  db:
+  postgres:
     image: postgres:12
     restart: always
     environment:
@@ -24,13 +23,13 @@ services:
       context: backend
       dockerfile: Dockerfile
     command: python app/main.py
+    tty: true
     volumes:
-      - ./backend/:/app/:cached
+      - ./backend:/app/:cached
       - ./.docker/.ipython:/root/.ipython:cached
     environment:
       PYTHONPATH: .
-      DATABASE_URL: 'postgresql://{{cookiecutter.postgres_user}}:{{cookiecutter.postgres_password}}@db/{{cookiecutter.postgres_user}}'
-      FRONTEND_SERVER_URL: 'http://localhost:{{cookiecutter.port}}'
+      DATABASE_URL: 'postgresql://{{cookiecutter.postgres_user}}:{{cookiecutter.postgres_password}}@{{cookiecutter.postgres_server}}:5432/{{cookiecutter.postgres_user}}'
   frontend:
     build:
       context: frontend
