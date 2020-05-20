@@ -11,6 +11,7 @@ cd testing-project
 docker-compose build
 docker-compose down -v --remove-orphans
 docker-compose up -d
+docker-compose run --rm backend alembic upgrade head
 ./scripts/test.sh
 docker-compose down -v --remove-orphans
 

@@ -3,17 +3,17 @@
 This project serves as a template for bootstrapping a FastAPI project using the
 following tools:
 
-1. **FastAPI** (Python 3.8)
-2. **React** (with Typescript)
+1. **[FastAPI](https://fastapi.tiangolo.com/)** (Python 3.8)
+2. **[React](https://reactjs.org/)** (with Typescript)
 3. **Postgres**
-4. **SqlAlchemy**
-5. **Alembic**
-6. **Pytest**
-7. **Prettier**/**ESLint** (Airbnb style guide)
+4. **[SqlAlchemy](https://www.sqlalchemy.org/)**
+5. **[Alembic](https://alembic.sqlalchemy.org/en/latest/)**
+6. **[Pytest](https://docs.pytest.org/en/latest/)**
+7. **[Prettier](https://prettier.io/)**/**[ESLint](https://eslint.org/)** (Airbnb style guide)
 8. **Docker**
 9. **Nginx** as a reverse proxy to allow backend/frontend on the same port
-10. [MaterialUI](https://material-ui.com/) for styling
-11. [react-admin](https://github.com/marmelab/react-admin) for the admin
+10. [**MaterialUI**](https://material-ui.com/) for styling
+11. [**react-admin**](https://github.com/marmelab/react-admin) for the admin
     dashboard
 
 It is meant as a lightweight/React alternative to [FastAPI's official fullstack
