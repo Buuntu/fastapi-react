@@ -75,6 +75,6 @@ configurable admin dashboard.
 After starting the project, navigate to `http://localhost:8000/admin`.  By
 default you should see a list of users, which you can edit, add, and delete.
 
-![React Admin Dashboard]([assets/admin-dashboard.png)
+![React Admin Dashboard](assets/admin-dashboard.png)
 
 
