@@ -77,4 +77,5 @@ default you should see a list of users, which you can edit, add, and delete.
 
 ![React Admin Dashboard](assets/admin-dashboard.png)
 
-
+Routes are kept in the `frontend/src/admin` by default to
+keep them separate from regular frontend routes.
