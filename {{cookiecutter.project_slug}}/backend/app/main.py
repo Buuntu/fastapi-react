@@ -25,7 +25,7 @@ async def root():
     return {"message": "Hello World"}
 
 # Routers
-app.include_router(users_router, prefix="/api/v1/users", tags=["users"])
+app.include_router(users_router, prefix="/api/v1", tags=["users"])
 
 if __name__ == "__main__":
     uvicorn.run(
