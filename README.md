@@ -9,7 +9,8 @@ following tools:
 4. **[SqlAlchemy](https://www.sqlalchemy.org/)**
 5. **[Alembic](https://alembic.sqlalchemy.org/en/latest/)**
 6. **[Pytest](https://docs.pytest.org/en/latest/)**
-7. **[Prettier](https://prettier.io/)**/**[ESLint](https://eslint.org/)** (Airbnb style guide)
+7. **[Prettier](https://prettier.io/)**/**[ESLint](https://eslint.org/)**
+   (Airbnb style guide)
 8. **Docker**
 9. **Nginx** as a reverse proxy to allow backend/frontend on the same port
 10. [**MaterialUI**](https://material-ui.com/) for styling
@@ -26,7 +27,7 @@ FastAPI.
 This does not have any opinions on production settings and leaves that up to the
 user.
 
-## Project Setup
+## Quick Start
 
 First, install cookiecutter:
 
@@ -54,14 +55,21 @@ and will create a directory called whatever you set for `project_slug`.
 
 Change into your project directory and then run:
 
-```
+```bash
 docker-compose up -d
+docker-compose run --rm backend alembic upgrade head
 ```
 
 This will take a little while to build the first time it's run.
 
 Once this finishes you can navigate to the port set during setup (default is
-`localhost:8000`), you should see the default create-react-app.
+`localhost:8000`), you should see the default create-react-app:
+
+![default create-react-app](assets/create-react-app.png)
+
+*Note: If you see an Nginx error at first with a `502: Bad Gateway` page, you
+may  have to wait for webpack to build the development server (the nginx
+container builds much more quickly).*
 
 The backend docs will be at http://localhost:8000/api/docs by default.
 
@@ -74,8 +82,14 @@ configurable admin dashboard.
 
 After starting the project, navigate to `http://localhost:8000/admin`.  By
 default you should see a list of users, which you can edit, add, and delete.
+These are all based off of the `users` routes.
 
 ![React Admin Dashboard](assets/admin-dashboard.png)
 
-Routes are kept in the `frontend/src/admin` by default to
-keep them separate from regular frontend routes.
+Routes are kept in the `frontend/src/admin` by default to keep them separate
+from regular frontend routes.
+
+## Contributing
+
+Contributing to this project is encouraged.  Please read the [Contributing
+doc](CONTRIBUTING.md) first.

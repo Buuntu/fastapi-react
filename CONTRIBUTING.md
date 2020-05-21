@@ -33,3 +33,7 @@ breaking change in production and don't want to expose half finished
 functionality to users, you can use [feature
 flags](https://www.martinfowler.com/articles/feature-toggles.html) to work on
 this incrementally.  A big PR is much less likely to be approved
+
+## Which issues to start with?
+
+Start by browsing through the [list of issues](https://github.com/Buuntu/fastapi-react/issues), particularly those flagged as [help wanted](https://github.com/Buuntu/fastapi-react/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22)
