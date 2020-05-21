@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from starlette.requests import Request
 import uvicorn
 
+from app.api.api_v1.routers.users import users_router
 from app.core import config
 from app.db.session import SessionLocal
 
@@ -23,6 +24,8 @@ async def db_session_middleware(request: Request, call_next):
 async def root():
     return {"message": "Hello World"}
 
+# Routers
+app.include_router(users_router, prefix="/api/v1", tags=["users"])
 
 if __name__ == "__main__":
     uvicorn.run(

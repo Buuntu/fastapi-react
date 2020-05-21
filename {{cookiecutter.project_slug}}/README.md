@@ -21,11 +21,18 @@ The only dependencies for this project should be docker and docker-compose.
 Starting the project with hot-reloading enabled
 (the first time it will take a while):
 
-```
+```bash
 docker-compose up -d
 ```
 
+To run the alembic migrations (for the users table):
+```bash
+docker-compose run --rm backend alembic upgrade head
+```
+
 And navigate to http://localhost:{{cookiecutter.port}}
+
+*Note: If you see an Nginx error at first with a `502: Bad Gateway` page, you may  have to wait for webpack to build the development server (the nginx container builds much more quickly).*
 
 Auto-generated docs will be at
 http://localhost:{{cookiecutter.port}}/api/docs
