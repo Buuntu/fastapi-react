@@ -9,11 +9,11 @@ const fetchJson = (url: string, options: any = {}) => {
       options.headers = new Headers({ Accept: 'application/json' });
   }
   // add your own headers here
-  options.headers.set('X-Content-Range', '0-9/');
+  options.headers.set('X-Content-Range', '0-9/1');
   return fetchUtils.fetchJson(url, options);
 }
 
-const dataProvider = simpleRestProvider('api/v1', fetchJson);
+const dataProvider = simpleRestProvider('api/v1');
 
 
 export const Admin: FC = () => {

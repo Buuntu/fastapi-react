@@ -10,7 +10,7 @@ users_router = r = APIRouter()
 @r.get("/users")
 async def users_list(request: Request, response: Response, db=Depends(get_db)):
     users = get_users(db)
-    response.headers['Content-Range'] = '0-9/0'
+    response.headers['Content-Range'] = f'0-9/{len(users)}'
     return users
 
 
