@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
 from passlib.context import CryptContext
+from fastapi.encoders import jsonable_encoder
 
 from . import models, schemas
 
@@ -43,3 +44,15 @@ def delete_user(db: Session, user_id: int):
     db.delete(user)
     db.commit()
     return user
+
+
+def edit_user(db: Session, user_id: int, user: schemas.UserEdit):
+    db_user = get_user(db, user_id)
+    db_user.hashed_password = get_password_hash(user.password)
+    db_user.is_active = user.is_active
+    db_user.email = user.email
+
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+    return db_user
