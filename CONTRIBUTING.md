@@ -3,20 +3,24 @@
 ## Development
 
 ### Helper Scripts
+
 You can use the helper script `scripts/dev-project.sh` to create a cookiecutter
 project to test locally.  Do this from outside of the root directory to avoid
 accidentally commiting test builds.  For example:
+
 ```bash
 ./fastapi-react/scripts/dev-project.sh
 ```
 
 This will then create a `dev-fastapi-react` directory.
+
 ```bash
 cd dev-fastapi-react
 docker-compose up -d
 ```
 
 When developing locally, there is also a helper script that will create a cookiecutter directory, build containers, and run tests all from within the root project directory.  This can be kind of a tedious process with cookiecutter so this makes it somewhat less painful.  From the root `fastapi-react` directory, simply run:
+
 ```bash
 ./scripts/test_local.sh
 ```
@@ -34,6 +38,6 @@ functionality to users, you can use [feature
 flags](https://www.martinfowler.com/articles/feature-toggles.html) to work on
 this incrementally.  A big PR is much less likely to be approved
 
-## Which issues to start with?
+## Where to Start
 
-Start by browsing through the [list of issues](https://github.com/Buuntu/fastapi-react/issues), particularly those flagged as [help wanted](https://github.com/Buuntu/fastapi-react/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22)
+Start by browsing through the [list of issues](https://github.com/Buuntu/fastapi-react/issues), particularly those flagged as [help wanted](https://github.com/Buuntu/fastapi-react/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22).
