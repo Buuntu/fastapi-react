@@ -30,6 +30,6 @@ async def user_edit(request: Request, user_id: int, user: UserEdit, db=Depends(g
     return edit_user(db, user_id, user)
 
 
-@r.delete("/users/${user_id}")
+@r.delete("/users/{user_id}")
 async def user_delete(request: Request, user_id: int, db=Depends(get_db)):
     return delete_user(db, user_id)

@@ -40,7 +40,7 @@ def create_user(db: Session, user: schemas.UserCreate):
 
 
 def delete_user(db: Session, user_id: int):
-    user = db.query(models.User).get(id)
+    user = db.query(models.User).get(user_id)
     db.delete(user)
     db.commit()
     return user

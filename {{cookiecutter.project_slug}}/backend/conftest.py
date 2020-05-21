@@ -6,6 +6,7 @@ from fastapi.testclient import TestClient
 
 from app.core import config
 from app.db.session import Base, get_db
+from app.db import models
 
 from app.main import app
 
@@ -85,3 +86,20 @@ def client(test_db):
     app.dependency_overrides[get_db] = get_test_db
 
     yield TestClient(app)
+
+
+@pytest.fixture
+def test_user(test_db) -> models.User:
+    """
+    Make a test user in the database
+    """
+
+    user = models.User(
+        id=1,
+        email='fake@email.com',
+        hashed_password='fakehash',
+        is_active=True,
+    )
+    test_db.add(user)
+    test_db.commit()
+    return user
