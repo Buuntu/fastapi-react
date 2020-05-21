@@ -1,35 +1,39 @@
-from fastapi import APIRouter, Request, Depends, Response
+from fastapi import APIRouter, Request, Depends, Response, HTTPException
+import typing as t
 
 from app.db.session import get_db
 from app.db.crud import get_users, get_user, create_user, delete_user, edit_user
-from app.db.schemas import UserCreate, UserEdit
+from app.db.schemas import UserCreate, UserEdit, User
 
 users_router = r = APIRouter()
 
 
-@r.get("/users")
-async def users_list(request: Request, response: Response, db=Depends(get_db)):
+@r.get("/users", response_model=t.List[User])
+async def users_list(response: Response, db=Depends(get_db)):
     users = get_users(db)
+    # This is necessary for react-admin to work
     response.headers['Content-Range'] = f'0-9/{len(users)}'
     return users
 
 
-@r.get("/users/{user_id}")
+@r.get("/users/{user_id}", response_model=User)
 async def user_details(request: Request, user_id: int, db=Depends(get_db)):
     user = get_user(db, user_id)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
     return user
 
 
-@r.post("/users")
+@r.post("/users", response_model=User)
 async def user_create(request: Request, user: UserCreate, db=Depends(get_db)):
     return create_user(db, user)
 
 
-@r.put("/users/{user_id}")
+@r.put("/users/{user_id}", response_model=User)
 async def user_edit(request: Request, user_id: int, user: UserEdit, db=Depends(get_db)):
     return edit_user(db, user_id, user)
 
 
-@r.delete("/users/{user_id}")
+@r.delete("/users/{user_id}", response_model=User)
 async def user_delete(request: Request, user_id: int, db=Depends(get_db)):
     return delete_user(db, user_id)

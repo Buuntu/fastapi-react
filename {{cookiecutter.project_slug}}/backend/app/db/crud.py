@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from passlib.context import CryptContext
 from fastapi.encoders import jsonable_encoder
+import typing as t
 
 from . import models, schemas
 
@@ -23,7 +24,7 @@ def get_user_by_email(db: Session, email: str):
     return db.query(models.User).filter(models.User.email == email).first()
 
 
-def get_users(db: Session, skip: int = 0, limit: int = 100):
+def get_users(db: Session, skip: int = 0, limit: int = 100) -> t.List[schemas.UserBase]:
     return db.query(models.User).offset(skip).limit(limit).all()
 
 

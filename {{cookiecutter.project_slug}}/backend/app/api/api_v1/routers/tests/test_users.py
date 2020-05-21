@@ -7,10 +7,14 @@ from app.main import app
 from app.db import models
 
 
-def test_get_users(client, test_db):
+def test_get_users(client, test_db, test_user):
     response = client.get("/api/v1/users")
     assert response.status_code == 200
-    assert response.json() == []
+    assert response.json() == [{
+        'id': test_user.id,
+        'email': test_user.email,
+        'is_active': bool(test_user.is_active),
+    }]
 
 
 def test_delete_user(client, test_user, test_db):
@@ -19,11 +23,21 @@ def test_delete_user(client, test_user, test_db):
     assert test_db.query(models.User).all() == []
 
 
-def test_edit_user(client):
+def test_edit_user(client, test_user, test_db):
     """TODO"""
     pass
 
 
-def test_get_user(client):
-    """TODO: Gets a single user"""
-    pass
+def test_get_user(client, test_user, test_db):
+    response = client.get(f"/api/v1/users/{test_user.id}")
+    assert response.status_code == 200
+    assert response.json() == {
+        'id': test_user.id,
+        'email': test_user.email,
+        'is_active': bool(test_user.is_active),
+    }
+
+
+def test_user_not_found(client, test_user, test_db):
+    response = client.get("/api/v1/users/123")
+    assert response.status_code == 404
