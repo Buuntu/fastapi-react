@@ -13,7 +13,7 @@ class UserCreate(UserBase):
 class UserEdit(UserBase):
     password: str
     email: str
-    is_active: str
+    is_active: bool
 
     class Config:
         orm_mode = True

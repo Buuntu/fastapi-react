@@ -47,7 +47,7 @@ def delete_user(db: Session, user_id: int):
     return user
 
 
-def edit_user(db: Session, user_id: int, user: schemas.UserEdit):
+def edit_user(db: Session, user_id: int, user: schemas.UserEdit) -> schemas.User:
     db_user = get_user(db, user_id)
     db_user.hashed_password = get_password_hash(user.password)
     db_user.is_active = user.is_active

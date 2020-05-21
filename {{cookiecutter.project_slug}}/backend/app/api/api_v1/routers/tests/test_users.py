@@ -1,4 +1,5 @@
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, Boolean
+import json
 from sqlalchemy.orm import sessionmaker
 from app.db.session import Base, get_db
 
@@ -24,8 +25,17 @@ def test_delete_user(client, test_user, test_db):
 
 
 def test_edit_user(client, test_user, test_db):
-    """TODO"""
-    pass
+    new_user = {
+        'email': 'newemail@email.com',
+        'is_active': False,
+        'password': 'new_password',
+    }
+
+    response = client.put(f"/api/v1/users/{test_user.id}", json=new_user)
+    assert response.status_code == 200
+    new_user['id'] = test_user.id
+    new_user.pop('password')
+    assert response.json() == new_user
 
 
 def test_get_user(client, test_user, test_db):
