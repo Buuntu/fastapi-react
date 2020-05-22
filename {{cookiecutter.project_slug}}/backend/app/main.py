@@ -1,10 +1,12 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from starlette.requests import Request
 import uvicorn
 
 from app.api.api_v1.routers.users import users_router
+from app.api.api_v1.routers.auth import auth_router
 from app.core import config
 from app.db.session import SessionLocal
+from app.core.security import oauth2_scheme
 
 app = FastAPI(
     title=config.PROJECT_NAME,
@@ -26,6 +28,7 @@ async def root():
 
 # Routers
 app.include_router(users_router, prefix="/api/v1", tags=["users"])
+app.include_router(auth_router, prefix="/api", tags=["auth"])
 
 if __name__ == "__main__":
     uvicorn.run(

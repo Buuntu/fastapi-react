@@ -3,8 +3,9 @@ from sqlalchemy import create_engine, event
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy_utils import database_exists, create_database, drop_database
 from fastapi.testclient import TestClient
+import typing as t
 
-from app.core import config
+from app.core import config, security
 from app.db.session import Base, get_db
 from app.db import models
 
@@ -88,7 +89,12 @@ def client(test_db):
 
 
 @pytest.fixture
-def test_user(test_db) -> models.User:
+def test_password() -> str:
+    return 'fakehash'
+
+
+@pytest.fixture
+def test_user(test_db, test_password) -> models.User:
     """
     Make a test user in the database
     """
@@ -96,7 +102,7 @@ def test_user(test_db) -> models.User:
     user = models.User(
         id=1,
         email='fake@email.com',
-        hashed_password='fakehash',
+        hashed_password=security.get_password_hash(test_password),
         is_active=True,
     )
     test_db.add(user)

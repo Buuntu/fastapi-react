@@ -1,11 +1,14 @@
 # FastAPI + React Template · [![CircleCI](https://circleci.com/gh/Buuntu/fastapi-react.svg?style=shield)](https://circleci.com/gh/Buuntu/fastapi-react) [![license](https://img.shields.io/github/license/peaceiris/actions-gh-pages.svg)](LICENSE) [![Dependabot Status](https://img.shields.io/badge/Dependabot-active-brightgreen.svg)](https://dependabot.com)
 
+<div>
 <img src="assets/fastapi-logo.png" alt="fastapi-logo" height="60" /> <img
 src="assets/react-logo.png" alt="react-logo" height="60" /> &nbsp; &nbsp; <img
 src="assets/typescript.png" alt="react-logo" height="60" /> &nbsp;&nbsp;&nbsp;
 <img src="assets/postgres.png" alt="react-logo" height="60" />
 &nbsp;&nbsp;
-<img src="assets/sql-alchemy.png" alt="sql-alchemy" height="60" />
+<img src="assets/sql-alchemy.png"  
+style="padding-bottom: 10px" alt="sql-alchemy" height="40" />
+</div>
 
 This project serves as a template for bootstrapping a FastAPI and React project
 using a modern stack.

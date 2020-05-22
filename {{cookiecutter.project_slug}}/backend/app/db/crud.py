@@ -1,20 +1,9 @@
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
-from passlib.context import CryptContext
-from fastapi.encoders import jsonable_encoder
 import typing as t
 
 from . import models, schemas
-
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
-
-def get_password_hash(password: str) -> str:
-    return pwd_context.hash(password)
-
-
-def verify_password(plain_password: str, hashed_password: str) -> bool:
-    return pwd_context.verify(plain_password, hashed_password)
+from app.core.security import get_password_hash
 
 
 def get_user(db: Session, user_id: int):
@@ -24,7 +13,7 @@ def get_user(db: Session, user_id: int):
     return user
 
 
-def get_user_by_email(db: Session, email: str):
+def get_user_by_email(db: Session, email: str) -> schemas.UserBase:
     return db.query(models.User).filter(models.User.email == email).first()
 
 
