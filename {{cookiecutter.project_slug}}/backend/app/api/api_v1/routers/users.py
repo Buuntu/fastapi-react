@@ -23,14 +23,14 @@ async def users_list(response: Response, db=Depends(get_db)):
     return users
 
 
-@r.get("/users/{user_id}", response_model=User)
-async def user_details(request: Request, user_id: int, db=Depends(get_db)):
-    return get_user(db, user_id)
-
-
 @r.get("/users/me", response_model=User)
 async def user_me(current_user=Depends(get_current_active_user)):
     return current_user
+
+
+@r.get("/users/{user_id}", response_model=User)
+async def user_details(request: Request, user_id: int, db=Depends(get_db)):
+    return get_user(db, user_id)
 
 
 @r.post("/users", response_model=User)

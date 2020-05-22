@@ -1,9 +1,10 @@
 from fastapi.security import OAuth2PasswordRequestForm
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, status
+from datetime import timedelta
 
-from app.db.crud import get_user_by_email
 from app.db.session import get_db
-from app.core.security import verify_password
+from app.core import security
+from app.core.auth import authenticate_user
 
 auth_router = r = APIRouter()
 
@@ -12,16 +13,19 @@ auth_router = r = APIRouter()
 async def login(
     db=Depends(get_db), form_data: OAuth2PasswordRequestForm = Depends()
 ):
-    user = get_user_by_email(db, form_data.username)
+    user = authenticate_user(db, form_data.username, form_data.password)
     if not user:
         raise HTTPException(
-            status_code=400, detail="Incorrect username or password"
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"},
         )
 
-    user_dict = user.__dict__
-    if not verify_password(form_data.password, user_dict["hashed_password"]):
-        raise HTTPException(
-            status_code=400, detail="Incorrect username or password"
-        )
+    access_token_expires = timedelta(
+        minutes=security.ACCESS_TOKEN_EXPIRE_MINUTES
+    )
+    access_token = security.create_access_token(
+        data={"sub": user.email}, expires_delta=access_token_expires
+    )
 
-    return {"access_token": user_dict["email"], "token_type": "bearer"}
+    return {"access_token": access_token, "token_type": "bearer"}

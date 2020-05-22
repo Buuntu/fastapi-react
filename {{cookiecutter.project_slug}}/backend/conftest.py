@@ -103,4 +103,5 @@ def test_user(test_db, test_password) -> models.User:
     )
     test_db.add(user)
     test_db.commit()
+    test_db.refresh(user)
     return user

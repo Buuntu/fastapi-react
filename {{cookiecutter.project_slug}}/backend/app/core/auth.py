@@ -2,12 +2,14 @@ import jwt
 from fastapi import Depends, HTTPException, status
 from jwt import PyJWTError
 
-from app.db import models, schemas
+from app.db import models, schemas, session
 from app.db.crud import get_user_by_email
 from app.core import security
 
 
-async def get_current_user(db, token: str = Depends(security.oauth2_scheme)):
+async def get_current_user(
+    db=Depends(session.get_db), token: str = Depends(security.oauth2_scheme)
+):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
@@ -32,12 +34,12 @@ async def get_current_user(db, token: str = Depends(security.oauth2_scheme)):
 async def get_current_active_user(
     current_user: models.User = Depends(get_current_user),
 ):
-    if current_user.disabled:
+    if not current_user.is_active:
         raise HTTPException(status_code=400, detail="Inactive user")
     return current_user
 
 
-async def authenticate_user(db, email: str, password: str):
+def authenticate_user(db, email: str, password: str):
     user = get_user_by_email(db, email)
     if not user:
         return False

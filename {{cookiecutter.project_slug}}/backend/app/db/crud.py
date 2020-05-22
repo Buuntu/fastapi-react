@@ -1,4 +1,4 @@
-from fastapi import HTTPException
+from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
 import typing as t
 
@@ -17,7 +17,9 @@ def get_user_by_email(db: Session, email: str) -> schemas.UserBase:
     return db.query(models.User).filter(models.User.email == email).first()
 
 
-def get_users(db: Session, skip: int = 0, limit: int = 100) -> t.List[schemas.UserBase]:
+def get_users(
+    db: Session, skip: int = 0, limit: int = 100
+) -> t.List[schemas.UserBase]:
     return db.query(models.User).offset(skip).limit(limit).all()
 
 
@@ -32,12 +34,16 @@ def create_user(db: Session, user: schemas.UserCreate):
 
 def delete_user(db: Session, user_id: int):
     user = get_user(db, user_id)
+    if not user:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, detail="User not found")
     db.delete(user)
     db.commit()
     return user
 
 
-def edit_user(db: Session, user_id: int, user: schemas.UserEdit) -> schemas.User:
+def edit_user(
+    db: Session, user_id: int, user: schemas.UserEdit
+) -> schemas.User:
     db_user = get_user(db, user_id)
     db_user.hashed_password = get_password_hash(user.password)
     db_user.is_active = user.is_active
