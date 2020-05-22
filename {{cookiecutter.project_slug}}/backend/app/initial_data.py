@@ -20,6 +20,6 @@ def init() -> None:
 
 
 if __name__ == "__main__":
-    print("Creating initial data")
+    print("Creating initial user {{cookiecutter.initial_user_email}}")
     init()
-    print("Initial data created")
+    print("Initial user created")

@@ -61,11 +61,15 @@ cookiecutter gh:Buuntu/fastapi-react
 
 This will ask for the following variables to be set:
 
-- project_name [default fastapi-react]
-- project_slug [default fastapi-react]
-- port [default 8000]
-- postgres_user [default postgres]
-- postgres_password [default password]
+* project_name [default fastapi-react]
+* project_slug [default fastapi-react]
+* port [default 8000]
+* postgres_user [default postgres]
+* postgres_password [default password]
+* postgres_database [default app]
+* initial_user_email [default admin@example.com]
+* initial_user_password [default password]
+* secret_key [default super_secret]
 
 and will create a directory called whatever you set for `project_slug`.
 
@@ -124,6 +128,16 @@ the backend.
 
 The admin dashboard is kept in the `frontend/src/admin` directory to keep it
 separate from the regular frontend.
+
+## Security
+
+To generate a secure key used in encryption, you can run this command:
+
+```bash
+openssl rand -hex 32
+```
+
+The default is fine for development but you will want something more secure for production.
 
 ## Contributing
 

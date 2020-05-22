@@ -5,6 +5,7 @@
   "postgres_user": "postgres",
   "postgres_password": "password",
   "postgres_database": "app",
-  "initial_user_email": "admin@example.com",
-  "initial_user_password": "password"
+  "initial_user_email": "admin@{{cookiecutter.project_name}}.com",
+  "initial_user_password": "password",
+  "secret_key": "super_secret"
 }
