@@ -1,38 +1,44 @@
 # FastAPI + React Template · [![CircleCI](https://circleci.com/gh/Buuntu/fastapi-react.svg?style=shield)](https://circleci.com/gh/Buuntu/fastapi-react) [![license](https://img.shields.io/github/license/peaceiris/actions-gh-pages.svg)](LICENSE) [![Dependabot Status](https://img.shields.io/badge/Dependabot-active-brightgreen.svg)](https://dependabot.com)
 
+<div>
 <img src="assets/fastapi-logo.png" alt="fastapi-logo" height="60" /> <img
 src="assets/react-logo.png" alt="react-logo" height="60" /> &nbsp; &nbsp; <img
+src="assets/react-admin.png" alt="react-admin" height="60" /> &nbsp; &nbsp; <img
 src="assets/typescript.png" alt="react-logo" height="60" /> &nbsp;&nbsp;&nbsp;
-<img src="assets/postgres.png" alt="react-logo" height="60" />
-&nbsp;&nbsp;
-<img src="assets/sql-alchemy.png" alt="sql-alchemy" height="60" />
+<img src="assets/postgres.png" alt="react-logo" height="60" /> <img
+src="assets/sql-alchemy.png" alt="sql-alchemy" height="60" />
+</div>
 
 This project serves as a template for bootstrapping a FastAPI and React project
 using a modern stack.
 
 ## Features
 
-1. **[FastAPI](https://fastapi.tiangolo.com/)** (Python 3.8)
-2. **[React](https://reactjs.org/)** (with Typescript)
-3. **[PostgreSQL](https://www.postgresql.org/)** for the database
-4. **[SqlAlchemy](https://www.sqlalchemy.org/)** for ORM
-5. **[Alembic](https://alembic.sqlalchemy.org/en/latest/)** for database
-   migrations
-6. **[Pytest](https://docs.pytest.org/en/latest/)** for backend tests
-7. **[Prettier](https://prettier.io/)**/**[ESLint](https://eslint.org/)**
-   (Airbnb style guide)
-8. **[Docker Compose](https://docs.docker.com/compose/)** for development
-9. **[Nginx](https://www.nginx.com/)** as a reverse proxy to allow
-   backend/frontend on the same port
-10. [**MaterialUI**](https://material-ui.com/) for styling
-11. [**react-admin**](https://github.com/marmelab/react-admin) for the admin
-    dashboard
+- **[FastAPI](https://fastapi.tiangolo.com/)** (Python 3.8)
+- **[React](https://reactjs.org/)** (with Typescript)
+- **[PostgreSQL](https://www.postgresql.org/)** for the database
+- **[SqlAlchemy](https://www.sqlalchemy.org/)** for ORM
+- **[Alembic](https://alembic.sqlalchemy.org/en/latest/)** for database
+  migrations
+- **[Pytest](https://docs.pytest.org/en/latest/)** for backend tests
+  - Includes test database, client, and user fixtures
+- **[Prettier](https://prettier.io/)**/**[ESLint](https://eslint.org/)** (Airbnb
+  style guide)
+- **[Docker Compose](https://docs.docker.com/compose/)** for development
+- **[Nginx](https://www.nginx.com/)** as a reverse proxy to allow
+  backend/frontend on the same port
+- **[MaterialUI](https://material-ui.com/)** for styling
+- **[react-admin](https://github.com/marmelab/react-admin)** for the admin
+  dashboard
+  - Using JWT authentication and login/redirects configured based on status
+    codes
+- **JWT** authentication using OAuth2 and PyJWT
 
 ## Background
 
 This project is meant as a lightweight/React alternative to [FastAPI's official
 fullstack project](https://github.com/tiangolo/full-stack-fastapi-postgresql).
-If you want a fullstack, comprehensive project in Vue, I would suggest you start
+If you want a more comprehensive project in Vue, I would suggest you start
 there.
 
 Most of the boilerplate backend code is taken from that project or the [FastAPI
@@ -60,6 +66,10 @@ This will ask for the following variables to be set:
 - port [default 8000]
 - postgres_user [default postgres]
 - postgres_password [default password]
+- postgres_database [default app]
+- initial_user_email [default admin@example.com]
+- initial_user_password [default password]
+- secret_key [default super_secret]
 
 and will create a directory called whatever you set for `project_slug`.
 
@@ -68,23 +78,35 @@ and will create a directory called whatever you set for `project_slug`.
 Change into your project directory and run:
 
 ```bash
-docker-compose up -d
-docker-compose run --rm backend alembic upgrade head
+chmod +x scripts/build.sh
+./scripts/build.sh
 ```
 
-This will take a while to build the first time it's run since it needs to fetch
-all the docker images.
+This will build and run the docker containers, run the alembic migrations, and
+load the initial data (a test user).
+
+It may take a while to build the first time it's run since it needs to fetch all
+the docker images.
+
+Once you've built the images once, you can simply use regular `docker-compose`
+commands to manage your development environment, for example to start your
+containers:
+
+```bash
+docker-compose up -d
+```
 
 Once this finishes you can navigate to the port set during setup (default is
 `localhost:8000`), you should see the slightly modified create-react-app page:
 
 ![default create-react-app](assets/create-react-app.png)
 
-*Note: If you see an Nginx error at first with a `502: Bad Gateway` page, you
-may  have to wait for webpack to build the development server (the nginx
-container builds much more quickly).*
+_Note: If you see an Nginx error at first with a `502: Bad Gateway` page, you
+may have to wait for webpack to build the development server (the nginx
+container builds much more quickly)._
 
-The backend docs will be at `http://localhost:8000/api/docs`.
+The backend docs will be at `http://localhost:8000/api/docs`. ![API
+Docs](assets/api-docs.png)
 
 Backend routes will be at `http://localhost:8000/api`.
 
@@ -93,16 +115,36 @@ Backend routes will be at `http://localhost:8000/api`.
 This project uses [react-admin](https://marmelab.com/react-admin/) for a highly
 configurable admin dashboard.
 
-After starting the project, navigate to `http://localhost:8000/admin`.  You
-should see a list of users, which you can edit, add, and delete. These are all
-based off of the `users` routes in the backend.
+After starting the project, navigate to `http://localhost:8000/admin`. You
+should see a login screen. Use the username/password you set for the initial
+user on project setup.
+
+![React Adming Login](assets/login-screen.png)
+
+You should now see a list of users which you can edit, add, and delete. The
+table is configured with the REST endpoints to the FastAPI `/users` routes in
+the backend.
 
 ![React Admin Dashboard](assets/admin-dashboard.png)
 
 The admin dashboard is kept in the `frontend/src/admin` directory to keep it
 separate from the regular frontend.
 
+## Security
+
+To generate a secure key used for encrypting/decrypting the JSON Web Tokens, you can run this command:
+
+```bash
+openssl rand -hex 32
+```
+
+The default is fine for development but you will want something more secure for
+production.
+
+You can either set this on project setup as `secret_key` or manually edit the
+Python `SECRET_KEY` variable in `backend/app/core/security.py`.
+
 ## Contributing
 
-Contributing is more than welcome.  Please read the [Contributing
+Contributing is more than welcome. Please read the [Contributing
 doc](CONTRIBUTING.md) to find out more.

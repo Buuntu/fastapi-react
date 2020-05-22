@@ -4,10 +4,9 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy_utils import database_exists, create_database, drop_database
 from fastapi.testclient import TestClient
 
-from app.core import config
+from app.core import config, security
 from app.db.session import Base, get_db
 from app.db import models
-
 from app.main import app
 
 
@@ -22,9 +21,7 @@ def test_db():
     This is to avoid tests affecting the database state of other tests.
     """
     # Connect to the test database
-    engine = create_engine(
-        get_test_db_url(),
-    )
+    engine = create_engine(get_test_db_url(),)
 
     connection = engine.connect()
     trans = connection.begin()
@@ -88,17 +85,23 @@ def client(test_db):
 
 
 @pytest.fixture
-def test_user(test_db) -> models.User:
+def test_password() -> str:
+    return "fakehash"
+
+
+@pytest.fixture
+def test_user(test_db, test_password) -> models.User:
     """
     Make a test user in the database
     """
 
     user = models.User(
         id=1,
-        email='fake@email.com',
-        hashed_password='fakehash',
+        email="fake@email.com",
+        hashed_password=security.get_password_hash(test_password),
         is_active=True,
     )
     test_db.add(user)
     test_db.commit()
+    test_db.refresh(user)
     return user

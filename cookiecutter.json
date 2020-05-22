@@ -4,6 +4,8 @@
   "port": "8000",
   "postgres_user": "postgres",
   "postgres_password": "password",
-  "postgres_server": "postgres",
-  "postgres_database": "app"
+  "postgres_database": "app",
+  "initial_user_email": "admin@{{cookiecutter.project_name}}.com",
+  "initial_user_password": "password",
+  "secret_key": "super_secret"
 }

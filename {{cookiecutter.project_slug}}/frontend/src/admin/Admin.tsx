@@ -1,24 +1,27 @@
 import React, { FC } from 'react';
 import { fetchUtils, Admin as ReactAdmin, Resource } from 'react-admin';
 import simpleRestProvider from 'ra-data-simple-rest';
+import authProvider from './authProvider';
 
 import { UserList, UserEdit, UserCreate } from './Users';
 
-const fetchJson = (url: string, options: any = {}) => {
-  if (!options.headers) {
-      options.headers = new Headers({ Accept: 'application/json' });
+const httpClient = (url: any, options: any) => {
+  if (!options) {
+    options = {};
   }
-  // add your own headers here
-  options.headers.set('X-Content-Range', '0-9/1');
+  if (!options.headers) {
+    options.headers = new Headers({ Accept: 'application/json' });
+  }
+  const token = localStorage.getItem('token');
+  options.headers.set('Authorization', `Bearer ${token}`);
   return fetchUtils.fetchJson(url, options);
-}
+};
 
-const dataProvider = simpleRestProvider('api/v1');
-
+const dataProvider = simpleRestProvider('api/v1', httpClient);
 
 export const Admin: FC = () => {
   return (
-    <ReactAdmin dataProvider={dataProvider}>
+    <ReactAdmin dataProvider={dataProvider} authProvider={authProvider}>
       <Resource
         name="users"
         list={UserList}
