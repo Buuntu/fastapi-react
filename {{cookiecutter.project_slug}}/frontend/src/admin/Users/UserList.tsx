@@ -1,6 +1,13 @@
 // in src/users.js
 import React, { FC } from 'react';
-import { List, Datagrid, TextField, BooleanField, EmailField, EditButton } from 'react-admin';
+import {
+  List,
+  Datagrid,
+  TextField,
+  BooleanField,
+  EmailField,
+  EditButton,
+} from 'react-admin';
 
 export const UserList: FC = (props) => (
   <List {...props}>

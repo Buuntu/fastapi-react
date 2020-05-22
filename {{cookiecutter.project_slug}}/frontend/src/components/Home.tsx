@@ -39,7 +39,9 @@ const Home: FC = () => {
             Error: <code>{error}</code>
           </p>
         )}
-        <a className="App-link" href="/admin">Go to admin dashboard</a>
+        <a className="App-link" href="/admin">
+          Go to admin dashboard
+        </a>
       </header>
     </div>
   );

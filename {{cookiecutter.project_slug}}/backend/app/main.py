@@ -8,10 +8,7 @@ from app.core import config
 from app.db.session import SessionLocal
 from app.core.security import oauth2_scheme
 
-app = FastAPI(
-    title=config.PROJECT_NAME,
-    docs_url="/api/docs", openapi_url="/api"
-)
+app = FastAPI(title=config.PROJECT_NAME, docs_url="/api/docs", openapi_url="/api")
 
 
 @app.middleware("http")
@@ -26,11 +23,10 @@ async def db_session_middleware(request: Request, call_next):
 async def root():
     return {"message": "Hello World"}
 
+
 # Routers
 app.include_router(users_router, prefix="/api/v1", tags=["users"])
 app.include_router(auth_router, prefix="/api", tags=["auth"])
 
 if __name__ == "__main__":
-    uvicorn.run(
-        "main:app", host="0.0.0.0", reload=True, port=8888, root_path="/api"
-    )
+    uvicorn.run("main:app", host="0.0.0.0", reload=True, port=8888, root_path="/api")

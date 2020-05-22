@@ -6,15 +6,14 @@ import { UserList, UserEdit, UserCreate } from './Users';
 
 const fetchJson = (url: string, options: any = {}) => {
   if (!options.headers) {
-      options.headers = new Headers({ Accept: 'application/json' });
+    options.headers = new Headers({ Accept: 'application/json' });
   }
   // add your own headers here
   options.headers.set('X-Content-Range', '0-9/1');
   return fetchUtils.fetchJson(url, options);
-}
+};
 
 const dataProvider = simpleRestProvider('api/v1');
-
 
 export const Admin: FC = () => {
   return (
