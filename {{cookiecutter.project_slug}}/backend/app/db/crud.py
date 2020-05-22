@@ -1,3 +1,4 @@
+from fastapi import HTTPException
 from sqlalchemy.orm import Session
 from passlib.context import CryptContext
 from fastapi.encoders import jsonable_encoder
@@ -17,7 +18,10 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
 
 
 def get_user(db: Session, user_id: int):
-    return db.query(models.User).filter(models.User.id == user_id).first()
+    user = db.query(models.User).filter(models.User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    return user
 
 
 def get_user_by_email(db: Session, email: str):
@@ -41,7 +45,7 @@ def create_user(db: Session, user: schemas.UserCreate):
 
 
 def delete_user(db: Session, user_id: int):
-    user = db.query(models.User).get(user_id)
+    user = get_user(db, user_id)
     db.delete(user)
     db.commit()
     return user

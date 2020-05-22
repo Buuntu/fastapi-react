@@ -18,10 +18,7 @@ async def users_list(response: Response, db=Depends(get_db)):
 
 @r.get("/users/{user_id}", response_model=User)
 async def user_details(request: Request, user_id: int, db=Depends(get_db)):
-    user = get_user(db, user_id)
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found")
-    return user
+    return get_user(db, user_id)
 
 
 @r.post("/users", response_model=User)

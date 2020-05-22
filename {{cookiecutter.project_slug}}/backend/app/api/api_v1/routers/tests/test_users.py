@@ -24,6 +24,11 @@ def test_delete_user(client, test_user, test_db):
     assert test_db.query(models.User).all() == []
 
 
+def test_delete_user_not_found(client, test_user, test_db):
+    response = client.delete(f"/api/v1/users/4321")
+    assert response.status_code == 404
+
+
 def test_edit_user(client, test_user, test_db):
     new_user = {
         'email': 'newemail@email.com',
@@ -36,6 +41,16 @@ def test_edit_user(client, test_user, test_db):
     new_user['id'] = test_user.id
     new_user.pop('password')
     assert response.json() == new_user
+
+
+def test_edit_user_not_found(client, test_user, test_db):
+    new_user = {
+        'email': 'newemail@email.com',
+        'is_active': False,
+        'password': 'new_password',
+    }
+    response = client.put(f"/api/v1/users/1234", json=new_user)
+    assert response.status_code == 404
 
 
 def test_get_user(client, test_user, test_db):

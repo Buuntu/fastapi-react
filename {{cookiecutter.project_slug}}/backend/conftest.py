@@ -26,7 +26,6 @@ def test_db():
         get_test_db_url(),
     )
 
-    # Base.metadata.create_all(bind=engine)
     connection = engine.connect()
     trans = connection.begin()
 
