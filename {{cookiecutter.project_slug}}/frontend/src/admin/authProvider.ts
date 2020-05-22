@@ -19,8 +19,8 @@ const authProvider = {
         }
         return response.json();
       })
-      .then(({ token }) => {
-        localStorage.setItem('token', token);
+      .then(({ access_token }) => {
+        localStorage.setItem('token', access_token);
       });
   },
   logout: () => {
@@ -37,7 +37,8 @@ const authProvider = {
   },
   checkAuth: () =>
     localStorage.getItem('token') ? Promise.resolve() : Promise.reject(),
-  getPermissions: () => Promise.resolve(),
+  getPermissions: () =>
+    localStorage.getItem('token') ? Promise.resolve() : Promise.reject(),
 };
 
 export default authProvider;

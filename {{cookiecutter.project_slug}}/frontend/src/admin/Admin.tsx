@@ -6,6 +6,9 @@ import authProvider from './authProvider';
 import { UserList, UserEdit, UserCreate } from './Users';
 
 const httpClient = (url: any, options: any) => {
+  if (!options) {
+    options = {};
+  }
   if (!options.headers) {
     options.headers = new Headers({ Accept: 'application/json' });
   }
