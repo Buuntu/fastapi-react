@@ -3,10 +3,10 @@
 <div>
 <img src="assets/fastapi-logo.png" alt="fastapi-logo" height="60" /> <img
 src="assets/react-logo.png" alt="react-logo" height="60" /> &nbsp; &nbsp; <img
+src="assets/react-admin.png" alt="react-admin" height="60" /> &nbsp; &nbsp; <img
 src="assets/typescript.png" alt="react-logo" height="60" /> &nbsp;&nbsp;&nbsp;
-<img src="assets/postgres.png" alt="react-logo" height="60" />
-&nbsp;&nbsp;
-<img src="assets/sql-alchemy.png"  
+<img src="assets/postgres.png" alt="react-logo" height="60" /> &nbsp;&nbsp; <img
+src="assets/sql-alchemy.png"  
 style="padding-bottom: 10px" alt="sql-alchemy" height="40" />
 </div>
 
@@ -15,21 +15,25 @@ using a modern stack.
 
 ## Features
 
-1. **[FastAPI](https://fastapi.tiangolo.com/)** (Python 3.8)
-2. **[React](https://reactjs.org/)** (with Typescript)
-3. **[PostgreSQL](https://www.postgresql.org/)** for the database
-4. **[SqlAlchemy](https://www.sqlalchemy.org/)** for ORM
-5. **[Alembic](https://alembic.sqlalchemy.org/en/latest/)** for database
+* **[FastAPI](https://fastapi.tiangolo.com/)** (Python 3.8)
+* **[React](https://reactjs.org/)** (with Typescript)
+* **[PostgreSQL](https://www.postgresql.org/)** for the database
+* **[SqlAlchemy](https://www.sqlalchemy.org/)** for ORM
+* **[Alembic](https://alembic.sqlalchemy.org/en/latest/)** for database
    migrations
-6. **[Pytest](https://docs.pytest.org/en/latest/)** for backend tests
-7. **[Prettier](https://prettier.io/)**/**[ESLint](https://eslint.org/)**
-   (Airbnb style guide)
-8. **[Docker Compose](https://docs.docker.com/compose/)** for development
-9. **[Nginx](https://www.nginx.com/)** as a reverse proxy to allow
+* **[Pytest](https://docs.pytest.org/en/latest/)** for backend tests
+  * Includes test database, client, and user fixtures
+* **[Prettier](https://prettier.io/)**/**[ESLint](https://eslint.org/)** (Airbnb
+   style guide)
+* **[Docker Compose](https://docs.docker.com/compose/)** for development
+* **[Nginx](https://www.nginx.com/)** as a reverse proxy to allow
    backend/frontend on the same port
-10. [**MaterialUI**](https://material-ui.com/) for styling
-11. [**react-admin**](https://github.com/marmelab/react-admin) for the admin
+* **[MaterialUI](https://material-ui.com/)** for styling
+* **[react-admin](https://github.com/marmelab/react-admin)** for the admin
     dashboard
+  * Using JWT authentication and login/redirects configured based on status
+    codes
+* **JWT** authentication using OAuth2 and PyJWT
 
 ## Background
 
@@ -71,12 +75,21 @@ and will create a directory called whatever you set for `project_slug`.
 Change into your project directory and run:
 
 ```bash
-docker-compose up -d
-docker-compose run --rm backend alembic upgrade head
+chmod +x scripts/build.sh
+./scripts/build.sh
 ```
 
-This will take a while to build the first time it's run since it needs to fetch
-all the docker images.
+This will build and run the docker containers, run the alembic migrations, and
+load the initial data (a test user).
+
+It may take a while to build the first time it's run since it needs to fetch all
+the docker images.
+
+Once you've built the images once, you can simply use regular `docker-compose` commands to manage your development environment, for example to start your containers:
+
+```bash
+docker-compose up -d
+```
 
 Once this finishes you can navigate to the port set during setup (default is
 `localhost:8000`), you should see the slightly modified create-react-app page:
@@ -97,8 +110,11 @@ This project uses [react-admin](https://marmelab.com/react-admin/) for a highly
 configurable admin dashboard.
 
 After starting the project, navigate to `http://localhost:8000/admin`.  You
-should see a list of users, which you can edit, add, and delete. These are all
-based off of the `users` routes in the backend.
+should see a login screen.  Use the username/password you set for the initial user on project setup.
+
+![React Adming Login](assets/login-screen.png)
+
+You should now see a list of users which you can edit, add, and delete. The table is configured with the REST endpoints to the FastAPI `/users` routes in the backend.
 
 ![React Admin Dashboard](assets/admin-dashboard.png)
 
