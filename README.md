@@ -5,9 +5,8 @@
 src="assets/react-logo.png" alt="react-logo" height="60" /> &nbsp; &nbsp; <img
 src="assets/react-admin.png" alt="react-admin" height="60" /> &nbsp; &nbsp; <img
 src="assets/typescript.png" alt="react-logo" height="60" /> &nbsp;&nbsp;&nbsp;
-<img src="assets/postgres.png" alt="react-logo" height="60" /> &nbsp;&nbsp; <img
-src="assets/sql-alchemy.png"  
-style="padding-bottom: 10px" alt="sql-alchemy" height="40" />
+<img src="assets/postgres.png" alt="react-logo" height="60" /> <img
+src="assets/sql-alchemy.png" alt="sql-alchemy" height="60" />
 </div>
 
 This project serves as a template for bootstrapping a FastAPI and React project
@@ -85,7 +84,9 @@ load the initial data (a test user).
 It may take a while to build the first time it's run since it needs to fetch all
 the docker images.
 
-Once you've built the images once, you can simply use regular `docker-compose` commands to manage your development environment, for example to start your containers:
+Once you've built the images once, you can simply use regular `docker-compose`
+commands to manage your development environment, for example to start your
+containers:
 
 ```bash
 docker-compose up -d
@@ -110,11 +111,14 @@ This project uses [react-admin](https://marmelab.com/react-admin/) for a highly
 configurable admin dashboard.
 
 After starting the project, navigate to `http://localhost:8000/admin`.  You
-should see a login screen.  Use the username/password you set for the initial user on project setup.
+should see a login screen.  Use the username/password you set for the initial
+user on project setup.
 
 ![React Adming Login](assets/login-screen.png)
 
-You should now see a list of users which you can edit, add, and delete. The table is configured with the REST endpoints to the FastAPI `/users` routes in the backend.
+You should now see a list of users which you can edit, add, and delete. The
+table is configured with the REST endpoints to the FastAPI `/users` routes in
+the backend.
 
 ![React Admin Dashboard](assets/admin-dashboard.png)
 
