@@ -3,6 +3,7 @@ from sqlalchemy import create_engine, event
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy_utils import database_exists, create_database, drop_database
 from fastapi.testclient import TestClient
+import typing as t
 
 from app.core import config, security
 from app.db.session import Base, get_db
@@ -105,3 +106,18 @@ def test_user(test_db, test_password) -> models.User:
     test_db.commit()
     test_db.refresh(user)
     return user
+
+
+@pytest.fixture
+def user_token_headers(
+    client: TestClient, test_user, test_password
+) -> t.Dict[str, str]:
+    login_data = {
+        "username": test_user.email,
+        "password": test_password,
+    }
+    r = client.post("/api/token", data=login_data)
+    tokens = r.json()
+    a_token = tokens["access_token"]
+    headers = {"Authorization": f"Bearer {a_token}"}
+    return headers

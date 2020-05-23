@@ -132,7 +132,8 @@ separate from the regular frontend.
 
 ## Security
 
-To generate a secure key used for encrypting/decrypting the JSON Web Tokens, you can run this command:
+To generate a secure key used for encrypting/decrypting the JSON Web Tokens, you
+can run this command:
 
 ```bash
 openssl rand -hex 32
@@ -143,6 +144,50 @@ production.
 
 You can either set this on project setup as `secret_key` or manually edit the
 Python `SECRET_KEY` variable in `backend/app/core/security.py`.
+
+## Testing
+
+This project comes with Pytest and a few Pytest fixtures for easier mocking. The
+fixtures are all located in `backend/conftest.py` within your project directory.
+
+To use the test client, simply create a Pytest file and include `test_db` as an
+argument to your test method:
+
+```python
+def test_user(test_db):
+    # This is an empty test database and an instance of a SQLAlchemy Session class
+    assert test_db.query(models.User).all()
+```
+
+To use an unauthenticated test client, use `test_client`:
+
+```python
+def test_get_users(test_client):
+    test_client.get("/api/v1/users")
+    assert response.status_code == 200
+```
+
+Or if you need an authenticated client using OAuth2 and JWTs:
+
+```python
+def test_user_me(test_client, user_token_headers):
+    response = test_client.get(
+      "/api/v1/users/me",
+      headers=user_token_headers,
+    )
+    assert response.status_code == 200
+```
+
+Since OAuth2 expects the access token in the headers, you will need to pass in
+`user_token_headers` as the `headers` argument in any client request that
+requires authentication.
+
+For a test user, use `test_user`:
+
+```python
+def test_user_exists(test_user):
+    assert test_user.email == "admin@example.com"
+```
 
 ## Contributing
 
