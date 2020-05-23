@@ -15,7 +15,9 @@ from app.core.auth import get_current_active_user
 users_router = r = APIRouter()
 
 
-@r.get("/users", response_model=t.List[User])
+@r.get(
+    "/users", response_model=t.List[User],
+)
 async def users_list(response: Response, db=Depends(get_db)):
     users = get_users(db)
     # This is necessary for react-admin to work

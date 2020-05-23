@@ -5,7 +5,7 @@ cd ..
 current_dir=`pwd`
 cd ..
 ./fastapi-react/scripts/dev-project.sh
-cd dev-fastapi-react
+cd fastapi-react-dev
 docker-compose down -v --remove-orphans
 ./scripts/build.sh
 ./scripts/test.sh
