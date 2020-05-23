@@ -106,7 +106,7 @@ may have to wait for webpack to build the development server (the nginx
 container builds much more quickly)._
 
 The backend docs will be at `http://localhost:8000/api/docs`. ![API
-Docs](assets/api-docs.png)
+Docs](assets/api-docs2.png)
 
 Backend routes will be at `http://localhost:8000/api`.
 
