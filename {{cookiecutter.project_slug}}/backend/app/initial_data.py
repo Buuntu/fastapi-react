@@ -15,6 +15,7 @@ def init() -> None:
             email="{{cookiecutter.initial_user_email}}",
             password="{{cookiecutter.initial_user_password}}",
             is_active=True,
+            is_superuser=True,
         ),
     )
 
