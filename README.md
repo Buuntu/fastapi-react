@@ -162,10 +162,10 @@ def test_user(test_db):
     assert test_db.query(models.User).all()
 ```
 
-To use an unauthenticated test client, use `test_client`:
+To use an unauthenticated test client, use `client`:
 
 ```python
-def test_get_users(test_client):
+def test_get_users(client):
     test_client.get("/api/v1/users")
     assert response.status_code == 200
 ```
@@ -173,8 +173,8 @@ def test_get_users(test_client):
 Or if you need an authenticated client using OAuth2 and JWTs:
 
 ```python
-def test_user_me(test_client, user_token_headers):
-    response = test_client.get(
+def test_user_me(client, user_token_headers):
+    response = client.get(
       "/api/v1/users/me",
       headers=user_token_headers,
     )
@@ -192,7 +192,21 @@ def test_user_exists(test_user):
     assert test_user.email == "admin@example.com"
 ```
 
+For a superuser, use `test_superuser`.
+
+Superuser routes requires superuser headers:
+
+```python
+def test_superuser_method(client, superuser_token_headers):
+    # This route requires superuser privelages
+    assert client.get("/api/v1/users", headers=superuser_token_headers)
+```
+
 ## Contributing
 
 Contributing is more than welcome. Please read the [Contributing
 doc](CONTRIBUTING.md) to find out more.
+
+```
+
+```
