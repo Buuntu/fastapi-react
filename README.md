@@ -32,6 +32,7 @@ using a modern stack.
   dashboard
   - Using JWT authentication and login/redirects configured based on status
     codes
+  - Only superusers are able to access the react-admin dashboard
 - **JWT** authentication using OAuth2 and PyJWT
 
 ## Background
@@ -67,8 +68,8 @@ This will ask for the following variables to be set:
 - postgres_user [default postgres]
 - postgres_password [default password]
 - postgres_database [default app]
-- initial_user_email [default admin@example.com]
-- initial_user_password [default password]
+- superuser_email [default admin@example.com]
+- superuser_password [default password]
 - secret_key [default super_secret]
 
 and will create a directory called whatever you set for `project_slug`.
@@ -116,8 +117,10 @@ This project uses [react-admin](https://marmelab.com/react-admin/) for a highly
 configurable admin dashboard.
 
 After starting the project, navigate to `http://localhost:8000/admin`. You
-should see a login screen. Use the username/password you set for the initial
-user on project setup.
+should see a login screen. Use the username/password you set for the superuser
+on project setup.
+
+_NOTE: regular users will not be able to access the admin dashboard_
 
 ![React Adming Login](assets/login-screen.png)
 
@@ -159,10 +162,10 @@ def test_user(test_db):
     assert test_db.query(models.User).all()
 ```
 
-To use an unauthenticated test client, use `test_client`:
+To use an unauthenticated test client, use `client`:
 
 ```python
-def test_get_users(test_client):
+def test_get_users(client):
     test_client.get("/api/v1/users")
     assert response.status_code == 200
 ```
@@ -170,8 +173,8 @@ def test_get_users(test_client):
 Or if you need an authenticated client using OAuth2 and JWTs:
 
 ```python
-def test_user_me(test_client, user_token_headers):
-    response = test_client.get(
+def test_user_me(client, user_token_headers):
+    response = client.get(
       "/api/v1/users/me",
       headers=user_token_headers,
     )
@@ -189,7 +192,21 @@ def test_user_exists(test_user):
     assert test_user.email == "admin@example.com"
 ```
 
+For a superuser, use `test_superuser`.
+
+Superuser routes requires superuser headers:
+
+```python
+def test_superuser_method(client, superuser_token_headers):
+    # This route requires superuser privelages
+    assert client.get("/api/v1/users", headers=superuser_token_headers)
+```
+
 ## Contributing
 
 Contributing is more than welcome. Please read the [Contributing
 doc](CONTRIBUTING.md) to find out more.
+
+```
+
+```

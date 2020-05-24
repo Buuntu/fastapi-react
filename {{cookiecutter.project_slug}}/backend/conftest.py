@@ -87,7 +87,7 @@ def client(test_db):
 
 @pytest.fixture
 def test_password() -> str:
-    return "fakehash"
+    return "securepassword"
 
 
 @pytest.fixture
@@ -97,10 +97,26 @@ def test_user(test_db, test_password) -> models.User:
     """
 
     user = models.User(
-        id=1,
         email="fake@email.com",
         hashed_password=security.get_password_hash(test_password),
         is_active=True,
+    )
+    test_db.add(user)
+    test_db.commit()
+    test_db.refresh(user)
+    return user
+
+
+@pytest.fixture
+def test_superuser(test_db, test_password) -> models.User:
+    """
+    Superuser for testing
+    """
+
+    user = models.User(
+        email="fakeadmin@email.com",
+        hashed_password=security.get_password_hash(test_password),
+        is_superuser=True,
     )
     test_db.add(user)
     test_db.commit()
@@ -114,6 +130,21 @@ def user_token_headers(
 ) -> t.Dict[str, str]:
     login_data = {
         "username": test_user.email,
+        "password": test_password,
+    }
+    r = client.post("/api/token", data=login_data)
+    tokens = r.json()
+    a_token = tokens["access_token"]
+    headers = {"Authorization": f"Bearer {a_token}"}
+    return headers
+
+
+@pytest.fixture
+def superuser_token_headers(
+    client: TestClient, test_superuser, test_password
+) -> t.Dict[str, str]:
+    login_data = {
+        "username": test_superuser.email,
         "password": test_password,
     }
     r = client.post("/api/token", data=login_data)
