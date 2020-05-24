@@ -22,7 +22,7 @@ class UserCreate(UserBase):
 
 
 class UserEdit(UserBase):
-    password: str
+    password: t.Optional[str] = None
 
     class Config:
         orm_mode = True

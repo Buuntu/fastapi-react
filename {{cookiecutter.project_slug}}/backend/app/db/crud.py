@@ -52,9 +52,16 @@ def edit_user(
     db: Session, user_id: int, user: schemas.UserEdit
 ) -> schemas.User:
     db_user = get_user(db, user_id)
-    db_user.hashed_password = get_password_hash(user.password)
-    db_user.is_active = user.is_active
-    db_user.email = user.email
+    if not db_user:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, detail="User not found")
+    update_data = user.dict(exclude_unset=True)
+
+    if "password" in update_data:
+        update_data["hashed_password"] = get_password_hash(user.password)
+        del update_data["password"]
+
+    for key, value in update_data.items():
+        setattr(db_user, key, value)
 
     db.add(db_user)
     db.commit()

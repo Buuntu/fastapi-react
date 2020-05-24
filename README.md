@@ -32,6 +32,7 @@ using a modern stack.
   dashboard
   - Using JWT authentication and login/redirects configured based on status
     codes
+  - Only superusers are able to access the react-admin dashboard
 - **JWT** authentication using OAuth2 and PyJWT
 
 ## Background
@@ -67,8 +68,8 @@ This will ask for the following variables to be set:
 - postgres_user [default postgres]
 - postgres_password [default password]
 - postgres_database [default app]
-- initial_user_email [default admin@example.com]
-- initial_user_password [default password]
+- superuser_email [default admin@example.com]
+- superuser_password [default password]
 - secret_key [default super_secret]
 
 and will create a directory called whatever you set for `project_slug`.
@@ -116,8 +117,10 @@ This project uses [react-admin](https://marmelab.com/react-admin/) for a highly
 configurable admin dashboard.
 
 After starting the project, navigate to `http://localhost:8000/admin`. You
-should see a login screen. Use the username/password you set for the initial
-user on project setup.
+should see a login screen. Use the username/password you set for the superuser
+on project setup.
+
+_NOTE: regular users will not be able to access the admin dashboard_
 
 ![React Adming Login](assets/login-screen.png)
 
