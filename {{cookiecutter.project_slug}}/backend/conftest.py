@@ -12,7 +12,7 @@ from app.main import app
 
 
 def get_test_db_url() -> str:
-    return f"{config.SQLALCHEMY_DATABASE_URI}.test"
+    return f"{config.SQLALCHEMY_DATABASE_URI}_test"
 
 
 @pytest.fixture
@@ -90,44 +90,55 @@ def test_password() -> str:
     return "securepassword"
 
 
+def get_password_hash() -> str:
+    """
+    Password hashing can be expensive so a mock will be much faster
+    """
+    return "supersecrethash"
+
+
 @pytest.fixture
-def test_user(test_db, test_password) -> models.User:
+def test_user(test_db) -> models.User:
     """
     Make a test user in the database
     """
 
     user = models.User(
         email="fake@email.com",
-        hashed_password=security.get_password_hash(test_password),
+        hashed_password=get_password_hash(),
         is_active=True,
     )
     test_db.add(user)
     test_db.commit()
-    test_db.refresh(user)
     return user
 
 
 @pytest.fixture
-def test_superuser(test_db, test_password) -> models.User:
+def test_superuser(test_db) -> models.User:
     """
     Superuser for testing
     """
 
     user = models.User(
         email="fakeadmin@email.com",
-        hashed_password=security.get_password_hash(test_password),
+        hashed_password=get_password_hash(),
         is_superuser=True,
     )
     test_db.add(user)
     test_db.commit()
-    test_db.refresh(user)
     return user
+
+
+def verify_password_mock(first: str, second: str) -> bool:
+    return True
 
 
 @pytest.fixture
 def user_token_headers(
-    client: TestClient, test_user, test_password
+    client: TestClient, test_user, test_password, monkeypatch
 ) -> t.Dict[str, str]:
+    monkeypatch.setattr(security, "verify_password", verify_password_mock)
+
     login_data = {
         "username": test_user.email,
         "password": test_password,
@@ -141,8 +152,10 @@ def user_token_headers(
 
 @pytest.fixture
 def superuser_token_headers(
-    client: TestClient, test_superuser, test_password
+    client: TestClient, test_superuser, test_password, monkeypatch
 ) -> t.Dict[str, str]:
+    monkeypatch.setattr(security, "verify_password", verify_password_mock)
+
     login_data = {
         "username": test_superuser.email,
         "password": test_password,
