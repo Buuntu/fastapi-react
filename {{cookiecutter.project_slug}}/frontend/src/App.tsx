@@ -1,20 +1,33 @@
 import React, { FC } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Routes } from './Routes';
+import { makeStyles } from '@material-ui/core/styles';
 
-import Home from './components/Home';
-import { Admin } from './admin';
+const useStyles = makeStyles((theme) => ({
+  app: {
+    textAlign: 'center',
+  },
+  header: {
+    backgroundColor: '#282c34',
+    minHeight: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: 'calc(10px + 2vmin)',
+    color: 'white',
+  },
+}));
 
-import './App.css';
+const App: FC = () => {
+  const classes = useStyles();
 
-const App: FC = () => (
-  <Switch>
-    <Route path="/admin">
-      <Admin />
-    </Route>
-    <Route path="/">
-      <Home />
-    </Route>
-  </Switch>
-);
+  return (
+    <div className={classes.app}>
+      <header className={classes.header}>
+        <Routes />
+      </header>
+    </div>
+  );
+};
 
 export default App;
