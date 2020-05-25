@@ -15,25 +15,28 @@ using a modern stack.
 ## Features
 
 - **[FastAPI](https://fastapi.tiangolo.com/)** (Python 3.8)
+  - **JWT** authentication using OAuth2 and PyJWT
 - **[React](https://reactjs.org/)** (with Typescript)
+  - [react-router v5](https://reacttraining.com/react-router/) to handle routing
+  - [Utility functions](##Frontend-Utilities) and [higher-order components](##Higher-Order-Components) for
+    handling authentication and storing JWT in local storage
 - **[PostgreSQL](https://www.postgresql.org/)** for the database
 - **[SqlAlchemy](https://www.sqlalchemy.org/)** for ORM
 - **[Alembic](https://alembic.sqlalchemy.org/en/latest/)** for database
   migrations
 - **[Pytest](https://docs.pytest.org/en/latest/)** for backend tests
-  - Includes test database, client, and user fixtures
+  - Includes test database/client, transaction based tests, and user fixtures
+  - See [Testing section](##Testing) for more
 - **[Prettier](https://prettier.io/)**/**[ESLint](https://eslint.org/)** (Airbnb
   style guide)
 - **[Docker Compose](https://docs.docker.com/compose/)** for development
 - **[Nginx](https://www.nginx.com/)** as a reverse proxy to allow
   backend/frontend on the same port
-- **[MaterialUI](https://material-ui.com/)** for styling
+- **[MaterialUI](https://material-ui.com/)** using recommended
+  [CSS-in-JS](https://material-ui.com/styles/basics/) styling.
 - **[react-admin](https://github.com/marmelab/react-admin)** for the admin
   dashboard
-  - Using JWT authentication and login/redirects configured based on status
-    codes
-  - Only superusers are able to access the react-admin dashboard
-- **JWT** authentication using OAuth2 and PyJWT
+  - Using JWT authentication requiring superuser privileges
 
 ## Background
 
@@ -153,6 +156,11 @@ Python `SECRET_KEY` variable in `backend/app/core/security.py`.
 This project comes with Pytest and a few Pytest fixtures for easier mocking. The
 fixtures are all located in `backend/conftest.py` within your project directory.
 
+All tests are configured to run on a test database using [SQLAlchemy
+transactions](https://docs.sqlalchemy.org/en/13/orm/session_transaction.html) to
+reset the testing state on each function. This is to avoid a database call
+affecting the state of a different state.
+
 To use the test client, simply create a Pytest file and include `test_db` as an
 argument to your test method:
 
@@ -202,11 +210,59 @@ def test_superuser_method(client, superuser_token_headers):
     assert client.get("/api/v1/users", headers=superuser_token_headers)
 ```
 
+## Frontend Utilities
+
+There are a few helper methods to handle authentication in `frontend/src/utils`.
+These store the JWT returned by FastAPI in local storage. Even though this
+doesn't create any real added security, we prevent loading routes that might be
+protected on the frontend, which results in a better UX experience.
+
+```typescript
+// in src/utils/auth.ts
+
+/**
+ *  Handles authentication with backend and stores in JWT in local storage
+ *  @returns true|false
+ **/
+const login = (email: string, password: string) => bool;
+```
+
+```typescript
+// in src/utils/auth.ts
+
+// clears token from local storage
+const logout = (email: string, password: string) => void;
+```
+
+### Higher-Order Components
+
+<details><summary>PrivateRoute</summary>
+<p>
+
+This handles routes that require authentication. It will automatically check
+whether the correct token with the "user" permissions is present and if not,
+redirect to the home page.
+
+#### Usage:
+
+```JSX
+// in src/Routes.tsx
+import { Switch } from 'react-router-dom';
+
+// Replace this with your component
+import { ProtectecComponent } from 'components';
+
+const Routes = () => (
+  <Switch>
+    <PrivateRoute path="/protected_route" component={ProtectedComponent} />
+  </Switch>
+);
+```
+
+</p>
+</details>
+
 ## Contributing
 
 Contributing is more than welcome. Please read the [Contributing
 doc](CONTRIBUTING.md) to find out more.
-
-```
-
-```
