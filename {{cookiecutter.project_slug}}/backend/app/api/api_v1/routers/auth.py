@@ -25,7 +25,8 @@ async def login(
         minutes=security.ACCESS_TOKEN_EXPIRE_MINUTES
     )
     access_token = security.create_access_token(
-        data={"sub": user.email}, expires_delta=access_token_expires
+        data={"sub": user.email, "scopes": form_data.scopes},
+        expires_delta=access_token_expires,
     )
 
     return {"access_token": access_token, "token_type": "bearer"}

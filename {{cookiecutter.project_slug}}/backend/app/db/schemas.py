@@ -42,3 +42,4 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     email: str = None
+    scopes: t.List[str] = []

@@ -3,6 +3,7 @@ import {
   Create,
   SimpleForm,
   TextInput,
+  EmailField,
   PasswordInput,
   BooleanInput,
 } from 'react-admin';
@@ -10,7 +11,7 @@ import {
 export const UserCreate: FC = (props) => (
   <Create {...props}>
     <SimpleForm>
-      <TextInput source="email" />
+      <EmailField source="email" />
       <TextInput source="first_name" />
       <TextInput source="last_name" />
       <PasswordInput source="password" />

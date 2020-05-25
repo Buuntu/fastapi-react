@@ -5,13 +5,14 @@ import {
   TextInput,
   PasswordInput,
   BooleanInput,
+  EmailField,
 } from 'react-admin';
 
 export const UserEdit: FC = (props) => (
   <Edit {...props}>
     <SimpleForm>
       <TextInput disabled source="id" />
-      <TextInput source="email" />
+      <EmailField source="email" />
       <TextInput source="first_name" />
       <TextInput source="last_name" />
       <PasswordInput source="password" />

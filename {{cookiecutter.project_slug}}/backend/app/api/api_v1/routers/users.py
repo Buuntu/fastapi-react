@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Request, Depends, Response, encoders
+from fastapi import APIRouter, Request, Depends, Response, Security
 import typing as t
 
 from app.db.session import get_db
@@ -9,8 +9,9 @@ from app.db.crud import (
     delete_user,
     edit_user,
 )
-from app.db.schemas import UserCreate, UserEdit, User, UserOut
+from app.db.schemas import UserCreate, UserEdit, User
 from app.core.auth import get_current_active_user, get_current_active_superuser
+
 
 users_router = r = APIRouter()
 
@@ -21,7 +22,7 @@ users_router = r = APIRouter()
 async def users_list(
     response: Response,
     db=Depends(get_db),
-    current_user=Depends(get_current_active_superuser),
+    current_user=Security(get_current_active_superuser, scopes=["admin"]),
 ):
     """
     Get all users
@@ -33,7 +34,9 @@ async def users_list(
 
 
 @r.get("/users/me", response_model=User, response_model_exclude_none=True)
-async def user_me(current_user=Depends(get_current_active_user)):
+async def user_me(
+    current_user=Security(get_current_active_user, scopes=["user"])
+):
     """
     Get own user
     """
