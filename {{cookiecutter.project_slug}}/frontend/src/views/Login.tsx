@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import {
   Paper,
   Grid,
@@ -9,6 +9,10 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Face, Fingerprint } from '@material-ui/icons';
+import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router';
+
+import { login, isAuthenticated } from '../utils/auth';
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -27,7 +31,21 @@ const useStyles = makeStyles((theme) => ({
 
 export const Login: FC = () => {
   const classes = useStyles();
-  return (
+  const history = useHistory();
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+
+  const handleSubmit = async (_: React.MouseEvent) => {
+    const data = await login(email, password);
+    if (data) {
+      history.push('/');
+    }
+    // handle errors
+  };
+
+  return isAuthenticated() ? (
+    <Redirect to="/" />
+  ) : (
     <Paper className={classes.padding}>
       <div className={classes.margin}>
         <Grid container spacing={8} alignItems="flex-end">
@@ -36,9 +54,13 @@ export const Login: FC = () => {
           </Grid>
           <Grid item md={true} sm={true} xs={true}>
             <TextField
-              id="username"
-              label="Username"
+              id="email"
+              label="Email"
               type="email"
+              value={email}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setEmail(e.currentTarget.value)
+              }
               fullWidth
               autoFocus
               required
@@ -51,9 +73,13 @@ export const Login: FC = () => {
           </Grid>
           <Grid item md={true} sm={true} xs={true}>
             <TextField
-              id="username"
+              id="password"
               label="Password"
               type="password"
+              value={password}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setPassword(e.currentTarget.value)
+              }
               fullWidth
               required
             />
@@ -79,7 +105,12 @@ export const Login: FC = () => {
           </Grid>
         </Grid>
         <Grid container justify="center" className={classes.marginTop}>
-          <Button variant="outlined" color="primary" className={classes.button}>
+          <Button
+            variant="outlined"
+            color="primary"
+            className={classes.button}
+            onClick={handleSubmit}
+          >
             Login
           </Button>
         </Grid>
