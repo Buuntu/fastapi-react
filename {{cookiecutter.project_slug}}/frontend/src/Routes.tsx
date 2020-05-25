@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { Home, Login } from './views';
+import { Home, Login, Protected, PrivateRoute } from './views';
 import { Admin } from './admin';
 
 const useStyles = makeStyles((theme) => ({
@@ -32,12 +32,9 @@ export const Routes = () => {
 
       <div className={classes.app}>
         <header className={classes.header}>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route exact path="/">
-            <Home />
-          </Route>
+          <Route path="/login" component={Login} />
+          <PrivateRoute path="/protected" component={Protected} />
+          <Route exact path="/" component={Home} />
         </header>
       </div>
     </Switch>
