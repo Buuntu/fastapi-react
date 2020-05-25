@@ -1,9 +1,12 @@
 import React, { FC } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { useHistory } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
+import { History } from 'history';
 
-import { Home, Login } from './views';
+import { Home, Login, Protected, PrivateRoute } from './views';
 import { Admin } from './admin';
+import { logout } from './utils/auth';
 
 const useStyles = makeStyles((theme) => ({
   app: {
@@ -21,8 +24,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const Routes = () => {
+export const Routes: FC = () => {
   const classes = useStyles();
+  const history = useHistory();
 
   return (
     <Switch>
@@ -32,12 +36,17 @@ export const Routes = () => {
 
       <div className={classes.app}>
         <header className={classes.header}>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route exact path="/">
-            <Home />
-          </Route>
+          <Route path="/login" component={Login} />
+          <Route
+            path="/logout"
+            render={() => {
+              logout();
+              history.push('/');
+              return null;
+            }}
+          />
+          <PrivateRoute path="/protected" component={Protected} />
+          <Route exact path="/" component={Home} />
         </header>
       </div>
     </Switch>
