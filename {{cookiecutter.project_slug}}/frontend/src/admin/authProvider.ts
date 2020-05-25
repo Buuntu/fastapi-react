@@ -1,3 +1,5 @@
+import decodeJwt from 'jwt-decode';
+
 type loginFormType = {
   username: string;
   password: string;
@@ -20,11 +22,17 @@ const authProvider = {
         return response.json();
       })
       .then(({ access_token }) => {
+        const decodedToken: any = decodeJwt(access_token);
+        if (decodedToken.permissions !== 'admin') {
+          throw new Error('Forbidden');
+        }
         localStorage.setItem('token', access_token);
+        localStorage.setItem('permissions', decodedToken.permissions);
       });
   },
   logout: () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('permissions');
     return Promise.resolve();
   },
   checkError: (error: { status: number }) => {
@@ -37,8 +45,11 @@ const authProvider = {
   },
   checkAuth: () =>
     localStorage.getItem('token') ? Promise.resolve() : Promise.reject(),
-  getPermissions: () =>
-    localStorage.getItem('token') ? Promise.resolve() : Promise.reject(),
+  getPermissions: () => {
+    const role = localStorage.getItem('permissions');
+    return role ? Promise.resolve(role) : Promise.reject();
+    // localStorage.getItem('token') ? Promise.resolve() : Promise.reject(),
+  },
 };
 
 export default authProvider;
