@@ -1,7 +1,8 @@
 import React, { FC, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { BACKEND_URL } from '../config';
+import { getMessage } from '../utils/api';
+import { isAuthenticated } from '../utils/auth';
 
 const useStyles = makeStyles((theme) => ({
   link: {
@@ -14,26 +15,19 @@ export const Home: FC = () => {
   const [error, setError] = useState<string>('');
   const classes = useStyles();
 
-  const getMessage = () => {
-    fetch(BACKEND_URL)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.message) {
-          setMessage(data.message);
-        } else {
-          setError(`Failed to get message from ${data}`);
-        }
-      })
-      .catch((error) => setError(error));
+  const queryBackend = async () => {
+    try {
+      const message = await getMessage();
+      setMessage(message);
+    } catch (err) {
+      setError(err);
+    }
   };
 
   return (
     <>
-      <p>
-        Edit <code>src/App.tsx</code> and save to reload.
-      </p>
       {!message && !error && (
-        <a className={classes.link} onClick={() => getMessage()}>
+        <a className={classes.link} onClick={() => queryBackend()}>
           Click to make request to backend
         </a>
       )}
@@ -48,8 +42,20 @@ export const Home: FC = () => {
         </p>
       )}
       <a className={classes.link} href="/admin">
-        Go to admin dashboard
+        Admin Dashboard
       </a>
+      <a className={classes.link} href="/protected">
+        Protected Route
+      </a>
+      {isAuthenticated() ? (
+        <a className={classes.link} href="/logout">
+          Logout
+        </a>
+      ) : (
+        <a className={classes.link} href="/login">
+          Login
+        </a>
+      )}
     </>
   );
 };

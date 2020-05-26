@@ -1,4 +1,4 @@
-# FastAPI + React Template · [![CircleCI](https://circleci.com/gh/Buuntu/fastapi-react.svg?style=shield)](https://circleci.com/gh/Buuntu/fastapi-react) [![license](https://img.shields.io/github/license/peaceiris/actions-gh-pages.svg)](LICENSE) [![Dependabot Status](https://img.shields.io/badge/Dependabot-active-brightgreen.svg)](https://dependabot.com)
+# FastAPI + React · [![CircleCI](https://circleci.com/gh/Buuntu/fastapi-react.svg?style=shield)](https://circleci.com/gh/Buuntu/fastapi-react) [![license](https://img.shields.io/github/license/peaceiris/actions-gh-pages.svg)](LICENSE) [![Dependabot Status](https://img.shields.io/badge/Dependabot-active-brightgreen.svg)](https://dependabot.com)
 
 <div>
 <img src="assets/fastapi-logo.png" alt="fastapi-logo" height="60" /> <img
@@ -9,24 +9,28 @@ src="assets/typescript.png" alt="react-logo" height="60" /> &nbsp;&nbsp;&nbsp;
 src="assets/sql-alchemy.png" alt="sql-alchemy" height="60" />
 </div>
 
-This project serves as a template for bootstrapping a FastAPI and React project
-using a modern stack.
+A cookiecutter template for bootstrapping a FastAPI and React project using a
+modern stack.
+
+---
 
 ## Features
 
 - **[FastAPI](https://fastapi.tiangolo.com/)** (Python 3.8)
-  - **JWT** authentication using OAuth2 and PyJWT
+  - **JWT** authentication using [OAuth2 "password
+    flow"](https://fastapi.tiangolo.com/tutorial/security/simple-oauth2/) and
+    PyJWT
 - **[React](https://reactjs.org/)** (with Typescript)
   - [react-router v5](https://reacttraining.com/react-router/) to handle routing
-  - [Utility functions](##Frontend-Utilities) and [higher-order components](##Higher-Order-Components) for
-    handling authentication and storing JWT in local storage
+  - [Utility functions](#Frontend-Utilities) and [higher-order
+    components](#Higher-Order-Components) for handling authentication
 - **[PostgreSQL](https://www.postgresql.org/)** for the database
 - **[SqlAlchemy](https://www.sqlalchemy.org/)** for ORM
 - **[Alembic](https://alembic.sqlalchemy.org/en/latest/)** for database
   migrations
 - **[Pytest](https://docs.pytest.org/en/latest/)** for backend tests
-  - Includes test database/client, transaction based tests, and user fixtures
-  - See [Testing section](##Testing) for more
+  - Includes test database/client, transaction based tests, and reusable [Pytest
+    fixtures](#fixtures).
 - **[Prettier](https://prettier.io/)**/**[ESLint](https://eslint.org/)** (Airbnb
   style guide)
 - **[Docker Compose](https://docs.docker.com/compose/)** for development
@@ -36,18 +40,37 @@ using a modern stack.
   [CSS-in-JS](https://material-ui.com/styles/basics/) styling.
 - **[react-admin](https://github.com/marmelab/react-admin)** for the admin
   dashboard
-  - Using JWT authentication requiring superuser privileges
+  - Using JWT authentication with superuser privileges
+
+## Table of Contents
+
+- [Background](#background)
+- [Quick Start](#quick-start)
+- [Develop](#develop)
+- [Admin Dashboard](#admin-dashboard)
+- [Security](#security)
+- [Testing](#testing)
+  - [Fixtures](#fixtures)
+- [Frontend Utilities](#frontend-utilities)
+  - [Utility Functions](#utility-functions)
+  - [Routes](#routes)
+  - [Higher-Order Components](#higher-order-components)
+- [Contributing](#contributing)
 
 ## Background
 
-This project is meant as a lightweight/React alternative to [FastAPI's official
-fullstack project](https://github.com/tiangolo/full-stack-fastapi-postgresql).
-If you want a more comprehensive project in Vue, I would suggest you start
-there.
+It is often laborsome to start a new project. 90% of the time you have to decide
+how to handle authentication, reverse proxies, docker containers, testing,
+server-side validation, linting, etc. before you can even get started.
 
-Most of the boilerplate backend code is taken from that project or the [FastAPI
-official docs](https://fastapi.tiangolo.com/). This is mainly setup to help with
-development, it has no opinions on how you should deploy your code.
+**FastAPI-React** serves to streamline and give you that functionality out of
+the box.
+
+It is meant as a lightweight/React alternative to [FastAPI's official fullstack
+project](https://github.com/tiangolo/full-stack-fastapi-postgresql). If you want
+a more comprehensive project in Vue, I would suggest you start there. A lot of
+the backend code is taken from that project or the [FastAPI official
+docs](https://fastapi.tiangolo.com/).
 
 ## Quick Start
 
@@ -63,19 +86,22 @@ Then, in the directory you want your project to live:
 cookiecutter gh:Buuntu/fastapi-react
 ```
 
-This will ask for the following variables to be set:
+You will need to put in a few variables and it will create a project directory
+(called whatever you set for `project_slug`).
 
-- project_name [default fastapi-react]
-- project_slug [default fastapi-react]
+<details><summary>Input Variables</summary>
+
+- project_name [default fastapi-react-project]
+- project_slug [default fastapi-react-project] - this is your project directory
 - port [default 8000]
 - postgres_user [default postgres]
 - postgres_password [default password]
 - postgres_database [default app]
-- superuser_email [default admin@example.com]
+- superuser_email [default admin@fastapi-react-project.com]
 - superuser_password [default password]
 - secret_key [default super_secret]
 
-and will create a directory called whatever you set for `project_slug`.
+</details>
 
 ## Develop
 
@@ -161,14 +187,36 @@ transactions](https://docs.sqlalchemy.org/en/13/orm/session_transaction.html) to
 reset the testing state on each function. This is to avoid a database call
 affecting the state of a different state.
 
-To use the test client, simply create a Pytest file and include `test_db` as an
-argument to your test method:
+### Fixtures
+
+These fixtures are included in `backend/conftest.py` and are automatically
+imported into any test files that being with `test_`.
+
+#### test_db
+
+The `test_db` fixture is an empty test database and an instance of a SQLAlchemy
+Session class.
 
 ```python
 def test_user(test_db):
-    # This is an empty test database and an instance of a SQLAlchemy Session class
     assert test_db.query(models.User).all()
 ```
+
+#### test_user
+
+```python
+def test_user_exists(test_user):
+    assert test_user.email == "admin@example.com"
+```
+
+#### test_superuser
+
+```python
+def test_superuser(client, test_superuser):
+    assert test_superuser.is_superuser
+```
+
+#### client
 
 To use an unauthenticated test client, use `client`:
 
@@ -178,7 +226,9 @@ def test_get_users(client):
     assert response.status_code == 200
 ```
 
-Or if you need an authenticated client using OAuth2 and JWTs:
+#### user_token_headers
+
+If you need an authenticated client using OAuth2 and JWTs:
 
 ```python
 def test_user_me(client, user_token_headers):
@@ -193,39 +243,38 @@ Since OAuth2 expects the access token in the headers, you will need to pass in
 `user_token_headers` as the `headers` argument in any client request that
 requires authentication.
 
-For a test user, use `test_user`:
+#### superuser_token_headers
 
 ```python
-def test_user_exists(test_user):
-    assert test_user.email == "admin@example.com"
-```
-
-For a superuser, use `test_superuser`.
-
-Superuser routes requires superuser headers:
-
-```python
-def test_superuser_method(client, superuser_token_headers):
-    # This route requires superuser privelages
-    assert client.get("/api/v1/users", headers=superuser_token_headers)
+def test_user_me(client, superuser_token_headers):
+    response = client.get(
+      "/api/v1/users",
+      headers=superuser_token_headers,
+    )
+    assert response.status_code == 200
 ```
 
 ## Frontend Utilities
 
 There are a few helper methods to handle authentication in `frontend/src/utils`.
-These store the JWT returned by FastAPI in local storage. Even though this
-doesn't create any real added security, we prevent loading routes that might be
-protected on the frontend, which results in a better UX experience.
+These store and access the JWT returned by FastAPI in local storage. Even though
+this doesn't add any security, we prevent loading routes that might be protected
+on the frontend, which results in a better UX experience.
+
+### Utility Functions
+
+#### login
 
 ```typescript
 // in src/utils/auth.ts
 
 /**
  *  Handles authentication with backend and stores in JWT in local storage
- *  @returns true|false
  **/
-const login = (email: string, password: string) => bool;
+const login = (email: string, password: string) => boolean;
 ```
+
+#### logout
 
 ```typescript
 // in src/utils/auth.ts
@@ -234,16 +283,29 @@ const login = (email: string, password: string) => bool;
 const logout = (email: string, password: string) => void;
 ```
 
-### Higher-Order Components
+#### isAuthenticated
 
-<details><summary>PrivateRoute</summary>
-<p>
+```typescript
+// Checks authenticated state from JWT tokens
+const isAuthenticated = () => boolean;
+```
+
+### Routes
+
+Some basic routes are included (and handled in `frontend/Routes.tsx`).
+
+- `/login` - Login screen
+- `/logout` - Logout
+- `/` - Home
+- `/protected` - Example of protected route
+
+### Higher Order Components
+
+#### PrivateRoute
 
 This handles routes that require authentication. It will automatically check
-whether the correct token with the "user" permissions is present and if not,
-redirect to the home page.
-
-#### Usage:
+whether the correct token with the "user" permissions is present or redirect to
+the home page.
 
 ```JSX
 // in src/Routes.tsx
@@ -259,7 +321,6 @@ const Routes = () => (
 );
 ```
 
-</p>
 </details>
 
 ## Contributing
