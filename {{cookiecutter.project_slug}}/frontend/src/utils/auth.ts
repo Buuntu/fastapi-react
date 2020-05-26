@@ -8,6 +8,14 @@ export const isAuthenticated = () => {
   return permissions === 'user' || permissions === 'admin' ? true : false;
 };
 
+/**
+ * Login to backend and store JSON web token on success
+ *
+ * @param email
+ * @param password
+ * @returns JSON data containing access token on success
+ * @throws Error on http errors or failed attempts
+ */
 export const login = async (email: string, password: string) => {
   const formData = new FormData();
   // OAuth2 expects form data, not JSON data
@@ -21,15 +29,17 @@ export const login = async (email: string, password: string) => {
 
   const response = await fetch(request);
 
-  if (response.status === 401 || response.status === 403) {
-    return false;
+  if (response.status === 500) {
+    throw new Error('Internal server error');
   }
 
   const data = await response.json();
 
-  if (response.status === 422) {
-    return false;
-    // TODO: handle validation errors
+  if (response.status > 400 && response.status < 500) {
+    if (data.detail) {
+      throw data.detail;
+    }
+    throw data;
   }
 
   if ('access_token' in data) {
@@ -38,7 +48,7 @@ export const login = async (email: string, password: string) => {
     localStorage.setItem('permissions', decodedToken.permissions);
   }
 
-  return true;
+  return data;
 };
 
 export const logout = () => {

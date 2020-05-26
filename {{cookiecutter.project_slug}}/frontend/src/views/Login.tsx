@@ -9,6 +9,7 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Face, Fingerprint } from '@material-ui/icons';
+import { Alert } from '@material-ui/lab';
 import { Redirect } from 'react-router-dom';
 import { useHistory } from 'react-router';
 
@@ -34,13 +35,20 @@ export const Login: FC = () => {
   const history = useHistory();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [error, setError] = useState<string>('');
 
   const handleSubmit = async (_: React.MouseEvent) => {
-    const data = await login(email, password);
-    if (data) {
-      history.push('/');
+    setError('');
+    try {
+      const data = await login(email, password);
+
+      if (data) {
+        history.push('/');
+      }
+    } catch (err) {
+      // handle errors
+      setError(err);
     }
-    // handle errors
   };
 
   return isAuthenticated() ? (
@@ -84,6 +92,13 @@ export const Login: FC = () => {
               required
             />
           </Grid>
+        </Grid>
+        <Grid container alignItems="center">
+          {error && (
+            <Grid item>
+              <Alert severity="error">{error}</Alert>
+            </Grid>
+          )}
         </Grid>
         <Grid container alignItems="center" justify="space-between">
           <Grid item>

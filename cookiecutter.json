@@ -1,5 +1,5 @@
 {
-  "project_slug": "fastapi-react",
+  "project_slug": "fastapi-react-project",
   "project_name": "{{ cookiecutter.project_slug }}",
   "port": "8000",
   "postgres_user": "postgres",
