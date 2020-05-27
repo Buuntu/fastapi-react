@@ -5,7 +5,7 @@
 set -e
 
 # Created by build.sh
-cd testing_project
+cd project/testing_project
 
 # Backend/frontend tests
 ./scripts/test.sh
