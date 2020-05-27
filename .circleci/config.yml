@@ -13,13 +13,24 @@ jobs:
       image: ubuntu-1604:201903-01
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - deps1-{{ .Branch }}-{{ checksum "{{cookiecutter.project_slug}}/backend/requirements.txt" }}
+            - deps1-{{ .Branch }}-{{ checksum "{{cookiecutter.project_slug}}/frontend/package.json" }}
       - run:
           command: sudo pip install cookiecutter
+      - run:
+          command: ./scripts/build.sh
+          name: build
+      - save_cache:
+          key: docker-cache-{{ .Branch }}-{{ checksum "{{cookiecutter.project_slug}}/backend/requirements.txt" }}
+          paths:
+            - /home/circleci/.local/bin/
       - run:
           command: ./scripts/test.sh
           name: Test
           environment:
-              CIRCLE_CI_ENV: true
+            CIRCLE_CI_ENV: true
 
 workflows:
   main:
