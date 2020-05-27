@@ -17,13 +17,14 @@ jobs:
           keys:
             - deps1-{{ .Branch }}-{{ checksum "{{cookiecutter.project_slug}}/backend/requirements.txt" }}
             - deps1-{{ .Branch }}-{{ checksum "{{cookiecutter.project_slug}}/frontend/package.json" }}
+            - deps1-{{ .Branch }}-{{ checksum "{{cookiecutter.project_slug}}/docker-compose.yml" }}
       - run:
           command: sudo pip install cookiecutter
       - run:
           command: ./scripts/build.sh
           name: build
       - save_cache:
-          key: docker-cache-{{ .Branch }}-{{ checksum "{{cookiecutter.project_slug}}/backend/requirements.txt" }}
+          key: deps1-{{ .Branch }}-{{ checksum "{{cookiecutter.project_slug}}/backend/requirements.txt" }}
           paths:
             - /home/circleci/.local/bin/
       - run:
