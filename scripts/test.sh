@@ -1,5 +1,12 @@
 #! /usr/bin/env bash
 
+#!/bin/bash
+
+set -e
+
+# Created by build.sh
+cd testing_project
+
 # Backend/frontend tests
 ./scripts/test.sh
 
