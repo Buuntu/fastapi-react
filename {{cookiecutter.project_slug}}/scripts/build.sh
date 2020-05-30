@@ -3,6 +3,9 @@
 # Build and run containers
 docker-compose up -d
 
+# Hack to wait for postgres container to be up before running alembic migrations
+sleep 3;
+
 # Run migrations
 docker-compose run --rm backend alembic upgrade head
 

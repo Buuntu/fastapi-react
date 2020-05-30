@@ -26,11 +26,12 @@ modern stack.
     components](#Higher-Order-Components) for handling authentication
 - **[PostgreSQL](https://www.postgresql.org/)** for the database
 - **[SqlAlchemy](https://www.sqlalchemy.org/)** for ORM
+- **[Celery](http://www.celeryproject.org/)** for background tasks and [Redis](https://redis.io/) as the message broker
 - **[Alembic](https://alembic.sqlalchemy.org/en/latest/)** for database
   migrations
 - **[Pytest](https://docs.pytest.org/en/latest/)** for backend tests
-  - Includes test database/client, transaction based tests, and reusable [Pytest
-    fixtures](#fixtures).
+  - Includes test database, transaction rollbacks after each test, and reusable
+    [Pytest fixtures](#fixtures).
 - **[Prettier](https://prettier.io/)**/**[ESLint](https://eslint.org/)** (Airbnb
   style guide)
 - **[Docker Compose](https://docs.docker.com/compose/)** for development
@@ -40,7 +41,7 @@ modern stack.
   [CSS-in-JS](https://material-ui.com/styles/basics/) styling.
 - **[react-admin](https://github.com/marmelab/react-admin)** for the admin
   dashboard
-  - Using JWT authentication with superuser privileges
+  - Using the same token based authentication as FastAPI backend (JWT)
 
 ## Table of Contents
 
@@ -138,8 +139,6 @@ container builds much more quickly)._
 The backend docs will be at `http://localhost:8000/api/docs`. ![API
 Docs](assets/api-docs.png)
 
-Backend routes will be at `http://localhost:8000/api`.
-
 ## Admin Dashboard
 
 This project uses [react-admin](https://marmelab.com/react-admin/) for a highly
@@ -185,7 +184,7 @@ fixtures are all located in `backend/conftest.py` within your project directory.
 All tests are configured to run on a test database using [SQLAlchemy
 transactions](https://docs.sqlalchemy.org/en/13/orm/session_transaction.html) to
 reset the testing state on each function. This is to avoid a database call
-affecting the state of a different state.
+affecting the state of a different test.
 
 ### Fixtures
 
