@@ -7,6 +7,9 @@ services:
     ports:
       - {{cookiecutter.port}}:80
 
+  redis:
+    image: redis
+
   postgres:
     image: postgres:12
     restart: always
@@ -17,6 +20,14 @@ services:
       - '5432:5432'
     volumes:
       - db-data:/var/lib/postgresql/data:cached
+
+  worker:
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    command: celery worker -B -l info --app=app.core.celery_app.celery_app
+    depends_on:
+      - "redis"
 
   backend:
     build:
