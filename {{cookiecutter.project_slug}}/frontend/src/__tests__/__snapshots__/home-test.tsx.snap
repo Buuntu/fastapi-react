@@ -1,27 +1,32 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders correctly 1`] = `
-<div
-  className="App"
->
-  <header
-    className="App-header"
+exports[`Home renders correctly 1`] = `
+Array [
+  <a
+    className="makeStyles-link-1"
+    onClick={[Function]}
   >
-    <p>
-      Edit 
-      <code>
-        src/App.tsx
-      </code>
-       and save to reload.
-    </p>
-    <a
-      className="App-link"
-      onClick={[Function]}
-    >
-      Click to make request to backend
-    </a>
-    
-    
-  </header>
-</div>
+    Click to make request to backend
+  </a>,
+  "",
+  "",
+  <a
+    className="makeStyles-link-1"
+    href="/admin"
+  >
+    Admin Dashboard
+  </a>,
+  <a
+    className="makeStyles-link-1"
+    href="/protected"
+  >
+    Protected Route
+  </a>,
+  <a
+    className="makeStyles-link-1"
+    href="/login"
+  >
+    Login
+  </a>,
+]
 `;
