@@ -17,7 +17,7 @@ modern stack.
 ## Features
 
 - **[FastAPI](https://fastapi.tiangolo.com/)** (Python 3.8)
-  - **JWT** authentication using [OAuth2 "password
+  - JWT authentication using [OAuth2 "password
     flow"](https://fastapi.tiangolo.com/tutorial/security/simple-oauth2/) and
     PyJWT
 - **[React](https://reactjs.org/)** (with Typescript)
@@ -26,7 +26,8 @@ modern stack.
     components](#Higher-Order-Components) for handling authentication
 - **[PostgreSQL](https://www.postgresql.org/)** for the database
 - **[SqlAlchemy](https://www.sqlalchemy.org/)** for ORM
-- **[Celery](http://www.celeryproject.org/)** for background tasks and [Redis](https://redis.io/) as the message broker
+- **[Celery](http://www.celeryproject.org/)** for [background
+  tasks](#background-tasks) and [Redis](https://redis.io/) as the message broker
 - **[Alembic](https://alembic.sqlalchemy.org/en/latest/)** for database
   migrations
 - **[Pytest](https://docs.pytest.org/en/latest/)** for backend tests
@@ -52,6 +53,7 @@ modern stack.
 - [Security](#security)
 - [Testing](#testing)
   - [Fixtures](#fixtures)
+- [Background Tasks](#background-tasks)
 - [Frontend Utilities](#frontend-utilities)
   - [Utility Functions](#utility-functions)
   - [Routes](#routes)
@@ -135,6 +137,9 @@ Once this finishes you can navigate to the port set during setup (default is
 _Note: If you see an Nginx error at first with a `502: Bad Gateway` page, you
 may have to wait for webpack to build the development server (the nginx
 container builds much more quickly)._
+
+Login screen:
+![regular login](assets/regular-login.png)
 
 The backend docs will be at `http://localhost:8000/api/docs`. ![API
 Docs](assets/api-docs.png)
@@ -252,6 +257,23 @@ def test_user_me(client, superuser_token_headers):
     )
     assert response.status_code == 200
 ```
+
+## Background Tasks
+
+This template comes with Celery and Redis Docker containers pre-configured for
+you. For any long running processes, it's recommended that you handle these
+using a task queue like Celery to avoid making the client wait for a request to
+finish. Some examples of this might be sending emails, uploading large files, or
+any long running, resource intensive tasks.
+
+There is an example task in `backend/app/tasks.py` and an example Celery test in
+`backend/app/tests/test_tasks.py`. This test runs synchronously, which is what
+Celery docs recommend.
+
+If you are not happy with Celery or Redis, it should be easy to swap these
+containers out with your favorite tools. Some suggested alternatives might be
+[Huey](https://github.com/coleifer/huey) as the task queue and
+[RabbitMQ](https://www.rabbitmq.com/) for the message broker.
 
 ## Frontend Utilities
 
