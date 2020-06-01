@@ -7,6 +7,7 @@ from app.api.api_v1.routers.auth import auth_router
 from app.core import config
 from app.db.session import SessionLocal
 from app.core.auth import get_current_active_user
+from app import tasks
 
 
 app = FastAPI(
@@ -25,6 +26,11 @@ async def db_session_middleware(request: Request, call_next):
 @app.get("/api/v1")
 async def root():
     return {"message": "Hello World"}
+
+
+@app.get("/api/v1/task")
+async def example_task():
+    return tasks.example_task("success")
 
 
 # Routers

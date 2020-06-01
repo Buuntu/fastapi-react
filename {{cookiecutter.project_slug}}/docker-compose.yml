@@ -30,6 +30,16 @@ services:
       - "redis"
       - "postgres"
 
+  flower:  
+    image: mher/flower
+    command: flower --broker=redis://redis:6379/0 --port=5555
+    ports:  
+        - 5555:5555
+    depends_on:
+      - "redis"
+      - "worker"
+      - "backend"
+
   backend:
     build:
       context: backend
