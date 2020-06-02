@@ -27,7 +27,8 @@ modern stack.
 - **[PostgreSQL](https://www.postgresql.org/)** for the database
 - **[SqlAlchemy](https://www.sqlalchemy.org/)** for ORM
 - **[Celery](http://www.celeryproject.org/)** for [background
-  tasks](#background-tasks) and [Redis](https://redis.io/) as the message broker
+  tasks](#background-tasks) and [Redis](https://redis.io/) as a message broker
+  - Includes [Flower](https://flower.readthedocs.io/en/latest/) for task monitoring
 - **[Alembic](https://alembic.sqlalchemy.org/en/latest/)** for database
   migrations
 - **[Pytest](https://docs.pytest.org/en/latest/)** for backend tests
@@ -54,6 +55,7 @@ modern stack.
 - [Testing](#testing)
   - [Fixtures](#fixtures)
 - [Background Tasks](#background-tasks)
+  - [Flower](#flower)
 - [Frontend Utilities](#frontend-utilities)
   - [Utility Functions](#utility-functions)
   - [Routes](#routes)
@@ -274,6 +276,10 @@ If you are not happy with Celery or Redis, it should be easy to swap these
 containers out with your favorite tools. Some suggested alternatives might be
 [Huey](https://github.com/coleifer/huey) as the task queue and
 [RabbitMQ](https://www.rabbitmq.com/) for the message broker.
+
+### Flower
+
+You can monitor tasks using Flower by going to http://localhost:5555
 
 ## Frontend Utilities
 
