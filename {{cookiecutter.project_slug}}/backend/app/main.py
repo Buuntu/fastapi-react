@@ -7,6 +7,7 @@ from app.api.api_v1.routers.auth import auth_router
 from app.core import config
 from app.db.session import SessionLocal
 from app.core.auth import get_current_active_user
+from app.core.celery_app import celery_app
 from app import tasks
 
 
@@ -30,7 +31,9 @@ async def root():
 
 @app.get("/api/v1/task")
 async def example_task():
-    return tasks.example_task("success")
+    celery_app.send_task("app.tasks.example_task", args=["Hello World"])
+
+    return {"message": "success"}
 
 
 # Routers

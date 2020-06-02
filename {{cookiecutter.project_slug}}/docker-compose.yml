@@ -9,6 +9,8 @@ services:
 
   redis:
     image: redis
+    ports:
+      - 6379:6379
 
   postgres:
     image: postgres:12
@@ -25,10 +27,7 @@ services:
     build:
       context: backend
       dockerfile: Dockerfile
-    command: celery worker -B -l info --app=app.core.celery_app.celery_app
-    depends_on:
-      - "redis"
-      - "postgres"
+    command: celery worker -A app.tasks --loglevel=DEBUG -Q main-queue -c 1
 
   flower:  
     image: mher/flower
@@ -37,8 +36,6 @@ services:
         - 5555:5555
     depends_on:
       - "redis"
-      - "worker"
-      - "backend"
 
   backend:
     build:
