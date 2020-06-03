@@ -11,4 +11,4 @@ fi
 
 rm -rf ./dev-fastapi-react
 
-cookiecutter --no-input -f ./fastapi-react project_slug="fastapi-react-dev"
+cookiecutter --no-input -f ./fastapi-react project_slug="dev-fastapi-react"
