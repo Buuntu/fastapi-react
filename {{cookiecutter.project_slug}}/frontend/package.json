@@ -27,7 +27,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "CI=true react-scripts test --env=jsdom",
+    "test": "CI=true react-scripts test --maxWorkers=1 --env=node",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
