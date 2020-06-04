@@ -13,7 +13,6 @@ export const isAuthenticated = () => {
  *
  * @param email
  * @param password
- * @param passwordConfirmation
  * @returns JSON data containing access token on success
  * @throws Error on http errors or failed attempts
  */
@@ -36,7 +35,6 @@ export const login = async (email: string, password: string) => {
 
   const data = await response.json();
 
-  console.log(data);
   if (response.status > 400 && response.status < 500) {
     if (data.detail) {
       throw data.detail;
@@ -80,7 +78,6 @@ export const signUp = async (email: string, password: string, passwordConfirmati
   }
 
   const data = await response.json();
-  console.log(data);
   if (response.status > 400 && response.status < 500) {
     if (data.detail) {
       throw data.detail;

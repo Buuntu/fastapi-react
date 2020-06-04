@@ -3,8 +3,6 @@ from fastapi import Depends, HTTPException, status
 from jwt import PyJWTError
 
 from app.db import models, schemas, session
-from app.db.schemas import UserCreate
-
 from app.db.crud import get_user_by_email, create_user
 from app.core import security
 
@@ -67,7 +65,7 @@ def sign_up_new_user(db, email: str, password: str):
         return False # User already exists
     new_user = create_user(
         db,
-        UserCreate(
+        schemas.UserCreate(
             email=email,
             password=password,
             is_active=True,
