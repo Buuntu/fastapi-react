@@ -21,6 +21,13 @@ def test_signup(client):
     )
     assert response.status_code == 200
 
+    # Try again with same credentials
+    response = client.post(
+        "/api/signup",
+        data={"username": 'some@email.com', "password": "randompassword"},
+    )
+    assert response.status_code == 403
+    
 
 def test_wrong_password(
     client, test_db, test_user, test_password, monkeypatch
