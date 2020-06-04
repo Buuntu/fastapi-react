@@ -4,7 +4,7 @@ import { useHistory } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
 import { History } from 'history';
 
-import { Home, Login, Protected, PrivateRoute } from './views';
+import { Home, Login, SignUp, Protected, PrivateRoute } from './views';
 import { Admin } from './admin';
 import { logout } from './utils/auth';
 
@@ -37,6 +37,7 @@ export const Routes: FC = () => {
       <div className={classes.app}>
         <header className={classes.header}>
           <Route path="/login" component={Login} />
+          <Route path="/signup" component={SignUp} />
           <Route
             path="/logout"
             render={() => {

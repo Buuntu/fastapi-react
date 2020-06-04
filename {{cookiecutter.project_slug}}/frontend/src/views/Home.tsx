@@ -52,9 +52,14 @@ export const Home: FC = () => {
           Logout
         </a>
       ) : (
+        <>
         <a className={classes.link} href="/login">
           Login
         </a>
+        <a className={classes.link} href="/signup">
+          Sign Up
+        </a>
+        </>
       )}
     </>
   );

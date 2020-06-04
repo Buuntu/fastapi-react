@@ -14,6 +14,14 @@ def test_login(client, test_user, monkeypatch):
     assert response.status_code == 200
 
 
+def test_signup(client):
+    response = client.post(
+        "/api/signup",
+        data={"username": 'some@email.com', "password": "randompassword"},
+    )
+    assert response.status_code == 200
+
+
 def test_wrong_password(
     client, test_db, test_user, test_password, monkeypatch
 ):
