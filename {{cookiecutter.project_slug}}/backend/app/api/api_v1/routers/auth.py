@@ -43,7 +43,7 @@ async def signup(
     user = sign_up_new_user(db, form_data.username, form_data.password)
     if not user:
         raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
+            status_code=status.HTTP_409_CONFLICT,
             detail="Account already exists",
             headers={"WWW-Authenticate": "Bearer"},
         )

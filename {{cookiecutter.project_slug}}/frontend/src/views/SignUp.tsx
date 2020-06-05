@@ -124,20 +124,6 @@ export const SignUp: FC = () => {
               </Grid>
             )}
           </Grid>
-          {/*<Grid container>
-            <Grid item>
-              <Button
-                disableFocusRipple
-                disableRipple
-                className={classes.button}
-                variant="text"
-                color="primary"
-                onClick={history.push('/login')}
-              >
-              Already registered? Login
-            </Button>
-            </Grid>
-          </Grid>*/}
           <Grid container justify="center" className={classes.marginTop}>
             <Button
               variant="outlined"
