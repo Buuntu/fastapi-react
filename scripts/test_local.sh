@@ -1,12 +1,14 @@
 #!/bin/bash
 
-cd "$(dirname "$0")"
+# Exit in case of error
+set -e
+
+# Move out of top-level dir
 cd ..
-current_dir=`pwd`
-cd ..
+
+# Generate local cookiecutter project, bring up in docker and test
 ./fastapi-react/scripts/dev-project.sh
 cd dev-fastapi-react
 docker-compose down -v --remove-orphans
 ./scripts/build.sh
 ./scripts/test.sh
-# cd $current_dir

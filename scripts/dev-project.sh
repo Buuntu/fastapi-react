@@ -1,5 +1,5 @@
   
-#! /usr/bin/env bash
+#!/bin/bash
 
 # Exit in case of error
 set -e
@@ -11,4 +11,4 @@ fi
 
 rm -rf ./dev-fastapi-react
 
-cookiecutter --no-input -f ./fastapi-react project_slug="dev-fastapi-react"
+python -m cookiecutter --no-input -f ./fastapi-react project_slug="dev-fastapi-react"
