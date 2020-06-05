@@ -15,7 +15,12 @@ def test_login(client, test_user, monkeypatch):
     assert response.status_code == 200
 
 
-def test_signup(client):
+def test_signup(client, monkeypatch):
+    def get_password_hash_mock(first: str, second: str):
+        return True
+
+    monkeypatch.setattr(security, "get_password_hash", get_password_hash_mock)
+    
     response = client.post(
         "/api/signup",
         data={"username": 'some@email.com', "password": "randompassword"},
