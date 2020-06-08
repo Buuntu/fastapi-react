@@ -6,7 +6,7 @@ redis==3.5.2
 httpx==0.13.3
 ipython==7.15.0
 itsdangerous==1.1.0
-Jinja2==2.10.3
+Jinja2==2.11.2
 psycopg2==2.8.5
 pytest==5.4.2
 requests==2.23.0
