@@ -1,7 +1,7 @@
 alembic==1.4.2
 Authlib==0.14.3
 fastapi==0.55.1
-celery==4.4.3
+celery==4.4.5
 redis==3.5.2
 httpx==0.13.3
 ipython==7.15.0
