@@ -4,7 +4,7 @@ fastapi==0.58.1
 celery==4.4.6
 redis==3.5.3
 httpx==0.13.3
-ipython==7.15.0
+ipython==7.16.1
 itsdangerous==1.1.0
 Jinja2==2.11.2
 psycopg2==2.8.5
