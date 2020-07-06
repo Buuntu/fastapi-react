@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
-import { History } from 'history';
 
 import { Home, Login, SignUp, Protected, PrivateRoute } from './views';
 import { Admin } from './admin';

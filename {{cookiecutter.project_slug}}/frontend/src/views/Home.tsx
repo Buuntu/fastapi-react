@@ -27,7 +27,7 @@ export const Home: FC = () => {
   return (
     <>
       {!message && !error && (
-        <a className={classes.link} onClick={() => queryBackend()}>
+        <a className={classes.link} href="#" onClick={() => queryBackend()}>
           Click to make request to backend
         </a>
       )}
@@ -53,12 +53,12 @@ export const Home: FC = () => {
         </a>
       ) : (
         <>
-        <a className={classes.link} href="/login">
-          Login
-        </a>
-        <a className={classes.link} href="/signup">
-          Sign Up
-        </a>
+          <a className={classes.link} href="/login">
+            Login
+          </a>
+          <a className={classes.link} href="/signup">
+            Sign Up
+          </a>
         </>
       )}
     </>

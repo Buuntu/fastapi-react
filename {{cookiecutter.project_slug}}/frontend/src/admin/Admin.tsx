@@ -23,7 +23,7 @@ export const Admin: FC = () => {
   return (
     <ReactAdmin dataProvider={dataProvider} authProvider={authProvider}>
       {(permissions: 'admin' | 'user') => [
-        permissions == 'admin' ? (
+        permissions === 'admin' ? (
           <Resource
             name="users"
             list={UserList}

@@ -1,12 +1,5 @@
 import React, { FC, useState } from 'react';
-import {
-  Paper,
-  Grid,
-  TextField,
-  Button,
-  FormControlLabel,
-  Checkbox,
-} from '@material-ui/core';
+import { Paper, Grid, TextField, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Face, Fingerprint } from '@material-ui/icons';
 import { Alert } from '@material-ui/lab';
@@ -40,8 +33,7 @@ export const SignUp: FC = () => {
 
   const handleSubmit = async (_: React.MouseEvent) => {
     // Password confirmation validation
-    if (password !== passwordConfirmation)
-      setError('Passwords do not match');
+    if (password !== passwordConfirmation) setError('Passwords do not match');
     else {
       setError('');
       try {
@@ -60,81 +52,81 @@ export const SignUp: FC = () => {
   return isAuthenticated() ? (
     <Redirect to="/" />
   ) : (
-      <Paper className={classes.padding}>
-        <div className={classes.margin}>
-          <Grid container spacing={8} alignItems="flex-end">
+    <Paper className={classes.padding}>
+      <div className={classes.margin}>
+        <Grid container spacing={8} alignItems="flex-end">
+          <Grid item>
+            <Face />
+          </Grid>
+          <Grid item md={true} sm={true} xs={true}>
+            <TextField
+              id="email"
+              label="Email"
+              type="email"
+              value={email}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setEmail(e.currentTarget.value)
+              }
+              fullWidth
+              autoFocus
+              required
+            />
+          </Grid>
+        </Grid>
+        <Grid container spacing={8} alignItems="flex-end">
+          <Grid item>
+            <Fingerprint />
+          </Grid>
+          <Grid item md={true} sm={true} xs={true}>
+            <TextField
+              id="password"
+              label="Password"
+              type="password"
+              value={password}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setPassword(e.currentTarget.value)
+              }
+              fullWidth
+              required
+            />
+          </Grid>
+        </Grid>
+        <Grid container spacing={8} alignItems="flex-end">
+          <Grid item>
+            <Fingerprint />
+          </Grid>
+          <Grid item md={true} sm={true} xs={true}>
+            <TextField
+              id="passwordConfirmation"
+              label="Confirm password"
+              type="password"
+              value={passwordConfirmation}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setPasswordConfirmation(e.currentTarget.value)
+              }
+              fullWidth
+              required
+            />
+          </Grid>
+        </Grid>
+        <Grid container alignItems="center">
+          {error && (
             <Grid item>
-              <Face />
+              <Alert severity="error">{error}</Alert>
             </Grid>
-            <Grid item md={true} sm={true} xs={true}>
-              <TextField
-                id="email"
-                label="Email"
-                type="email"
-                value={email}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setEmail(e.currentTarget.value)
-                }
-                fullWidth
-                autoFocus
-                required
-              />
-            </Grid>
-          </Grid>
-          <Grid container spacing={8} alignItems="flex-end">
-            <Grid item>
-              <Fingerprint />
-            </Grid>
-            <Grid item md={true} sm={true} xs={true}>
-              <TextField
-                id="password"
-                label="Password"
-                type="password"
-                value={password}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setPassword(e.currentTarget.value)
-                }
-                fullWidth
-                required
-              />
-            </Grid>
-          </Grid>
-          <Grid container spacing={8} alignItems="flex-end">
-            <Grid item>
-              <Fingerprint />
-            </Grid>
-            <Grid item md={true} sm={true} xs={true}>
-              <TextField
-                id="passwordConfirmation"
-                label="Confirm password"
-                type="password"
-                value={passwordConfirmation}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setPasswordConfirmation(e.currentTarget.value)
-                }
-                fullWidth
-                required
-              />
-            </Grid>
-          </Grid>
-          <Grid container alignItems="center">
-            {error && (
-              <Grid item>
-                <Alert severity="error">{error}</Alert>
-              </Grid>
-            )}
-          </Grid>
-          <Grid container justify="center" className={classes.marginTop}>
-            <Button
-              variant="outlined"
-              color="primary"
-              className={classes.button}
-              onClick={handleSubmit}
-            >
-              Sign Up
+          )}
+        </Grid>
+        <Grid container justify="center" className={classes.marginTop}>
+          <Button
+            variant="outlined"
+            color="primary"
+            className={classes.button}
+            onClick={handleSubmit}
+          >
+            Sign Up
           </Button>
-          </Grid>
-        </div>
-      </Paper>
-    );
+        </Grid>
+      </div>
+    </Paper>
+  );
 };
