@@ -6,6 +6,9 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
     ports:
       - {{cookiecutter.port}}:80
+    depends_on:
+      - backend
+      - frontend
 
   redis:
     image: redis
