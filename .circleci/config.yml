@@ -19,7 +19,7 @@ jobs:
           command: ./scripts/test.sh
           name: Test
           environment:
-              CIRCLE_CI_ENV: true
+            CIRCLE_CI_ENV: true
 
 workflows:
   main:
