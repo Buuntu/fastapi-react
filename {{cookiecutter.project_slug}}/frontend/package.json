@@ -3,14 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.7.0",
-    "@testing-library/user-event": "^12.0.11",
-    "@types/jest": "^26.0.3",
-    "@types/node": "^14.0.1",
-    "@types/react": "^16.9.19",
-    "@types/react-dom": "^16.9.5",
-    "@types/react-router-dom": "^5.1.3",
-    "@types/jwt-decode": "^2.2.1",
     "ra-data-json-server": "^3.5.2",
     "ra-data-simple-rest": "^3.3.2",
     "react": "^16.13.1",
@@ -20,14 +12,13 @@
     "react-scripts": "3.4.1",
     "react-truncate": "^2.4.0",
     "standard": "^14.3.3",
-    "typescript": "^3.7.5",
     "jwt-decode": "^2.2.0",
     "@material-ui/lab": "^4.0.0-alpha.54"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "CI=true react-scripts test --env=jsdom -u",
+    "test": "CI=true react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -46,9 +37,18 @@
     ]
   },
   "devDependencies": {
+    "typescript": "^3.7.5",
+    "@testing-library/jest-dom": "^5.11.1",
     "@testing-library/react": "^10.0.4",
     "@typescript-eslint/eslint-plugin": "^2.24.0",
     "@typescript-eslint/parser": "^2.24.0",
+    "@testing-library/user-event": "^12.0.11",
+    "@types/jest": "^26.0.3",
+    "@types/node": "^14.0.1",
+    "@types/react": "^16.9.19",
+    "@types/react-dom": "^16.9.5",
+    "@types/react-router-dom": "^5.1.3",
+    "@types/jwt-decode": "^2.2.1",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-config-react-app": "^5.2.1",
     "eslint-plugin-flowtype": "^4.6.0",
