@@ -1,6 +1,6 @@
 alembic==1.4.2
 Authlib==0.14.3
-fastapi==0.59.0
+fastapi==0.60.1
 celery==4.4.6
 redis==3.5.3
 httpx==0.13.3
