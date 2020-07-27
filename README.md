@@ -1,4 +1,4 @@
-# FastAPI + React · [![CircleCI](https://circleci.com/gh/Buuntu/fastapi-react.svg?style=shield)](https://circleci.com/gh/Buuntu/fastapi-react) [![license](https://img.shields.io/github/license/peaceiris/actions-gh-pages.svg)](LICENSE) [![Dependabot Status](https://img.shields.io/badge/Dependabot-active-brightgreen.svg)](https://dependabot.com)
+# FastAPI + React · ![build](https://github.com/Buuntu/fastapi-react/workflows/build/badge.svg) [![license](https://img.shields.io/github/license/peaceiris/actions-gh-pages.svg)](LICENSE) [![Dependabot Status](https://img.shields.io/badge/Dependabot-active-brightgreen.svg)](https://dependabot.com)
 
 <div>
 <img src="assets/fastapi-logo.png" alt="fastapi-logo" height="60" /> <img
@@ -47,20 +47,33 @@ modern stack.
 
 ## Table of Contents
 
-- [Background](#background)
-- [Quick Start](#quick-start)
-- [Develop](#develop)
-- [Admin Dashboard](#admin-dashboard)
-- [Security](#security)
-- [Testing](#testing)
-  - [Fixtures](#fixtures)
-- [Background Tasks](#background-tasks)
-  - [Flower](#flower)
-- [Frontend Utilities](#frontend-utilities)
-  - [Utility Functions](#utility-functions)
-  - [Routes](#routes)
-  - [Higher-Order Components](#higher-order-components)
-- [Contributing](#contributing)
+- [FastAPI + React · !build [![license](https://img.shields.io/github/license/peaceiris/actions-gh-pages.svg)](LICENSE) [![Dependabot Status](https://img.shields.io/badge/Dependabot-active-brightgreen.svg)](https://dependabot.com)](#fastapi--react--img-srchttpsgithubcombuuntufastapi-reactworkflowsbuildbadgesvg-altbuild-img-srchttpsimgshieldsiogithublicensepeaceirisactions-gh-pagessvg-altlicense-img-srchttpsimgshieldsiobadgedependabot-active-brightgreensvg-altdependabot-status)
+  - [Features](#features)
+  - [Table of Contents](#table-of-contents)
+  - [Background](#background)
+  - [Quick Start](#quick-start)
+  - [Develop](#develop)
+  - [Admin Dashboard](#admin-dashboard)
+  - [Security](#security)
+  - [Testing](#testing)
+    - [Fixtures](#fixtures)
+      - [test_db](#test_db)
+      - [test_user](#test_user)
+      - [test_superuser](#test_superuser)
+      - [client](#client)
+      - [user_token_headers](#user_token_headers)
+      - [superuser_token_headers](#superuser_token_headers)
+  - [Background Tasks](#background-tasks)
+    - [Flower](#flower)
+  - [Frontend Utilities](#frontend-utilities)
+    - [Utility Functions](#utility-functions)
+      - [login](#login)
+      - [logout](#logout)
+      - [isAuthenticated](#isauthenticated)
+    - [Routes](#routes)
+    - [Higher Order Components](#higher-order-components)
+      - [PrivateRoute](#privateroute)
+  - [Contributing](#contributing)
 
 ## Background
 
