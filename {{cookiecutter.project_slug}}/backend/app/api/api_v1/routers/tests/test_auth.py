@@ -4,6 +4,7 @@ from app.core import security
 def verify_password_mock(first: str, second: str):
     return True
 
+
 def test_login(client, test_user, monkeypatch):
     # Patch the test to skip password hashing check for speed
     monkeypatch.setattr(security, "verify_password", verify_password_mock)
@@ -20,10 +21,10 @@ def test_signup(client, monkeypatch):
         return True
 
     monkeypatch.setattr(security, "get_password_hash", get_password_hash_mock)
-    
+
     response = client.post(
         "/api/signup",
-        data={"username": 'some@email.com', "password": "randompassword"},
+        data={"username": "some@email.com", "password": "randompassword"},
     )
     assert response.status_code == 200
 
@@ -34,14 +35,15 @@ def test_resignup(client, test_user, monkeypatch):
 
     response = client.post(
         "/api/signup",
-        data={"username": test_user.email, "password": "password_hashing_is_skipped_via_monkey_patch"},
+        data={
+            "username": test_user.email,
+            "password": "password_hashing_is_skipped_via_monkey_patch",
+        },
     )
     assert response.status_code == 409
-    
 
-def test_wrong_password(
-    client, test_db, test_user, test_password, monkeypatch
-):
+
+def test_wrong_password(client, test_db, test_user, test_password, monkeypatch):
     def verify_password_failed_mock(first: str, second: str):
         return False
 

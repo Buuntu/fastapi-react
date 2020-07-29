@@ -27,7 +27,7 @@ jobs:
       - name: Black Code Formatter
         uses: lgeiger/black-action@master
         with:
-          args: '{{cookiecutter.project_slug}}/backend'
+          args: '{{cookiecutter.project_slug}}/backend --check'
       - name: Run tests
         run: |
           sudo ./scripts/test.sh
