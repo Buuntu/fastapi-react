@@ -38,6 +38,11 @@ functionality to users, you can use [feature
 flags](https://www.martinfowler.com/articles/feature-toggles.html) to work on
 this incrementally. A big PR is much less likely to be approved
 
+## Linting
+
+Please run Black code formatter on the backend code and Prettier on the frontend
+code. Take a look at [the Github action](.github/workflows/config.yml) for an example of this.
+
 ## Where to Start
 
 Start by browsing through the [list of issues](https://github.com/Buuntu/fastapi-react/issues), particularly those flagged as [help wanted](https://github.com/Buuntu/fastapi-react/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22).
