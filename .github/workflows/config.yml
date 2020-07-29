@@ -24,6 +24,10 @@ jobs:
         uses: creyD/prettier_action@v2.2
         with:
           prettier_options: --write **/*.{ts,tsx,md}
+      - name: Black Code Formatter
+        uses: lgeiger/black-action@master
+        with:
+          args: '{{cookiecutter.project_slug}}/backend'
       - name: Run tests
         run: |
           sudo ./scripts/test.sh
