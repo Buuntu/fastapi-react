@@ -51,7 +51,6 @@ export const login = async (email: string, password: string) => {
   return data;
 };
 
-
 /**
  * Sign up via backend and store JSON web token on success
  *
@@ -60,7 +59,11 @@ export const login = async (email: string, password: string) => {
  * @returns JSON data containing access token on success
  * @throws Error on http errors or failed attempts
  */
-export const signUp = async (email: string, password: string, passwordConfirmation: string) => {
+export const signUp = async (
+  email: string,
+  password: string,
+  passwordConfirmation: string
+) => {
   const formData = new FormData();
   // OAuth2 expects form data, not JSON data
   formData.append('username', email);
