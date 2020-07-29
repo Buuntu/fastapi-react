@@ -23,7 +23,6 @@ jobs:
       - name: Prettify code
         uses: creyD/prettier_action@v2.2
         with:
-          dry: true
           prettier_options: --write **/*.{ts,tsx,md}
       - name: Run tests
         run: |
