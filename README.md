@@ -28,7 +28,8 @@ modern stack.
 - **[SqlAlchemy](https://www.sqlalchemy.org/)** for ORM
 - **[Celery](http://www.celeryproject.org/)** for [background
   tasks](#background-tasks) and [Redis](https://redis.io/) as a message broker
-  - Includes [Flower](https://flower.readthedocs.io/en/latest/) for task monitoring
+  - Includes [Flower](https://flower.readthedocs.io/en/latest/) for task
+    monitoring
 - **[Alembic](https://alembic.sqlalchemy.org/en/latest/)** for database
   migrations
 - **[Pytest](https://docs.pytest.org/en/latest/)** for backend tests
@@ -70,6 +71,7 @@ modern stack.
   - [Routes](#routes)
   - [Higher Order Components](#higher-order-components)
     - [PrivateRoute](#privateroute)
+- [Deployment](#deployment)
 - [Contributing](#contributing)
 
 ## Background
@@ -150,8 +152,7 @@ _Note: If you see an Nginx error at first with a `502: Bad Gateway` page, you
 may have to wait for webpack to build the development server (the nginx
 container builds much more quickly)._
 
-Login screen:
-![regular login](assets/regular-login.png)
+Login screen: ![regular login](assets/regular-login.png)
 
 The backend docs will be at `http://localhost:8000/api/docs`. ![API
 Docs](assets/api-docs.png)
@@ -359,6 +360,17 @@ const Routes = () => (
 ```
 
 </details>
+
+## Deployment
+
+This stack can be adjusted and used with several deployment options that are
+compatible with Docker Compose, but it may be easiest to use Docker in Swarm
+Mode with an Nginx main load balancer proxy handling automatic HTTPS
+certificates, using the ideas from DockerSwarm.rocks.
+
+Please refer to DockerSwarm.rocks to see how to deploy such a cluster easily.
+You will have to change the Traefik examples to Nginx or update your
+docker-compose file.
 
 ## Contributing
 
