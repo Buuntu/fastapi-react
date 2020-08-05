@@ -48,8 +48,6 @@ modern stack.
 
 ## Table of Contents
 
-- [Features](#features)
-- [Table of Contents](#table-of-contents)
 - [Background](#background)
 - [Quick Start](#quick-start)
 - [Develop](#develop)
