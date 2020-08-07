@@ -44,7 +44,7 @@ export const SignUp: FC = () => {
         }
       } catch (err) {
         if (err instanceof Error) {
-          //handle errors thrown from frontend
+          // handle errors thrown from frontend
           setError(err.message);
         } else {
           // handle errors thrown from backend
