@@ -48,10 +48,10 @@ export const Login: FC = () => {
     } catch (err) {
 
       if(err instanceof Error){
-        //handle errors thrown from frontend
+        // handle errors thrown from frontend
         setError(err.message);
       }else{
-        // handle errors from backend requests
+        // handle errors thrown from backend
         setError(err);
       }
 
