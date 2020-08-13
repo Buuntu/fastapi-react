@@ -46,15 +46,13 @@ export const Login: FC = () => {
         history.push('/');
       }
     } catch (err) {
-
-      if(err instanceof Error){
+      if (err instanceof Error) {
         // handle errors thrown from frontend
         setError(err.message);
-      }else{
+      } else {
         // handle errors thrown from backend
         setError(err);
       }
-
     }
   };
 
@@ -100,7 +98,7 @@ export const Login: FC = () => {
             />
           </Grid>
         </Grid>
-        <br/>
+        <br />
         <Grid container alignItems="center">
           {error && (
             <Grid item>
