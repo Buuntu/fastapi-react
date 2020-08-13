@@ -17,6 +17,10 @@ export const isAuthenticated = () => {
  * @throws Error on http errors or failed attempts
  */
 export const login = async (email: string, password: string) => {
+  // Assert email or password is not empty
+  if (!(email.length > 0) || !(password.length > 0)) {
+    throw new Error('Email or password was not provided');
+  }
   const formData = new FormData();
   // OAuth2 expects form data, not JSON data
   formData.append('username', email);
@@ -64,6 +68,17 @@ export const signUp = async (
   password: string,
   passwordConfirmation: string
 ) => {
+  // Assert email or password or password confirmation is not empty
+  if (!(email.length > 0)) {
+    throw new Error('Email was not provided');
+  }
+  if (!(password.length > 0)) {
+    throw new Error('Password was not provided');
+  }
+  if (!(passwordConfirmation.length > 0)) {
+    throw new Error('Password confirmation was not provided');
+  }
+
   const formData = new FormData();
   // OAuth2 expects form data, not JSON data
   formData.append('username', email);
