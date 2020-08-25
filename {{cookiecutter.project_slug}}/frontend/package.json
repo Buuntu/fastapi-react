@@ -37,7 +37,7 @@
     ]
   },
   "devDependencies": {
-    "typescript": "^3.7.5",
+    "typescript": "^4.0.2",
     "@testing-library/jest-dom": "^5.11.1",
     "@testing-library/react": "^10.0.4",
     "@typescript-eslint/eslint-plugin": "^2.24.0",
