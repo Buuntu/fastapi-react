@@ -48,34 +48,31 @@ modern stack.
 
 ## Table of Contents
 
-- [FastAPI + React · !build [![license](https://img.shields.io/github/license/peaceiris/actions-gh-pages.svg)](LICENSE) [![Dependabot Status](https://img.shields.io/badge/Dependabot-active-brightgreen.svg)](https://dependabot.com)](#fastapi--react--img-srchttpsgithubcombuuntufastapi-reactworkflowsbuildbadgesvg-altbuild-img-srchttpsimgshieldsiogithublicensepeaceirisactions-gh-pagessvg-altlicense-img-srchttpsimgshieldsiobadgedependabot-active-brightgreensvg-altdependabot-status)
-  - [Features](#features)
-  - [Table of Contents](#table-of-contents)
-  - [Background](#background)
-  - [Quick Start](#quick-start)
-  - [Develop](#develop)
-  - [Admin Dashboard](#admin-dashboard)
-  - [Security](#security)
-  - [Testing](#testing)
-    - [Fixtures](#fixtures)
-      - [test_db](#test_db)
-      - [test_user](#test_user)
-      - [test_superuser](#test_superuser)
-      - [client](#client)
-      - [user_token_headers](#user_token_headers)
-      - [superuser_token_headers](#superuser_token_headers)
-  - [Background Tasks](#background-tasks)
-    - [Flower](#flower)
-  - [Frontend Utilities](#frontend-utilities)
-    - [Utility Functions](#utility-functions)
-      - [login](#login)
-      - [logout](#logout)
-      - [isAuthenticated](#isauthenticated)
-    - [Routes](#routes)
-    - [Higher Order Components](#higher-order-components)
-      - [PrivateRoute](#privateroute)
-  - [Deployment](#deployment)
-  - [Contributing](#contributing)
+- [Background](#background)
+- [Quick Start](#quick-start)
+- [Develop](#develop)
+- [Admin Dashboard](#admin-dashboard)
+- [Security](#security)
+- [Testing](#testing)
+  - [Fixtures](#fixtures)
+    - [test_db](#test_db)
+    - [test_user](#test_user)
+    - [test_superuser](#test_superuser)
+    - [client](#client)
+    - [user_token_headers](#user_token_headers)
+    - [superuser_token_headers](#superuser_token_headers)
+- [Background Tasks](#background-tasks)
+  - [Flower](#flower)
+- [Frontend Utilities](#frontend-utilities)
+  - [Utility Functions](#utility-functions)
+    - [login](#login)
+    - [logout](#logout)
+    - [isAuthenticated](#isauthenticated)
+  - [Routes](#routes)
+  - [Higher Order Components](#higher-order-components)
+    - [PrivateRoute](#privateroute)
+- [Deployment](#deployment)
+- [Contributing](#contributing)
 
 ## Background
 
@@ -106,7 +103,6 @@ Second, install docker-compose if you don't already have it:
 docs](
 https://docs.docker.com/compose/install/).
 
-
 Then, in the directory you want your project to live:
 
 ```bash
@@ -132,11 +128,11 @@ You will need to put in a few variables and it will create a project directory
 
 ## Develop
 
-Change into your project directory and run as sudo priv (required for docker):
+Change into your project directory and run:
 
 ```bash
-sudo chmod +x scripts/build.sh
-sudo ./scripts/build.sh
+chmod +x scripts/build.sh
+./scripts/build.sh
 ```
 
 This will build and run the docker containers, run the alembic migrations, and
