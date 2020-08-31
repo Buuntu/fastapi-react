@@ -100,8 +100,7 @@ pip3 install cookiecutter
 Second, install docker-compose if you don't already have it:
 
 [docker-compose installation official
-docs](
-https://docs.docker.com/compose/install/).
+docs](https://docs.docker.com/compose/install/).
 
 Then, in the directory you want your project to live:
 
