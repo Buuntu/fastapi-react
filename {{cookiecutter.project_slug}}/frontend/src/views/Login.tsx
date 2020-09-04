@@ -126,6 +126,16 @@ export const Login: FC = () => {
           </Grid>
         </Grid>
         <Grid container justify="center" className={classes.marginTop}>
+          {' '}
+          <Button
+            variant="outlined"
+            color="primary"
+            className={classes.button}
+            onClick={() => history.push('/signup')}
+          >
+            Sign Up
+          </Button>{' '}
+          &nbsp;
           <Button
             variant="outlined"
             color="primary"
