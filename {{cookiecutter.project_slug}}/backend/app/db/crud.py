@@ -17,9 +17,7 @@ def get_user_by_email(db: Session, email: str) -> schemas.UserBase:
     return db.query(models.User).filter(models.User.email == email).first()
 
 
-def get_users(
-    db: Session, skip: int = 0, limit: int = 100
-) -> t.List[schemas.UserOut]:
+def get_users(db: Session, skip: int = 0, limit: int = 100) -> t.List[schemas.UserOut]:
     return db.query(models.User).offset(skip).limit(limit).all()
 
 
@@ -48,9 +46,7 @@ def delete_user(db: Session, user_id: int):
     return user
 
 
-def edit_user(
-    db: Session, user_id: int, user: schemas.UserEdit
-) -> schemas.User:
+def edit_user(db: Session, user_id: int, user: schemas.UserEdit) -> schemas.User:
     db_user = get_user(db, user_id)
     if not db_user:
         raise HTTPException(status.HTTP_404_NOT_FOUND, detail="User not found")

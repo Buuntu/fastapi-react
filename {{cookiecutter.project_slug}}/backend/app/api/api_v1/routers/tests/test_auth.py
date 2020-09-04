@@ -47,9 +47,7 @@ def test_wrong_password(client, test_db, test_user, test_password, monkeypatch):
     def verify_password_failed_mock(first: str, second: str):
         return False
 
-    monkeypatch.setattr(
-        security, "verify_password", verify_password_failed_mock
-    )
+    monkeypatch.setattr(security, "verify_password", verify_password_failed_mock)
 
     response = client.post(
         "/api/token", data={"username": test_user.email, "password": "wrong"}

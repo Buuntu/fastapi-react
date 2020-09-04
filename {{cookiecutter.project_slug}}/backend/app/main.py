@@ -11,9 +11,7 @@ from app.core.celery_app import celery_app
 from app import tasks
 
 
-app = FastAPI(
-    title=config.PROJECT_NAME, docs_url="/api/docs", openapi_url="/api"
-)
+app = FastAPI(title=config.PROJECT_NAME, docs_url="/api/docs", openapi_url="/api")
 
 
 @app.middleware("http")

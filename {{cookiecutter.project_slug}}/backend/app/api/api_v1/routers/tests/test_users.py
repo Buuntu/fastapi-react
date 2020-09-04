@@ -23,9 +23,7 @@ def test_delete_user(client, test_superuser, test_db, superuser_token_headers):
 
 
 def test_delete_user_not_found(client, superuser_token_headers):
-    response = client.delete(
-        "/api/v1/users/4321", headers=superuser_token_headers
-    )
+    response = client.delete("/api/v1/users/4321", headers=superuser_token_headers)
     assert response.status_code == 404
 
 
