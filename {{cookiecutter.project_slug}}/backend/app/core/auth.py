@@ -66,7 +66,10 @@ def sign_up_new_user(db, email: str, password: str):
     new_user = create_user(
         db,
         schemas.UserCreate(
-            email=email, password=password, is_active=True, is_superuser=False,
+            email=email,
+            password=password,
+            is_active=True,
+            is_superuser=False,
         ),
     )
     return new_user
