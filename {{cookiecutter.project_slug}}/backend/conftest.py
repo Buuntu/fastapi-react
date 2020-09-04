@@ -22,7 +22,9 @@ def test_db():
     This is to avoid tests affecting the database state of other tests.
     """
     # Connect to the test database
-    engine = create_engine(get_test_db_url(),)
+    engine = create_engine(
+        get_test_db_url(),
+    )
 
     connection = engine.connect()
     trans = connection.begin()

@@ -16,7 +16,9 @@ users_router = r = APIRouter()
 
 
 @r.get(
-    "/users", response_model=t.List[User], response_model_exclude_none=True,
+    "/users",
+    response_model=t.List[User],
+    response_model_exclude_none=True,
 )
 async def users_list(
     response: Response,
@@ -41,7 +43,9 @@ async def user_me(current_user=Depends(get_current_active_user)):
 
 
 @r.get(
-    "/users/{user_id}", response_model=User, response_model_exclude_none=True,
+    "/users/{user_id}",
+    response_model=User,
+    response_model_exclude_none=True,
 )
 async def user_details(
     request: Request,
