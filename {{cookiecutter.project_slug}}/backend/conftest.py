@@ -28,7 +28,9 @@ def test_db():
     trans = connection.begin()
 
     # Run a parent transaction that can roll back all changes
-    test_session_maker = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+    test_session_maker = sessionmaker(
+        autocommit=False, autoflush=False, bind=engine
+    )
     test_session = test_session_maker()
     test_session.begin_nested()
 
@@ -102,7 +104,9 @@ def test_user(test_db) -> models.User:
     """
 
     user = models.User(
-        email="fake@email.com", hashed_password=get_password_hash(), is_active=True,
+        email="fake@email.com",
+        hashed_password=get_password_hash(),
+        is_active=True,
     )
     test_db.add(user)
     test_db.commit()
