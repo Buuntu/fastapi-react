@@ -43,7 +43,9 @@ def test_resignup(client, test_user, monkeypatch):
     assert response.status_code == 409
 
 
-def test_wrong_password(client, test_db, test_user, test_password, monkeypatch):
+def test_wrong_password(
+    client, test_db, test_user, test_password, monkeypatch
+):
     def verify_password_failed_mock(first: str, second: str):
         return False
 
