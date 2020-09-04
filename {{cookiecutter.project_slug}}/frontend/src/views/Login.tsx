@@ -1,5 +1,4 @@
 import React, { FC, useState } from 'react';
-import { Route } from 'react-router-dom';
 import {
   Paper,
   Grid,
@@ -127,17 +126,16 @@ export const Login: FC = () => {
           </Grid>
         </Grid>
         <Grid container justify="center" className={classes.marginTop}>
-          <Route>
-            {' '}
-            <Button
-              variant="outlined"
-              color="primary"
-              className={classes.button}
-              onClick={handleSubmit}
-            >
-              Login
-            </Button>{' '}
-          </Route>
+          {' '}
+          <Button
+            variant="outlined"
+            color="primary"
+            className={classes.button}
+            onClick={() => history.push('/signup')}
+          >
+            Sign Up
+          </Button>{' '}
+          &nbsp;
           <Button
             variant="outlined"
             color="primary"
