@@ -244,7 +244,7 @@ To use an unauthenticated test client, use `client`:
 
 ```python
 def test_get_users(client):
-    test_client.get("/api/v1/users")
+    client.get("/api/v1/users")
     assert response.status_code == 200
 ```
 
