@@ -1,5 +1,9 @@
 version: 1
 update_configs:
+  # Keep submodules up to date, batching pull requests monthly
+  - package_manager: 'submodules'
+    directory: '/extern'
+    update_schedule: 'monthly'
   # Keep package.json (& lockfiles) up to date as soon as
   # new versions are published to the npm registry
   - package_manager: 'javascript'
