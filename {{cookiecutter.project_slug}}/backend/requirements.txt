@@ -1,4 +1,4 @@
-alembic==1.4.2
+alembic==1.4.3
 Authlib==0.14.3
 fastapi==0.61.1
 celery==5.0.0
