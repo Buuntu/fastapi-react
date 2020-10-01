@@ -3,7 +3,7 @@ Authlib==0.14.3
 fastapi==0.61.1
 celery==5.0.0
 redis==3.5.3
-httpx==0.14.2
+httpx==0.15.5
 ipython==7.18.1
 itsdangerous==1.1.0
 Jinja2==2.11.2
