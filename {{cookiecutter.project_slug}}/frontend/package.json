@@ -12,7 +12,7 @@
     "react-scripts": "3.4.3",
     "react-truncate": "^2.4.0",
     "standard": "^14.3.3",
-    "jwt-decode": "^2.2.0",
+    "jwt-decode": "^3.0.0",
     "@material-ui/lab": "^4.0.0-alpha.54"
   },
   "scripts": {
