@@ -11,7 +11,7 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.3",
     "react-truncate": "^2.4.0",
-    "standard": "^14.3.3",
+    "standard": "^16.0.1",
     "jwt-decode": "^3.0.0",
     "@material-ui/lab": "^4.0.0-alpha.54"
   },
