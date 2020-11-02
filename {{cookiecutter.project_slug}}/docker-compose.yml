@@ -30,7 +30,7 @@ services:
     build:
       context: backend
       dockerfile: Dockerfile
-    command: celery worker -A app.tasks --loglevel=DEBUG -Q main-queue -c 1
+    command: celery --app app.tasks worker --loglevel=DEBUG -Q main-queue -c 1
 
   flower:  
     image: mher/flower
