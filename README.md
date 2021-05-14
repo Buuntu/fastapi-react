@@ -355,7 +355,7 @@ the home page.
 import { Switch } from 'react-router-dom';
 
 // Replace this with your component
-import { ProtectecComponent } from 'components';
+import { ProtectedComponent } from 'components';
 
 const Routes = () => (
   <Switch>
