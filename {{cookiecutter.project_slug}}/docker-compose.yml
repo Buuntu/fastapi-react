@@ -65,7 +65,7 @@ services:
       - './frontend/node_modules:/app/node_modules:cached'
     environment:
       - NODE_ENV=development
-
+      - CHOKIDAR_USEPOLLING=true
 
 volumes:
   db-data:
