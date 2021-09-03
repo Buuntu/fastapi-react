@@ -105,7 +105,7 @@ There is a helper script for both frontend and backend tests:
 ### Backend Tests
 
 ```
-docker-compose run backend pytest
+docker-compose run --rm backend pytest
 ```
 
 any arguments to pytest can also be passed after this command
