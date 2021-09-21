@@ -51,7 +51,7 @@ export const Login: FC = () => {
         setError(err.message);
       } else {
         // handle errors thrown from backend
-        setError(err);
+        setError(String(err));
       }
     }
   };
