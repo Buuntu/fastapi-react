@@ -48,31 +48,31 @@ modern stack.
 
 ## Table of Contents
 
-- [Background](#background)
-- [Quick Start](#quick-start)
-- [Develop](#develop)
-- [Admin Dashboard](#admin-dashboard)
-- [Security](#security)
-- [Testing](#testing)
-  - [Fixtures](#fixtures)
-    - [test_db](#test_db)
-    - [test_user](#test_user)
-    - [test_superuser](#test_superuser)
-    - [client](#client)
-    - [user_token_headers](#user_token_headers)
-    - [superuser_token_headers](#superuser_token_headers)
-- [Background Tasks](#background-tasks)
-  - [Flower](#flower)
-- [Frontend Utilities](#frontend-utilities)
-  - [Utility Functions](#utility-functions)
-    - [login](#login)
-    - [logout](#logout)
-    - [isAuthenticated](#isauthenticated)
-  - [Routes](#routes)
-  - [Higher Order Components](#higher-order-components)
-    - [PrivateRoute](#privateroute)
-- [Deployment](#deployment)
-- [Contributing](#contributing)
+  - [Background](#background)
+  - [Quick Start](#quick-start)
+  - [Develop](#develop)
+  - [Admin Dashboard](#admin-dashboard)
+  - [Security](#security)
+  - [Testing](#testing)
+    - [Fixtures](#fixtures)
+      - [test_db](#test_db)
+      - [test_user](#test_user)
+      - [test_superuser](#test_superuser)
+      - [client](#client)
+      - [user_token_headers](#user_token_headers)
+      - [superuser_token_headers](#superuser_token_headers)
+  - [Background Tasks](#background-tasks)
+    - [Flower](#flower)
+  - [Frontend Utilities](#frontend-utilities)
+    - [Utility Functions](#utility-functions)
+      - [login](#login)
+      - [logout](#logout)
+      - [isAuthenticated](#isauthenticated)
+    - [Routes](#routes)
+    - [Higher Order Components](#higher-order-components)
+      - [PrivateRoute](#privateroute)
+  - [Deployment](#deployment)
+  - [Contributing](#contributing)
 
 ## Background
 
@@ -113,15 +113,16 @@ You will need to put in a few variables and it will create a project directory
 
 <details><summary>Input Variables</summary>
 
-- project_name [default fastapi-react-project]
-- project_slug [default fastapi-react-project] - this is your project directory
-- port [default 8000]
-- postgres_user [default postgres]
-- postgres_password [default password]
-- postgres_database [default app]
-- superuser_email [default admin@fastapi-react-project.com]
-- superuser_password [default password]
-- secret_key [default super_secret]
+- project_name [default "FastAPI React Project"]
+- project_slug [default "fastapi-react-project"] - this is your project directory
+- project_namespace [default "fastapi_react_project"]
+- project_port [default 8000]
+- postgres_database [default "fastapi_react_project_db"]
+- postgres_user [default "postgres"]
+- postgres_password [default random_ascii_string(32)]
+- superuser_email [default "admin@example.com"]
+- superuser_password [default random_ascii_string(32)]
+- secret_key [default random_ascii_string(128, punctuation=True)]
 
 </details>
 

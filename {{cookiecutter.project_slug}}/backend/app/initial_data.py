@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from app.core import config
 from app.db.session import get_db
 from app.db.crud import create_user
 from app.db.schemas import UserCreate
@@ -12,8 +13,8 @@ def init() -> None:
     create_user(
         db,
         UserCreate(
-            email="{{cookiecutter.superuser_email}}",
-            password="{{cookiecutter.superuser_password}}",
+            email=config.SUPERUSER_EMAIL,
+            password=config.SUPERUSER_PASSWORD,
             is_active=True,
             is_superuser=True,
         ),
@@ -21,6 +22,6 @@ def init() -> None:
 
 
 if __name__ == "__main__":
-    print("Creating superuser {{cookiecutter.superuser_email}}")
+    print(f"Creating superuser {config.SUPERUSER_EMAIL}")
     init()
     print("Superuser created")

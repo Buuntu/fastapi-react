@@ -1,5 +1,10 @@
 # {{cookiecutter.project_name}}
 
+This project was generated with Cookiecutter_ and the `fastapi-react`_ project template.
+
+.. _Cookiecutter: https://github.com/audreyr/cookiecutter
+.. _`fastapi-react`: https://github.com/Buuntu/fastapi-react
+
 ## Features
 
 - **FastAPI** with Python 3.8
@@ -31,12 +36,12 @@ To run the alembic migrations (for the users table):
 docker-compose run --rm backend alembic upgrade head
 ```
 
-And navigate to http://localhost:{{cookiecutter.port}}
+And navigate to http://localhost:{{cookiecutter.project_port}}
 
 _Note: If you see an Nginx error at first with a `502: Bad Gateway` page, you may have to wait for webpack to build the development server (the nginx container builds much more quickly)._
 
 Auto-generated docs will be at
-http://localhost:{{cookiecutter.port}}/api/docs
+http://localhost:{{cookiecutter.project_port}}/api/docs
 
 ### Rebuilding containers:
 
