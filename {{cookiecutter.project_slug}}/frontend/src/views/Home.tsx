@@ -20,7 +20,7 @@ export const Home: FC = () => {
       const message = await getMessage();
       setMessage(message);
     } catch (err) {
-      setError(err);
+      setError(String(err));
     }
   };
 
