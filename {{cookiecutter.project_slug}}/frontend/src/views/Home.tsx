@@ -17,8 +17,8 @@ export const Home: FC = () => {
 
   const queryBackend = async () => {
     try {
-      const message = await getMessage();
-      setMessage(message);
+      const msg = await getMessage();
+      setMessage(msg);
     } catch (err) {
       setError(String(err));
     }
