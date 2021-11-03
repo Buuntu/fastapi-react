@@ -149,3 +149,5 @@ export const Login: FC = () => {
     </Paper>
   );
 };
+
+export default Login;

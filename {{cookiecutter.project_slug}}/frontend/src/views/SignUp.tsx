@@ -136,3 +136,5 @@ export const SignUp: FC = () => {
     </Paper>
   );
 };
+
+export default SignUp;
