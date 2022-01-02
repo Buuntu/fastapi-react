@@ -1,5 +1,6 @@
 import pytest
-from sqlalchemy import create_engine, event
+from sqlalchemy import event
+from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy_utils import database_exists, create_database, drop_database
 from fastapi.testclient import TestClient
@@ -22,7 +23,7 @@ def test_db():
     This is to avoid tests affecting the database state of other tests.
     """
     # Connect to the test database
-    engine = create_engine(
+    engine = create_async_engine(
         get_test_db_url(),
     )
 
@@ -63,7 +64,7 @@ def create_test_db():
         test_db_url
     ), "Test database already exists. Aborting tests."
     create_database(test_db_url)
-    test_engine = create_engine(test_db_url)
+    test_engine = create_async_engine(test_db_url)
     Base.metadata.create_all(test_engine)
 
     # Run the tests
