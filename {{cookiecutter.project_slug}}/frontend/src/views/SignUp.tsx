@@ -63,7 +63,7 @@ export const SignUp: FC = () => {
           <Grid item>
             <Face />
           </Grid>
-          <Grid item md={true} sm={true} xs={true}>
+          <Grid item md sm xs>
             <TextField
               id="email"
               label="Email"
@@ -82,7 +82,7 @@ export const SignUp: FC = () => {
           <Grid item>
             <Fingerprint />
           </Grid>
-          <Grid item md={true} sm={true} xs={true}>
+          <Grid item md sm xs>
             <TextField
               id="password"
               label="Password"
@@ -100,7 +100,7 @@ export const SignUp: FC = () => {
           <Grid item>
             <Fingerprint />
           </Grid>
-          <Grid item md={true} sm={true} xs={true}>
+          <Grid item md sm xs>
             <TextField
               id="passwordConfirmation"
               label="Confirm password"
@@ -136,3 +136,5 @@ export const SignUp: FC = () => {
     </Paper>
   );
 };
+
+export default SignUp;

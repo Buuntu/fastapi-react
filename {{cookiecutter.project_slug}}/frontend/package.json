@@ -3,17 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.0.0",
+    "@material-ui/icons": "^4.0.0",
+    "@material-ui/lab": "^4.0.0-alpha.54",
+    "jwt-decode": "^3.0.0",
     "ra-data-json-server": "^3.5.2",
     "ra-data-simple-rest": "^3.3.2",
     "react": "^16.13.1",
     "react-admin": "^3.5.2",
     "react-dom": "^16.13.1",
+    "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.3",
+    "react-scripts": "4.0.3",
     "react-truncate": "^2.4.0",
-    "standard": "^14.3.3",
-    "jwt-decode": "^3.0.0",
-    "@material-ui/lab": "^4.0.0-alpha.54"
+    "standard": "^16.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -37,26 +40,27 @@
     ]
   },
   "devDependencies": {
-    "typescript": "^4.0.2",
     "@testing-library/jest-dom": "^5.11.1",
     "@testing-library/react": "^11.0.4",
-    "@typescript-eslint/eslint-plugin": "^2.24.0",
-    "@typescript-eslint/parser": "^2.24.0",
     "@testing-library/user-event": "^12.0.11",
     "@types/jest": "^26.0.3",
+    "@types/jwt-decode": "^2.2.1",
     "@types/node": "^14.0.1",
     "@types/react": "^16.9.19",
     "@types/react-dom": "^16.9.5",
     "@types/react-router-dom": "^5.1.3",
-    "@types/jwt-decode": "^2.2.1",
+    "@typescript-eslint/eslint-plugin": "^4.0.0",
+    "@typescript-eslint/parser": "^4.0.0",
     "eslint-config-airbnb": "^18.1.0",
-    "eslint-config-react-app": "^5.2.1",
-    "eslint-plugin-flowtype": "^4.6.0",
+    "eslint-plugin-flowtype": "^5.2.0",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-react": "^7.19.0",
-    "eslint-plugin-react-hooks": "^2.5.1",
+    "eslint-config-react-app": "^6.0.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "prettier": "^2.0.5",
-    "react-test-renderer": "^16.13.1"
+    "react-test-renderer": "^16.13.1",
+    "typescript": "^4.0.2"
   }
 }

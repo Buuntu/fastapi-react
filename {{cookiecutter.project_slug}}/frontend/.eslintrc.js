@@ -21,7 +21,7 @@ let rules = {
 };
 
 module.exports = {
-  extends: ['airbnb', 'plugin:prettier/recommended', 'prettier/react'],
+  extends: ['airbnb', 'plugin:prettier/recommended', 'prettier'],
   parser: 'babel-eslint',
   rules,
   env: {
