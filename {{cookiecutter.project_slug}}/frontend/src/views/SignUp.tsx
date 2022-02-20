@@ -122,7 +122,7 @@ export const SignUp: FC = () => {
             </Grid>
           )}
         </Grid>
-        <Grid container justify="center" className={classes.marginTop}>
+        <Grid container justifyContent="center" className={classes.marginTop}>
           <Button
             variant="outlined"
             color="primary"
