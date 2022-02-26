@@ -1,0 +1,3 @@
+[submodule "extern/wait-for-it"]
+	path = extern/wait-for-it
+	url = git@github.com:vishnubob/wait-for-it.git
