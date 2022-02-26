@@ -7,14 +7,14 @@ from app.core.security import get_password_hash
 
 
 def get_user(db: Session, user_id: int):
-    user = db.query(models.User).filter(models.User.id == user_id).first()
+    user = db.query(models.User).filter(models.User.id == user_id).one_or_many()
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     return user
 
 
 def get_user_by_email(db: Session, email: str) -> schemas.UserBase:
-    return db.query(models.User).filter(models.User.email == email).first()
+    return db.query(models.User).filter(models.User.email == email).one_or_many()
 
 
 def get_users(

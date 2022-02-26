@@ -5,7 +5,7 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
     ports:
-      - {{cookiecutter.port}}:80
+      - {{cookiecutter.project_port}}:80
     depends_on:
       - backend
       - frontend
@@ -18,9 +18,7 @@ services:
   postgres:
     image: postgres:12
     restart: always
-    environment:
-      POSTGRES_USER: {{cookiecutter.postgres_user}}
-      POSTGRES_PASSWORD: {{cookiecutter.postgres_password}}
+    env_file: .env
     ports:
       - '5432:5432'
     volumes:
@@ -32,10 +30,10 @@ services:
       dockerfile: Dockerfile
     command: celery --app app.tasks worker --loglevel=DEBUG -Q main-queue -c 1
 
-  flower:  
+  flower:
     image: mher/flower
     command: celery flower --broker=redis://redis:6379/0 --port=5555
-    ports:  
+    ports:
         - 5555:5555
     depends_on:
       - "redis"
@@ -49,9 +47,9 @@ services:
     volumes:
       - ./backend:/app/:cached
       - ./.docker/.ipython:/root/.ipython:cached
+    env_file: .env
     environment:
       PYTHONPATH: .
-      DATABASE_URL: 'postgresql://{{cookiecutter.postgres_user}}:{{cookiecutter.postgres_password}}@postgres:5432/{{cookiecutter.postgres_user}}'
     depends_on:
       - "postgres"
 

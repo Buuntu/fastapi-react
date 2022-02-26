@@ -1,7 +1,10 @@
 import os
 
-PROJECT_NAME = "{{cookiecutter.project_name}}"
+SECRET_KEY = os.getenv("SECRET_KEY")
 
-SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+SUPERUSER_EMAIL = os.getenv("SUPERUSER_EMAIL")
+SUPERUSER_PASSWORD = os.getenv("SUPERUSER_PASSWORD")
 
 API_V1_STR = "/api/v1"

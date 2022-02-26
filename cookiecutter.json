@@ -1,11 +1,15 @@
 {
-  "project_slug": "fastapi-react-project",
-  "project_name": "{{ cookiecutter.project_slug }}",
-  "port": "8000",
+  "project_name": "FastAPI React Project",
+  "project_slug": "{{ cookiecutter.project_name | slugify }}",
+  "project_namespace": "{{ cookiecutter.project_slug | replace('-', '_') }}",
+  "project_port": 8000,
+
+  "secret_key": "{{ random_ascii_string(128) }}",
+
+  "postgres_database": "{{ cookiecutter.project_namespace }}_db",
   "postgres_user": "postgres",
-  "postgres_password": "password",
-  "postgres_database": "app",
-  "superuser_email": "admin@{{cookiecutter.project_name}}.com",
-  "superuser_password": "password",
-  "secret_key": "super_secret"
+  "postgres_password": "{{ random_ascii_string(32) }}",
+
+  "superuser_email": "admin@example.com",
+  "superuser_password": "{{ random_ascii_string(32) }}"
 }

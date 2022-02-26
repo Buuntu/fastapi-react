@@ -12,7 +12,7 @@ from app.main import app
 
 
 def get_test_db_url() -> str:
-    return f"{config.SQLALCHEMY_DATABASE_URI}_test"
+    return f"{config.DATABASE_URL}_test"
 
 
 @pytest.fixture
