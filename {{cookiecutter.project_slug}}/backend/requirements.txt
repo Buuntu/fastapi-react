@@ -16,4 +16,4 @@ passlib==1.7.2
 bcrypt==3.2.0
 sqlalchemy-utils==0.36.8
 python-multipart==0.0.5
-pyjwt==1.7.1
+pyjwt==2.4.0
