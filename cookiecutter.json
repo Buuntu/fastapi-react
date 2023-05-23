@@ -16,7 +16,7 @@
         "frontend/src/utils/",
         "frontend/src/config/",
         "frontend/src/admin/",
-        "frontend/src/__tests__/"
+        "frontend/src/__tests__/",
         "frontend/src/App.tsx",
         "frontend/src/AppRoutes.tsx",
         "frontend/src/decs.d.ts",
