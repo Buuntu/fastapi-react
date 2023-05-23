@@ -2,8 +2,8 @@
 
 ## Features
 
-- **FastAPI** with Python 3.8
-- **React 16** with Typescript, Redux, and react-router
+- **FastAPI** with Python 3.10
+- **React 18** with Typescript, Redux, and react-router
 - Postgres
 - SqlAlchemy with Alembic for migrations
 - Pytest for backend tests
