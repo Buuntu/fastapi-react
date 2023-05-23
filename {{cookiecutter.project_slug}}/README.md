@@ -154,6 +154,5 @@ frontend
     │   └── index.tsx   # constants
     ├── __tests__
     │   └── test_home.tsx
-    ├── index.tsx   # entrypoint
-    └── App.tsx     # handles routing
+    └── index.tsx   # entrypoint
 ```

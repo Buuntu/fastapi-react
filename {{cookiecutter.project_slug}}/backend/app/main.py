@@ -2,13 +2,13 @@ from fastapi import FastAPI, Depends
 from starlette.requests import Request
 import uvicorn
 
-from app.api.api_v1.routers.users import users_router
-from app.api.api_v1.routers.auth import auth_router
-from app.core import config
-from app.db.session import SessionLocal
-from app.core.auth import get_current_active_user
-from app.core.celery_app import celery_app
-from app import tasks
+from api.api_v1.routers.users import users_router
+from api.api_v1.routers.auth import auth_router
+from core import config
+from db.session import SessionLocal
+from core.auth import get_current_active_user
+from core.celery_app import celery_app
+from .tasks import example_task
 
 
 app = FastAPI(
@@ -31,7 +31,7 @@ async def root():
 
 @app.get("/api/v1/task")
 async def example_task():
-    celery_app.send_task("app.tasks.example_task", args=["Hello World"])
+    celery_app.send_task("example_task", args=["Hello World"])
 
     return {"message": "success"}
 

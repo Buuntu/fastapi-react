@@ -1,31 +1,38 @@
-import React, { FC, useState } from 'react';
-import { Paper, Grid, TextField, Button } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import { Face, Fingerprint } from '@material-ui/icons';
-import { Alert } from '@material-ui/lab';
-import { Redirect } from 'react-router-dom';
-import { useHistory } from 'react-router';
+import React, {useEffect, useState} from 'react'
+import {styled} from '@mui/system'
+import {Button, Grid, Paper, TextField} from '@mui/material'
+import {Alert} from '@mui/lab'
+import {redirect} from 'react-router-dom'
+import {isAuthenticated, signUp} from '../utils/auth'
+import FingerprintIcon from '@mui/icons-material/Fingerprint'
+import FaceIcon from '@mui/icons-material/Face'
+import { useNavigate } from 'react-router'
 
-import { signUp, isAuthenticated } from '../utils/auth';
-
-const useStyles = makeStyles((theme) => ({
-  margin: {
-    margin: theme.spacing(2),
-  },
-  padding: {
-    padding: theme.spacing(1),
-  },
-  button: {
-    textTransform: 'none',
-  },
-  marginTop: {
-    marginTop: 10,
-  },
+const FormContainer = styled(Paper)(({ theme }) => ({
+  padding: theme.spacing(1),
 }));
 
-export const SignUp: FC = () => {
-  const classes = useStyles();
-  const history = useHistory();
+const MarginContainer = styled(Grid)(({ theme }) => ({
+  margin: theme.spacing(2),
+}));
+
+const ButtonText = styled(Button)(({ theme }) => ({
+  textTransform: 'none',
+}));
+
+const MarginTopContainer = styled(Grid)(({ theme }) => ({
+  marginTop: 10,
+}));
+
+const Redirect = () => {
+    useEffect(() => {
+      redirect('/')
+    })
+    return <></>
+}
+
+export const SignUp = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>('');
@@ -40,7 +47,7 @@ export const SignUp: FC = () => {
         const data = await signUp(email, password, passwordConfirmation);
 
         if (data) {
-          history.push('/');
+          navigate('/');
         }
       } catch (err) {
         if (err instanceof Error) {
@@ -54,85 +61,73 @@ export const SignUp: FC = () => {
     }
   };
 
-  return isAuthenticated() ? (
-    <Redirect to="/" />
-  ) : (
-    <Paper className={classes.padding}>
-      <div className={classes.margin}>
-        <Grid container spacing={8} alignItems="flex-end">
+  return isAuthenticated() ? (<Redirect />) : (
+    <FormContainer sx={{ padding: '16px' }}>
+      <MarginContainer container spacing={2} alignItems="flex-end">
+        <Grid item>
+          <FaceIcon />
+        </Grid>
+        <Grid item xs>
+          <TextField
+            id="email"
+            label="Email"
+            type="email"
+            value={email}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.currentTarget.value)}
+            fullWidth
+            autoFocus
+            required
+          />
+        </Grid>
+      </MarginContainer>
+      <MarginContainer container spacing={2} alignItems="flex-end">
+        <Grid item>
+          <FingerprintIcon />
+        </Grid>
+        <Grid item xs>
+          <TextField
+            id="password"
+            label="Password"
+            type="password"
+            value={password}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.currentTarget.value)}
+            fullWidth
+            required
+          />
+        </Grid>
+      </MarginContainer>
+      <MarginContainer container spacing={2} alignItems="flex-end">
+        <Grid item>
+          <FingerprintIcon />
+        </Grid>
+        <Grid item xs>
+          <TextField
+            id="passwordConfirmation"
+            label="Confirm password"
+            type="password"
+            value={passwordConfirmation}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setPasswordConfirmation(e.currentTarget.value)
+            }
+            fullWidth
+            required
+          />
+        </Grid>
+      </MarginContainer>
+      {error && (
+        <MarginContainer container alignItems="center">
           <Grid item>
-            <Face />
+            <Alert severity="error">{error}</Alert>
           </Grid>
-          <Grid item md={true} sm={true} xs={true}>
-            <TextField
-              id="email"
-              label="Email"
-              type="email"
-              value={email}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setEmail(e.currentTarget.value)
-              }
-              fullWidth
-              autoFocus
-              required
-            />
-          </Grid>
-        </Grid>
-        <Grid container spacing={8} alignItems="flex-end">
-          <Grid item>
-            <Fingerprint />
-          </Grid>
-          <Grid item md={true} sm={true} xs={true}>
-            <TextField
-              id="password"
-              label="Password"
-              type="password"
-              value={password}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setPassword(e.currentTarget.value)
-              }
-              fullWidth
-              required
-            />
-          </Grid>
-        </Grid>
-        <Grid container spacing={8} alignItems="flex-end">
-          <Grid item>
-            <Fingerprint />
-          </Grid>
-          <Grid item md={true} sm={true} xs={true}>
-            <TextField
-              id="passwordConfirmation"
-              label="Confirm password"
-              type="password"
-              value={passwordConfirmation}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setPasswordConfirmation(e.currentTarget.value)
-              }
-              fullWidth
-              required
-            />
-          </Grid>
-        </Grid>
-        <br />
-        <Grid container alignItems="center">
-          {error && (
-            <Grid item>
-              <Alert severity="error">{error}</Alert>
-            </Grid>
-          )}
-        </Grid>
-        <Grid container justify="center" className={classes.marginTop}>
-          <Button
-            variant="outlined"
-            color="primary"
-            className={classes.button}
-            onClick={handleSubmit}
-          >
+        </MarginContainer>
+      )}
+      <MarginContainer container justifyContent="center">
+        <Grid item>
+          <ButtonText variant="outlined" color="primary" onClick={handleSubmit}>
             Sign Up
-          </Button>
+          </ButtonText>
         </Grid>
-      </div>
-    </Paper>
+      </MarginContainer>
+    </FormContainer>
   );
 };

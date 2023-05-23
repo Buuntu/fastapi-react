@@ -21,8 +21,8 @@ let rules = {
 };
 
 module.exports = {
-  extends: ['airbnb', 'plugin:prettier/recommended', 'prettier/react'],
-  parser: 'babel-eslint',
+  extends: ['airbnb', 'plugin:prettier/recommended', 'prettier'],
+  parser: '@babel/eslint-parser',
   rules,
   env: {
     browser: true,
@@ -45,7 +45,7 @@ module.exports = {
     },
     react: {
       pragma: 'React',
-      version: '16.8',
+      version: '18.2.0',
     },
   },
 };
