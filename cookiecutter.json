@@ -1,11 +1,12 @@
 {
   "project_slug": "fastapi-react-project",
-  "project_name": "{{ cookiecutter.project_slug }}",
+  "project_name": "{{cookiecutter.project_slug}}",
+  "project_tld": "{{cookiecutter.project_tld}}",
   "port": "8000",
   "postgres_user": "postgres",
   "postgres_password": "password",
   "postgres_database": "app",
-  "superuser_email": "admin@{{cookiecutter.project_name}}.com",
+  "superuser_email": "admin@{{cookiecutter.project_name}}.{{cookiecutter.project_tld}}",
   "superuser_password": "password",
   "secret_key": "super_secret"
 }
