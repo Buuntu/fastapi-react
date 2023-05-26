@@ -1,10 +1,17 @@
-import React, {useEffect, useState} from 'react'
-import {Box, styled} from '@mui/system'
-import {Button, Checkbox, FormControlLabel, Grid, Paper, TextField} from '@mui/material'
-import {Alert} from '@mui/lab'
-import {useNavigate} from 'react-router'
-import {redirect} from 'react-router-dom'
-import {isAuthenticated, login} from '../utils/auth'
+import React, { useEffect, useState } from 'react'
+import { Box, styled } from '@mui/system'
+import {
+  Button,
+  Checkbox,
+  FormControlLabel,
+  Grid,
+  Paper,
+  TextField
+} from '@mui/material'
+import { Alert } from '@mui/lab'
+import { useNavigate } from 'react-router'
+import { redirect } from 'react-router-dom'
+import { isAuthenticated, login } from '../utils/auth'
 import FingerprintIcon from '@mui/icons-material/Fingerprint'
 import FaceIcon from '@mui/icons-material/Face'
 
@@ -24,10 +31,10 @@ const MarginTopContainer = styled(Grid)(({ theme }) => ({
   // marginTop: 10
 }))
 const Redirect = () => {
-    useEffect(() => {
-      redirect('/')
-    })
-    return <></>
+  useEffect(() => {
+    redirect('/')
+  })
+  return <></>
 }
 
 export const Login = () => {
@@ -56,8 +63,8 @@ export const Login = () => {
   }
 
   return isAuthenticated() ? (
-      <Redirect />
-      ) : (
+    <Redirect />
+  ) : (
     <FormContainer sx={{ padding: '16px' }}>
       <MarginContainer container spacing={8} alignItems='flex-end'>
         <Grid item={true}>
@@ -78,26 +85,29 @@ export const Login = () => {
           />
         </Grid>
       </MarginContainer>
-        <Box>
-            <Grid item={true}>
-              <FingerprintIcon />
-            </Grid>
-            <Grid item={true} md={true} sm={true} xs={true}>
-              <TextField
-                id='password'
-                label='Password'
-                type='password'
-                value={password}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setPassword(e.currentTarget.value)
-                }
-                fullWidth={true}
-                required={true}
-              />
-            </Grid>
-        </Box>
-      <MarginContainer container spacing={8} alignItems='flex-end'>
-      </MarginContainer>
+      <Box>
+        <Grid item={true}>
+          <FingerprintIcon />
+        </Grid>
+        <Grid item={true} md={true} sm={true} xs={true}>
+          <TextField
+            id='password'
+            label='Password'
+            type='password'
+            value={password}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setPassword(e.currentTarget.value)
+            }
+            fullWidth={true}
+            required={true}
+          />
+        </Grid>
+      </Box>
+      <MarginContainer
+        container
+        spacing={8}
+        alignItems='flex-end'
+      ></MarginContainer>
       <br />
       <MarginContainer container alignItems='center'>
         {error && (
