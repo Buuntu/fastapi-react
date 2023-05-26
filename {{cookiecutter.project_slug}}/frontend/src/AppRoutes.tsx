@@ -1,16 +1,16 @@
-import { Route, Routes } from 'react-router-dom'
-import { Box, styled } from '@mui/system'
-import React, { useEffect } from 'react'
-import { useNavigate } from 'react-router'
-import { Admin } from './admin'
-import { Home, Login, SignUp } from './views'
-import { logout } from './utils'
+import { Route, Routes } from 'react-router-dom';
+import { Box, styled } from '@mui/system';
+import React, { ReactNode, useEffect } from 'react';
+import { useNavigate } from 'react-router';
+import { Admin } from './admin';
+import { Home, Login, SignUp } from './views';
+import { logout } from './utils';
 
-const AppContainer = styled(Box)(({ theme }) => ({
+const AppContainer = styled(Box)(() => ({
   textAlign: 'center'
-}))
+}));
 
-const Header = styled('header')(({ theme }) => ({
+const Header = styled('header')(() => ({
   backgroundColor: '#282c34',
   minHeight: '100vh',
   display: 'flex',
@@ -19,26 +19,26 @@ const Header = styled('header')(({ theme }) => ({
   justifyContent: 'center',
   fontSize: 'calc(10px + 2vmin)',
   color: 'white'
-}))
+}));
 
 const LogoutComponent = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
-    logout()
-    navigate('/')
-  }, [])
+    logout();
+    navigate('/');
+  }, []);
 
-  return <></>
-}
+  return <></>;
+};
 
-const App = ({ children }: any) => {
+const App = ({ children }: { children: ReactNode }) => {
   return (
     <AppContainer>
       <Header>{children}</Header>
     </AppContainer>
-  )
-}
+  );
+};
 
 export const AppRoutes = () => {
   return (
@@ -79,5 +79,5 @@ export const AppRoutes = () => {
         />
       </Route>
     </Routes>
-  )
-}
+  );
+};

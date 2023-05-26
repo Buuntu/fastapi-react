@@ -1,5 +1,5 @@
 // in src/users.js
-import React, { FC } from 'react'
+import React, { FC } from 'react';
 import {
   List,
   Datagrid,
@@ -7,7 +7,7 @@ import {
   BooleanField,
   EmailField,
   EditButton
-} from 'react-admin'
+} from 'react-admin';
 
 export const UserList: FC = (props) => (
   <List {...props}>
@@ -21,4 +21,4 @@ export const UserList: FC = (props) => (
       <EditButton />
     </Datagrid>
   </List>
-)
+);

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Box, styled } from '@mui/system'
+import React, { useEffect, useState } from 'react';
+import { Box, styled } from '@mui/system';
 import {
   Button,
   Checkbox,
@@ -7,60 +7,49 @@ import {
   Grid,
   Paper,
   TextField
-} from '@mui/material'
-import { Alert } from '@mui/lab'
-import { useNavigate } from 'react-router'
-import { redirect } from 'react-router-dom'
-import { isAuthenticated, login } from '../utils/auth'
-import FingerprintIcon from '@mui/icons-material/Fingerprint'
-import FaceIcon from '@mui/icons-material/Face'
+} from '@mui/material';
+import { Alert } from '@mui/lab';
+import { useNavigate } from 'react-router';
+import { redirect } from 'react-router-dom';
+import { isAuthenticated, login } from '../utils/auth';
+import FingerprintIcon from '@mui/icons-material/Fingerprint';
+import FaceIcon from '@mui/icons-material/Face';
 
-const FormContainer = styled(Paper)(({ theme }) => ({
-  // padding: theme.spacing(1)
-}))
+const FormContainer = styled(Paper)(() => ({}));
+const MarginContainer = styled(Grid)(() => ({}));
+const ButtonText = styled(Button)(() => ({}));
 
-const MarginContainer = styled(Grid)(({ theme }) => ({
-  // margin: theme.spacing(2)
-}))
-
-const ButtonText = styled(Button)(({ theme }) => ({
-  // textTransform: 'none'
-}))
-
-const MarginTopContainer = styled(Grid)(({ theme }) => ({
-  // marginTop: 10
-}))
 const Redirect = () => {
   useEffect(() => {
-    redirect('/')
-  })
-  return <></>
-}
+    redirect('/');
+  });
+  return <></>;
+};
 
 export const Login = () => {
-  const navigate = useNavigate()
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
-  const [error, setError] = useState<string>('')
+  const navigate = useNavigate();
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [error, setError] = useState<string>('');
 
-  const handleSubmit = async (_: React.MouseEvent) => {
-    setError('')
+  const handleSubmit = async () => {
+    setError('');
     try {
-      const data = await login(email, password)
+      const data = await login(email, password);
 
       if (data) {
-        navigate('/')
+        navigate('/');
       }
     } catch (err) {
       if (err instanceof Error) {
         // handle errors thrown from frontend
-        setError(err.message)
+        setError(err.message);
       } else {
         // handle errors thrown from backend
-        setError(String(err))
+        setError(String(err));
       }
     }
-  }
+  };
 
   return isAuthenticated() ? (
     <Redirect />
@@ -155,5 +144,5 @@ export const Login = () => {
         </ButtonText>
       </MarginContainer>
     </FormContainer>
-  )
-}
+  );
+};

@@ -1,65 +1,61 @@
-import React, { useEffect, useState } from 'react'
-import { styled } from '@mui/system'
-import { Button, Grid, Paper, TextField } from '@mui/material'
-import { Alert } from '@mui/lab'
-import { redirect } from 'react-router-dom'
-import { isAuthenticated, signUp } from '../utils/auth'
-import FingerprintIcon from '@mui/icons-material/Fingerprint'
-import FaceIcon from '@mui/icons-material/Face'
-import { useNavigate } from 'react-router'
+import React, { useEffect, useState } from 'react';
+import { styled } from '@mui/system';
+import { Button, Grid, Paper, TextField } from '@mui/material';
+import { Alert } from '@mui/lab';
+import { redirect } from 'react-router-dom';
+import { isAuthenticated, signUp } from '../utils/auth';
+import FingerprintIcon from '@mui/icons-material/Fingerprint';
+import FaceIcon from '@mui/icons-material/Face';
+import { useNavigate } from 'react-router';
 
 const FormContainer = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(1)
-}))
+}));
 
 const MarginContainer = styled(Grid)(({ theme }) => ({
   margin: theme.spacing(2)
-}))
+}));
 
-const ButtonText = styled(Button)(({ theme }) => ({
+const ButtonText = styled(Button)(() => ({
   textTransform: 'none'
-}))
-
-const MarginTopContainer = styled(Grid)(({ theme }) => ({
-  marginTop: 10
-}))
+}));
 
 const Redirect = () => {
   useEffect(() => {
-    redirect('/')
-  })
-  return <></>
-}
+    redirect('/');
+  });
+  return <></>;
+};
 
 export const SignUp = () => {
-  const navigate = useNavigate()
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
-  const [passwordConfirmation, setPasswordConfirmation] = useState<string>('')
-  const [error, setError] = useState<string>('')
+  const navigate = useNavigate();
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [passwordConfirmation, setPasswordConfirmation] = useState<string>('');
+  const [error, setError] = useState<string>('');
 
-  const handleSubmit = async (_: React.MouseEvent) => {
+  const handleSubmit = async () => {
     // Password confirmation validation
-    if (password !== passwordConfirmation) setError('Passwords do not match')
+    if (password !== passwordConfirmation) setError('Passwords do not match');
     else {
-      setError('')
+      setError('');
       try {
-        const data = await signUp(email, password, passwordConfirmation)
+        const data = await signUp(email, password, passwordConfirmation);
 
         if (data) {
-          navigate('/')
+          navigate('/');
         }
       } catch (err) {
         if (err instanceof Error) {
           // handle errors thrown from frontend
-          setError(err.message)
+          setError(err.message);
         } else {
           // handle errors thrown from backend
-          setError(String(err))
+          setError(String(err));
         }
       }
     }
-  }
+  };
 
   return isAuthenticated() ? (
     <Redirect />
@@ -135,5 +131,5 @@ export const SignUp = () => {
         </Grid>
       </MarginContainer>
     </FormContainer>
-  )
-}
+  );
+};
