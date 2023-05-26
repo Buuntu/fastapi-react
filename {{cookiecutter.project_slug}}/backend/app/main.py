@@ -8,7 +8,7 @@ from core import config
 from db.session import SessionLocal
 from core.auth import get_current_active_user
 from core.celery_app import celery_app
-from .tasks import example_task
+from app.tasks import example_task
 
 
 app = FastAPI(
