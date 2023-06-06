@@ -5,10 +5,10 @@ from sqlalchemy_utils import database_exists, create_database, drop_database
 from fastapi.testclient import TestClient
 import typing as t
 
-from app.core import config, security
-from app.db.session import Base, get_db
-from app.db import models
-from app.main import app
+from .core import config, security
+from .db.session import Base, get_db
+from .db import models
+from .main import app
 
 
 def get_test_db_url() -> str:

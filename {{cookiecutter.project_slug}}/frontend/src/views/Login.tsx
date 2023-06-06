@@ -1,49 +1,44 @@
-import React, { FC, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Box, styled } from '@mui/system';
 import {
-  Paper,
-  Grid,
-  TextField,
   Button,
-  FormControlLabel,
   Checkbox,
-} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import { Face, Fingerprint } from '@material-ui/icons';
-import { Alert } from '@material-ui/lab';
-import { Redirect } from 'react-router-dom';
-import { useHistory } from 'react-router';
+  FormControlLabel,
+  Grid,
+  Paper,
+  TextField
+} from '@mui/material';
+import { Alert } from '@mui/lab';
+import { useNavigate } from 'react-router';
+import { redirect } from 'react-router-dom';
+import { isAuthenticated, login } from '../utils/auth';
+import FingerprintIcon from '@mui/icons-material/Fingerprint';
+import FaceIcon from '@mui/icons-material/Face';
 
-import { login, isAuthenticated } from '../utils/auth';
+const FormContainer = styled(Paper)(() => ({}));
+const MarginContainer = styled(Grid)(() => ({}));
+const ButtonText = styled(Button)(() => ({}));
 
-const useStyles = makeStyles((theme) => ({
-  margin: {
-    margin: theme.spacing(2),
-  },
-  padding: {
-    padding: theme.spacing(1),
-  },
-  button: {
-    textTransform: 'none',
-  },
-  marginTop: {
-    marginTop: 10,
-  },
-}));
+const Redirect = () => {
+  useEffect(() => {
+    redirect('/');
+  });
+  return <></>;
+};
 
-export const Login: FC = () => {
-  const classes = useStyles();
-  const history = useHistory();
+export const Login = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string>('');
 
-  const handleSubmit = async (_: React.MouseEvent) => {
+  const handleSubmit = async () => {
     setError('');
     try {
       const data = await login(email, password);
 
       if (data) {
-        history.push('/');
+        navigate('/');
       }
     } catch (err) {
       if (err instanceof Error) {
@@ -57,95 +52,97 @@ export const Login: FC = () => {
   };
 
   return isAuthenticated() ? (
-    <Redirect to="/" />
+    <Redirect />
   ) : (
-    <Paper className={classes.padding}>
-      <div className={classes.margin}>
-        <Grid container spacing={8} alignItems="flex-end">
-          <Grid item>
-            <Face />
-          </Grid>
-          <Grid item md={true} sm={true} xs={true}>
-            <TextField
-              id="email"
-              label="Email"
-              type="email"
-              value={email}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setEmail(e.currentTarget.value)
-              }
-              fullWidth
-              autoFocus
-              required
-            />
-          </Grid>
+    <FormContainer sx={{ padding: '16px' }}>
+      <MarginContainer container spacing={8} alignItems='flex-end'>
+        <Grid item={true}>
+          <FaceIcon />
         </Grid>
-        <Grid container spacing={8} alignItems="flex-end">
-          <Grid item>
-            <Fingerprint />
-          </Grid>
-          <Grid item md={true} sm={true} xs={true}>
-            <TextField
-              id="password"
-              label="Password"
-              type="password"
-              value={password}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setPassword(e.currentTarget.value)
-              }
-              fullWidth
-              required
-            />
-          </Grid>
+        <Grid item={true} md={true} sm={true} xs={true}>
+          <TextField
+            id='email'
+            label='Email'
+            type='email'
+            value={email}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setEmail(e.currentTarget.value)
+            }
+            fullWidth={true}
+            autoFocus={true}
+            required={true}
+          />
         </Grid>
-        <br />
-        <Grid container alignItems="center">
-          {error && (
-            <Grid item>
-              <Alert severity="error">{error}</Alert>
-            </Grid>
-          )}
+      </MarginContainer>
+      <Box>
+        <Grid item={true}>
+          <FingerprintIcon />
         </Grid>
-        <Grid container alignItems="center" justify="space-between">
-          <Grid item>
-            <FormControlLabel
-              control={<Checkbox color="primary" />}
-              label="Remember me"
-            />
-          </Grid>
-          <Grid item>
-            <Button
-              disableFocusRipple
-              disableRipple
-              className={classes.button}
-              variant="text"
-              color="primary"
-            >
-              Forgot password ?
-            </Button>
-          </Grid>
+        <Grid item={true} md={true} sm={true} xs={true}>
+          <TextField
+            id='password'
+            label='Password'
+            type='password'
+            value={password}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setPassword(e.currentTarget.value)
+            }
+            fullWidth={true}
+            required={true}
+          />
         </Grid>
-        <Grid container justify="center" className={classes.marginTop}>
-          {' '}
-          <Button
-            variant="outlined"
-            color="primary"
-            className={classes.button}
-            onClick={() => history.push('/signup')}
+      </Box>
+      <MarginContainer
+        container
+        spacing={8}
+        alignItems='flex-end'
+      ></MarginContainer>
+      <br />
+      <MarginContainer container alignItems='center'>
+        {error && (
+          <Grid item={true}>
+            <Alert severity='error'>{error}</Alert>
+          </Grid>
+        )}
+      </MarginContainer>
+      <MarginContainer
+        container
+        alignItems='center'
+        justifyContent='space-between'
+      >
+        <Grid item={true}>
+          <FormControlLabel
+            control={<Checkbox color='primary' />}
+            label='Remember me'
+          />
+        </Grid>
+        <Grid item={true}>
+          <ButtonText
+            disableFocusRipple
+            disableRipple
+            variant='text'
+            color='primary'
           >
-            Sign Up
-          </Button>{' '}
-          &nbsp;
-          <Button
-            variant="outlined"
-            color="primary"
-            className={classes.button}
-            onClick={handleSubmit}
-          >
-            Login
-          </Button>
+            Forgot password ?
+          </ButtonText>
         </Grid>
-      </div>
-    </Paper>
+      </MarginContainer>
+      <MarginContainer
+        container
+        justifyContent='center'
+        sx={{ marginTop: '10px' }}
+      >
+        <ButtonText
+          variant='outlined'
+          color='primary'
+          onClick={() => navigate('/signup')}
+        >
+          Sign Up
+        </ButtonText>
+        <ButtonText variant='outlined' color='primary' onClick={handleSubmit}>
+          Login
+        </ButtonText>
+      </MarginContainer>
+    </FormContainer>
   );
 };

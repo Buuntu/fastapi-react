@@ -5,7 +5,7 @@ import authProvider from './authProvider';
 
 import { UserList, UserEdit, UserCreate } from './Users';
 
-const httpClient = (url: any, options: any) => {
+const httpClient = (url: string, options: RequestInit = {}) => {
   if (!options) {
     options = {};
   }
@@ -13,7 +13,7 @@ const httpClient = (url: any, options: any) => {
     options.headers = new Headers({ Accept: 'application/json' });
   }
   const token = localStorage.getItem('token');
-  options.headers.set('Authorization', `Bearer ${token}`);
+  (options.headers as Headers).set('Authorization', `Bearer ${token}`);
   return fetchUtils.fetchJson(url, options);
 };
 
@@ -25,12 +25,12 @@ export const Admin: FC = () => {
       {(permissions: 'admin' | 'user') => [
         permissions === 'admin' ? (
           <Resource
-            name="users"
+            name='users'
             list={UserList}
             edit={UserEdit}
             create={UserCreate}
           />
-        ) : null,
+        ) : null
       ]}
     </ReactAdmin>
   );

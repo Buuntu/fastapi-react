@@ -1,3 +1,6 @@
 fastapi-react
 node_modules/
-package-lock.json
+package-lock.jsonvenv
+venv/
+node_modules/
+.idea/
